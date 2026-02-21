@@ -41,7 +41,7 @@ export default function ContactPage() {
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="max-w-3xl text-3xl font-bold leading-tight md:text-4xl"
+                        className="max-w-3xl text-2xl sm:text-3xl font-bold leading-tight md:text-4xl"
                     >
                         {t('contact.hero.title')}
                         <span className="text-gray-300"> {t('contact.hero.subtitle')}</span>
@@ -52,7 +52,7 @@ export default function ContactPage() {
                     </p>
 
                     {/* Trust signals */}
-                    <div className="my-8 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+                    <div className="my-8 grid gap-4 grid-cols-2 md:grid-cols-4">
                         <TrustItem icon={Container} label={t('contact.hero.bulkOrders')} value={t('contact.hero.containerBased')} />
                         <TrustItem icon={Truck} label={t('contact.hero.logistics')} value={t('contact.hero.optimizedPacking')} />
                         <TrustItem icon={Clock} label={t('contact.hero.responseTime')} value={t('contact.hero.within24h')} />
@@ -65,9 +65,9 @@ export default function ContactPage() {
             <Map />
 
             {/* ================= CONTACT CONTENT ================= */}
-            <section className="py-20">
-                <div className="mx-auto grid max-w-6xl gap-12 px-4 lg:grid-cols-5">
-                    <Stylish_H2 h2={t('contact.talkTeam')} className="col-span-full tracking-widest uppercase text-sm md:text-lg " />
+            <section className="py-12 md:py-20">
+                <div className="mx-auto grid max-w-6xl gap-8 md:gap-12 px-4 lg:grid-cols-5">
+                    <Stylish_H2 h2={t('contact.talkTeam')} className="col-span-full tracking-widest uppercase text-xs md:text-sm lg:text-lg " />
                     {/* LEFT INFO */}
                     <div className="lg:col-span-2">
                         <h2 className="text-2xl font-semibold">
@@ -185,10 +185,10 @@ export default function ContactPage() {
 
 function TrustItem({ icon: Icon, label, value }) {
     return (
-        <div className="rounded-xl bg-white/5 p-4 text-center md:min-h-fit">
-            <Icon strokeWidth={0.5} className="mx-auto mb-5 h-18 md:h-full w-auto text-gray-300" />
+        <div className="rounded-xl bg-white/5 p-3 md:p-4 text-center">
+            <Icon strokeWidth={0.5} className="mx-auto mb-3 md:mb-5 h-10 md:h-18 w-auto text-gray-300" />
             <p className="text-xs text-gray-400 uppercase tracking-wide">{label}</p>
-            <p className="text-sm font-thin tracking-widest uppercase my-2 ">{value}</p>
+            <p className="text-xs md:text-sm font-thin tracking-widest uppercase my-2">{value}</p>
         </div>
     )
 }

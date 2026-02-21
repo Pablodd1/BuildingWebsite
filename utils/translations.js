@@ -522,6 +522,58 @@ const translations = {
                 }
             },
             email: "privacy@unitecusadesign.com"
+        },
+        whoWeAre: {
+            title: "Who We Are",
+            company: "Building Innovation",
+            tagline: "\"We design the future!\"",
+            intro: [
+                "We are an international company dedicated to the development and supply of innovative solutions for construction and architectural design.",
+                "We stand out by combining quality, technology, and functionality in every product, transforming spaces and enhancing the value of every project.",
+                "Our philosophy is built on excellence, continuous improvement, and personalized service, strengthening long-term partnerships with our distributors and strategic partners in the Americas and around the world.",
+                "We believe in innovation as a driving force for growth, and we work every day to anticipate market trends.",
+                "We are Building Innovation: design, quality, and the future in every detail."
+            ],
+            mission: {
+                title: "Mission",
+                text: "At BUILDING INNOVATION, we simplify the world of construction through innovative, sustainable, and high-design solutions, offering a comprehensive portfolio of architectural materials that create value, foster strategic partnerships, and improve the construction experience and quality of life."
+            },
+            vision: {
+                title: "Vision",
+                text: "To become a leading brand in construction innovation in Latin America, recognized for simplifying construction processes, setting trends in design and sustainability, and delivering high-value architectural solutions. We aspire to build a scalable and collaborative business model, strengthening strategic partnerships and creating a positive impact on the industry, people, and the environment."
+            },
+            headquarters: {
+                title: "Global Headquarters",
+                address: "6120 NW 74th Ave",
+                city: "Doral, Miami, FL 33166",
+                country: "United States",
+                phone: "+1 (786) 968-5783"
+            }
+        },
+        quality: {
+            title: "Committed to Quality",
+            quote: "\"At Building Innovation, quality is not a standard—it's a promise.\"",
+            intro: "Every product undergoes certified technical control processes and material selection, ensuring durability, precision, and high-end finishes.",
+            commitment: "Our commitment to excellence is reflected in:",
+            pillars: {
+                audits: {
+                    title: "Quality Audits at Origin",
+                    desc: "Rigorous inspections in China and LATAM to ensure compliance with our high standards."
+                },
+                supervision: {
+                    title: "Continuous Supervision",
+                    desc: "Monitoring at every production stage to guarantee consistency and precision."
+                },
+                partnerships: {
+                    title: "Certified Partnerships",
+                    desc: "Collaboration with internationally certified manufacturers aligned with our quality objectives."
+                },
+                innovation: {
+                    title: "Continuous Innovation",
+                    desc: "Constant evolution to exceed market expectations and set industry benchmarks."
+                }
+            },
+            closing: "Quality you can see, feel, and trust over time"
         }
     },
     es: {

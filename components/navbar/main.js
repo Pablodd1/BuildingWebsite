@@ -1,7 +1,7 @@
 "use client";
 
-import React from 'react';
-import { House, Library, Search, Shapes, User } from 'lucide-react';
+import React, { useState } from 'react';
+import { House, Library, Search, Shapes, User, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { CartButton } from './cartBtn';
 import SearchFrom from './search';
@@ -50,13 +50,23 @@ const BrandToggle = () => {
 const NavBar = ({ searchParams }) => {
     const { t } = useLanguage();
     const q = searchParams?.q
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
         <header className="sticky top-0 z-30 bg-primary/75 shadow-accent2 border-b border-gray-300 shadow-sm backdrop-blur-md text-black  pr-8 pl-5 py-2.5">
             <div className="max-w-400 mx-auto flex items-center justify-between">
 
-                {/* Navigation Links - Matching the screenshot style */}
-                <nav className="items-center flex ">
+                {/* Mobile Menu Button */}
+                <button 
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="lg:hidden p-2 hover:bg-white/10 rounded-lg transition-colors"
+                    aria-label="Toggle mobile menu"
+                >
+                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                </button>
+
+                {/* Navigation Links - Desktop */}
+                <nav className="items-center flex hidden lg:flex">
                     {navItems.map((item, index) => (
                         <div key={item.id} className={`${item.megaMenu ? "static" : "relative"} group mx-5 first-of-type:mx-0`}>
                             <Link
@@ -110,7 +120,9 @@ const NavBar = ({ searchParams }) => {
                 <div className="flex items-center gap-2 flex-1 justify-end ml-2 md:ml-12">
 
                     {/* Search Bar - Matching the rounded pill design from screenshot */}
-                    <SearchFrom query={q} />
+                    <div className="hidden sm:block">
+                        <SearchFrom query={q} />
+                    </div>
 
                     {/* Icons */}
                     <div className="flex items-center gap-1">
@@ -123,6 +135,43 @@ const NavBar = ({ searchParams }) => {
                     </div>
                 </div>
             </div>
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+                <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-b border-gray-200 py-4 px-6">
+                    <nav className="flex flex-col space-y-4">
+                        {navItems.map((item) => (
+                            <div key={item.id}>
+                                <Link
+                                    href={item.href}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="text-sm uppercase tracking-widest font-semibold flex items-center py-2 hover:text-primary transition-colors"
+                                >
+                                    {item.icon && <span className="mr-2">{item.icon}</span>}
+                                    {t(`nav.${item.id}`)}
+                                </Link>
+                                {item.submenu && (
+                                    <div className="pl-6 mt-2 space-y-2">
+                                        {item.submenu.map((subItem) => (
+                                            <Link
+                                                key={subItem.href}
+                                                href={subItem.href}
+                                                onClick={() => setMobileMenuOpen(false)}
+                                                className="block text-sm text-gray-600 hover:text-black py-1"
+                                            >
+                                                {t(`nav.${subItem.label}`)}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </nav>
+                    <div className="mt-4 pt-4 border-t border-gray-200 sm:hidden">
+                        <SearchFrom query={q} />
+                    </div>
+                </div>
+            )}
         </header>
     );
 };

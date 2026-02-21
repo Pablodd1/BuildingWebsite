@@ -95,7 +95,9 @@ export default function BusinessModelsPage() {
                     </p>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {Object.entries(t('businessModels.partnership') || {}).map(([key, type]) => (
+                        {Object.entries(t('businessModels.partnership') || {})
+                            .filter(([key]) => ['distributors', 'retailers', 'contractors', 'international'].includes(key))
+                            .map(([key, type]) => (
                             <div key={key} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                                 <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4 hover:bg-primary transition-colors duration-300">
                                     {key === 'distributors' && <Building2 className="w-6 h-6 text-white" />}

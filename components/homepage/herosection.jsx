@@ -43,35 +43,38 @@ export default function HeroSec() {
                 <div className="absolute inset-0 bg-black/30 z-10"></div>
             </div>
 
-            <section className="relative z-20 pt-24 md:pb-12">
-                <div className="relative mx-auto max-w-300 px-6
-                        grid gap-y-12 gap-x-8
+            <section className="relative z-20 pt-16 md:pt-24 pb-12 md:pb-12">
+                <div className="relative mx-auto max-w-300 px-4 md:px-6
+                        grid gap-y-8 md:gap-y-12 gap-x-8
+                        grid-cols-1
                         md:grid-cols-[auto_auto] md:mt-16
                         lg:grid-cols-[1fr_0.75fr] lg:gap-x-2">
 
-                    <figure className="order-2 md:order-1 relative max-h-full flex items-center justify-center overflow-visible">
+                    <figure className="order-2 md:order-1 relative max-h-full flex items-center justify-center overflow-visible hidden md:flex">
                     </figure>
                     
-                    <div className="flex flex-col justify-center gap-6 text-white">
-                        <h1 className="text-3xl md:text-6xl md:leading-18 tracking-wide font-semibold w-11/12 drop-shadow-lg">
+                    <div className="flex flex-col justify-center gap-4 md:gap-6 text-white">
+                        <h1 className="text-2xl sm:text-3xl md:text-6xl md:leading-18 tracking-wide font-semibold w-full md:w-11/12 drop-shadow-lg">
                             {t('hero.title_start')} <strong className="bg-primary/90 rounded-2xl px-2 text-orange-800">{t('hero.title_highlight')}</strong> {t('hero.title_end')}
                         </h1>
 
-                        <p className="text-base font-normal text-white/90 w-8/12 drop-shadow-md">
+                        <p className="text-sm sm:text-base font-normal text-white/90 w-full md:w-8/12 drop-shadow-md">
                             {t('hero.subtitle')}
                         </p>
-                        <MyButton
-                            label={t('hero.btn')}
-                            href="/collections"
-                            className={{
-                                btn: "bg-primary px-5 py-2 h-10 hover:bg-white transition-colors",
-                                label: ""
-                            }}
-                        />
+                        <div className="mt-2 md:mt-0">
+                            <MyButton
+                                label={t('hero.btn')}
+                                href="/collections"
+                                className={{
+                                    btn: "bg-primary px-4 md:px-5 py-2 h-10 hover:bg-white transition-colors text-sm md:text-base",
+                                    label: ""
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
                 
-                <div className={`absolute right-3 top-1/2 -translate-y-1/2 flex flex-col items-center justify-evenly gap-2 ${styles.bannerLink} z-30`}>
+                <div className={`hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 flex-col items-center justify-evenly gap-2 ${styles.bannerLink} z-30`}>
                     {socials.map(({ Icon, label }) => (
                         <a key={label} href="#" aria-label={label}>
                             <Icon strokeWidth={1} className="fill-white/80 text-white w-full min-h-fit h-auto max-w-12 hover:fill-primary hover:text-primary transition-colors" />
