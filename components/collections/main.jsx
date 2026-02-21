@@ -51,7 +51,7 @@ export default function Collections_UI({ searchParams, h1, description, productU
     const displayedProducts = sortProducts(filtered, filters.sort);
 
     return (
-        <div className="">
+        <div className="overflow-visible">
             <CollectionHero
                 h1={h1}
                 description={description}
