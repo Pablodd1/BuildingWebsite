@@ -63,8 +63,8 @@ export default function Collections_UI({ searchParams, h1, description, productU
                     ? <div className="text-center py-20 text-gray-500">Loading products...</div> :
                     displayedProducts?.length > 0 ?
                         <>
-                            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 max-w-7xl mx-auto ">
-                                {displayedProducts.map(p => <ProductItem key={p.id} item={p} />)}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4 py-8">
+                                {displayedProducts.map((p, index) => <ProductItem key={p.id} item={p} index={index} />)}
                             </div>
 
                             <div className="my-10">

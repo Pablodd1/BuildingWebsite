@@ -25,16 +25,18 @@ const EmblaCarousel = (props) => {
     } = usePrevNextButtons(emblaApi)
 
     return (
-        <section className={`embla`}>
-            <div className={`px-10  embla__viewport`} ref={emblaRef}>
+        <section className={`embla py-4`}>
+            <div className={`px-4 md:px-10 embla__viewport`} ref={emblaRef}>
                 <ul className="embla__container">
                     {slides.map((item, i) => (
-                        <ProductItem isSlides item={item} key={i} />
+                        <li key={i} className="embla__slide pl-6">
+                            <ProductItem isSlides item={item} index={i} />
+                        </li>
                     ))}
                 </ul>
             </div>
 
-            <div className="embla__controls">
+            <div className="embla__controls px-4 md:px-10 mt-4">
                 <div className="embla__buttons">
                     <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
                     <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
