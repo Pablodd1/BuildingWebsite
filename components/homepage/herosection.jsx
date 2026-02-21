@@ -4,14 +4,25 @@ import Image from "next/image";
 import styles from "./herosection.module.css";
 import MyButton from "My_UI/btn/main";
 import CatalogFloatingBtn from "My_UI/hero/catalog_btn";
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 import { useLanguage } from "lib/LanguageContext";
 
+// TikTok icon component since lucide-react doesn't have it
+const TikTokIcon = ({ className, strokeWidth }) => (
+    <svg 
+        viewBox="0 0 24 24" 
+        fill="currentColor" 
+        className={className}
+        strokeWidth={strokeWidth}
+    >
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+    </svg>
+);
+
 const socials = [
-    { Icon: Facebook, label: "Facebook" },
-    { Icon: Instagram, label: "Instagram" },
-    { Icon: Twitter, label: "Twitter" },
-    { Icon: Youtube, label: "YouTube" },
+    { Icon: Facebook, label: "Facebook", link: "https://www.facebook.com/unitecusadesign/" },
+    { Icon: Instagram, label: "Instagram", link: "https://www.instagram.com/unitecusadesign/" },
+    { Icon: TikTokIcon, label: "TikTok", link: "https://www.tiktok.com/@unitecusadesign" },
 ];
 
 export default function HeroSec() {
@@ -75,8 +86,8 @@ export default function HeroSec() {
                 </div>
                 
                 <div className={`hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 flex-col items-center justify-evenly gap-2 ${styles.bannerLink} z-30`}>
-                    {socials.map(({ Icon, label }) => (
-                        <a key={label} href="#" aria-label={label}>
+                    {socials.map(({ Icon, label, link }) => (
+                        <a key={label} href={link} target="_blank" rel="noopener noreferrer" aria-label={label}>
                             <Icon strokeWidth={1} className="fill-white/80 text-white w-full min-h-fit h-auto max-w-12 hover:fill-primary hover:text-primary transition-colors" />
                         </a>
                     ))}

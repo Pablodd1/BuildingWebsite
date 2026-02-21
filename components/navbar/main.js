@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { House, Library, Search, Shapes, User, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CartButton } from './cartBtn';
 import SearchFrom from './search';
 import Logo from 'My_UI/logo';
@@ -40,9 +41,26 @@ const BrandToggle = () => {
     return (
         <button
             onClick={toggleBrand}
-            className="text-xs font-bold px-2 py-1 bg-black text-white rounded hover:bg-gray-800 transition-colors uppercase ml-2"
+            className="flex items-center justify-center p-1 bg-black rounded hover:bg-gray-800 transition-colors ml-2 overflow-hidden"
+            aria-label="Toggle Brand"
         >
-            {activeBrand === 'binw' ? 'UNITEC' : 'BINW'}
+            {activeBrand === 'binw' ? (
+                <Image
+                    src="/unitec-logo.png"
+                    alt="UNITEC Logo"
+                    width={60}
+                    height={40}
+                    className="object-contain"
+                />
+            ) : (
+                <Image
+                    src="/logo.png"
+                    alt="BINW Logo"
+                    width={60}
+                    height={40}
+                    className="object-contain"
+                />
+            )}
         </button>
     )
 }
