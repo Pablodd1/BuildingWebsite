@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { motion } from "framer-motion";
 import { Facebook, Instagram } from "lucide-react";
 import Logo from 'My_UI/logo';
 import { useLanguage } from 'lib/LanguageContext';
@@ -13,9 +14,9 @@ const TikTokIcon = () => (
 );
 
 const socials = [
-    { Icon: Facebook, label: "Facebook", link: "https://facebook.com" },
-    { Icon: Instagram, label: "Instagram", link: "https://instagram.com" },
-    { Icon: TikTokIcon, label: "TikTok", link: "https://tiktok.com" },
+    { Icon: Facebook, label: "Facebook", link: "https://www.facebook.com/unitecusadesign/" },
+    { Icon: Instagram, label: "Instagram", link: "https://www.instagram.com/unitecusadesign/" },
+    { Icon: TikTokIcon, label: "TikTok", link: "https://www.tiktok.com/@unitecusadesign" },
 ];
 
 const Footer = () => {
@@ -115,17 +116,33 @@ const Footer = () => {
                 </section>
 
                 {/* Social Icons */}
-                <div className="relative flex justify-center space-x-4 border-t-2 border-gray-100 py-5">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="relative flex justify-center space-x-4 border-t-2 border-gray-100 py-5"
+                >
                     {socials.map(({ Icon, link }, index) => (
-                        <Link key={index} href={link || ''} aria-label={`Go To ${link}`} className={`w-8 h-8 p-1 overflow-hidden flex items-center justify-center rounded-full bg-primary`}>
-                            <Icon strokeWidth={1} className=" text-white fill-secondary w-full min-h-fit h-auto max-w-12 hover:fill-black" />
-                        </Link>
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, scale: 0 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                            whileHover={{ scale: 1.2, rotate: 10 }}
+                            whileTap={{ scale: 0.9 }}
+                        >
+                            <Link href={link || ''} aria-label={`Go To ${link}`} className={`w-8 h-8 p-1 overflow-hidden flex items-center justify-center rounded-full bg-primary hover:bg-secondary transition-all duration-300`}>
+                                <Icon strokeWidth={1} className=" text-white fill-secondary w-full min-h-fit h-auto max-w-12" />
+                            </Link>
+                        </motion.div>
                     ))}
                     {/* Bottom Copyright */}
                     <div className="text-center font-serif text-sm absolute right-0">
                         <p>{t('footer.rights')} &copy; - 2026 {brand.name}.</p>
                     </div>
-                </div>
+                </motion.div>
 
 
             </div>

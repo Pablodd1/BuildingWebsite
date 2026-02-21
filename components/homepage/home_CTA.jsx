@@ -25,17 +25,30 @@ export default function HomeCTA() {
                     {t("cta.text")}
                 </p>
 
-                <div className="mt-8 flex justify-center">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="mt-8 flex justify-center"
+                >
                     <MyButton
                         label={t("cta.btn")}
                         href="/collections"
                         className={{
-                            btn: "bg-secondary px-5 py-2 h-10 ",
+                            btn: "bg-secondary px-5 py-2 h-10 hover:bg-primary transition-all duration-300",
                             label: " "
                         }}
-                        icon={<ArrowRight size={16} />}
+                        icon={<motion.div
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{ repeat: Infinity, duration: 1.5 }}
+                        >
+                            <ArrowRight size={16} />
+                        </motion.div>}
                     />
-                </div>
+                </motion.div>
             </motion.div>
         </section>
     )

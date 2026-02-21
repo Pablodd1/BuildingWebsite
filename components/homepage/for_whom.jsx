@@ -59,11 +59,17 @@ export default function WhoItsFor() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.05 }}
-                                className="flex gap-4 rounded-xl border p-5"
+                                whileHover={{ scale: 1.02, x: 10, borderColor: "#ca3500" }}
+                                className="flex gap-4 rounded-xl border p-5 cursor-pointer transition-all duration-300 hover:shadow-lg"
                             >
-                                <u.icon size={26} />
+                                <motion.div
+                                    whileHover={{ rotate: 360, scale: 1.2 }}
+                                    transition={{ duration: 0.5 }}
+                                >
+                                    <u.icon size={26} />
+                                </motion.div>
                                 <div>
-                                    <p className="font-semibold">{u.title}</p>
+                                    <p className="font-semibold hover:text-primary transition-colors">{u.title}</p>
                                     <p className="text-sm text-gray-600">{u.desc}</p>
                                 </div>
                             </motion.div>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { House, Library, Search, Shapes, User, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -86,11 +87,16 @@ const NavBar = ({ searchParams }) => {
                 {/* Navigation Links - Desktop */}
                 <nav className="items-center flex hidden lg:flex">
                     {navItems.map((item, index) => (
-                        <div key={item.id} className={`${item.megaMenu ? "static" : "relative"} group mx-5 first-of-type:mx-0`}>
+                        <motion.div
+                            key={item.id}
+                            className={`${item.megaMenu ? "static" : "relative"} group mx-5 first-of-type:mx-0`}
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.2 }}
+                        >
                             <Link
                                 href={item.href}
                                 aria-label={`Go To ${item.href}`}
-                                className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer"
+                                className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer hover:text-primary"
                             >
                                 {
                                     item.onlyIcon
@@ -130,7 +136,7 @@ const NavBar = ({ searchParams }) => {
 
                             {/* Mega Menu */}
                             {item.megaMenu && <MegaMenu />}
-                        </div>
+                        </motion.div>
                     ))}
                 </nav>
 
@@ -155,41 +161,69 @@ const NavBar = ({ searchParams }) => {
             </div>
 
             {/* Mobile Menu */}
-            {mobileMenuOpen && (
-                <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-b border-gray-200 py-4 px-6">
-                    <nav className="flex flex-col space-y-4">
-                        {navItems.map((item) => (
-                            <div key={item.id}>
-                                <Link
-                                    href={item.href}
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="text-sm uppercase tracking-widest font-semibold flex items-center py-2 hover:text-primary transition-colors"
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-b border-gray-200 py-4 px-6 overflow-hidden"
+                    >
+                        <nav className="flex flex-col space-y-4">
+                            {navItems.map((item, index) => (
+                                <motion.div
+                                    key={item.id}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.1 }}
                                 >
-                                    {item.icon && <span className="mr-2">{item.icon}</span>}
-                                    {t(`nav.${item.id}`)}
-                                </Link>
-                                {item.submenu && (
-                                    <div className="pl-6 mt-2 space-y-2">
-                                        {item.submenu.map((subItem) => (
-                                            <Link
-                                                key={subItem.href}
-                                                href={subItem.href}
-                                                onClick={() => setMobileMenuOpen(false)}
-                                                className="block text-sm text-gray-600 hover:text-black py-1"
-                                            >
-                                                {t(`nav.${subItem.label}`)}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </nav>
-                    <div className="mt-4 pt-4 border-t border-gray-200 sm:hidden">
-                        <SearchFrom query={q} />
-                    </div>
-                </div>
-            )}
+                                    <Link
+                                        href={item.href}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="text-sm uppercase tracking-widest font-semibold flex items-center py-2 hover:text-primary transition-colors"
+                                    >
+                                        {item.icon && <span className="mr-2">{item.icon}</span>}
+                                        {t(`nav.${item.id}`)}
+                                    </Link>
+                                    {item.submenu && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: "auto" }}
+                                            className="pl-6 mt-2 space-y-2"
+                                        >
+                                            {item.submenu.map((subItem, subIndex) => (
+                                                <motion.div
+                                                    key={subItem.href}
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: 0.2 + subIndex * 0.05 }}
+                                                >
+                                                    <Link
+                                                        href={subItem.href}
+                                                        onClick={() => setMobileMenuOpen(false)}
+                                                        className="block text-sm text-gray-600 hover:text-black py-1 hover:translate-x-2 transition-transform"
+                                                    >
+                                                        {t(`nav.${subItem.label}`)}
+                                                    </Link>
+                                                </motion.div>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </motion.div>
+                            ))}
+                        </nav>
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="mt-4 pt-4 border-t border-gray-200 sm:hidden"
+                        >
+                            <SearchFrom query={q} />
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </header>
     );
 };

@@ -54,10 +54,20 @@ export default function BuiltForBulk() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.05 }}
-                            className="rounded-2xl border bg-white p-6"
+                            whileHover={{ 
+                                scale: 1.05, 
+                                y: -10,
+                                boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+                            }}
+                            className="rounded-2xl border bg-white p-6 cursor-pointer transition-all duration-300 group"
                         >
-                            <f.icon className="mb-4" size={26} />
-                            <h3 className="font-semibold">{f.title}</h3>
+                            <motion.div
+                                whileHover={{ rotate: 360, scale: 1.2 }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                <f.icon className="mb-4 group-hover:text-primary transition-colors duration-300" size={26} />
+                            </motion.div>
+                            <h3 className="font-semibold group-hover:text-primary transition-colors duration-300">{f.title}</h3>
                             <p className="mt-2 text-sm text-gray-600 leading-relaxed">
                                 {f.desc}
                             </p>

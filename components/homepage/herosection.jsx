@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import styles from "./herosection.module.css";
 import MyButton from "My_UI/btn/main";
 import CatalogFloatingBtn from "My_UI/hero/catalog_btn";
@@ -64,34 +65,75 @@ export default function HeroSec() {
                     <figure className="order-2 md:order-1 relative max-h-full flex items-center justify-center overflow-visible hidden md:flex">
                     </figure>
                     
-                    <div className="flex flex-col justify-center gap-4 md:gap-6 text-white">
-                        <h1 className="text-2xl sm:text-3xl md:text-6xl md:leading-18 tracking-wide font-semibold w-full md:w-11/12 drop-shadow-lg">
-                            {t('hero.title_start')} <strong className="bg-primary/90 rounded-2xl px-2 text-orange-800">{t('hero.title_highlight')}</strong> {t('hero.title_end')}
-                        </h1>
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="flex flex-col justify-center gap-4 md:gap-6 text-white"
+                    >
+                        <motion.h1
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="text-2xl sm:text-3xl md:text-6xl md:leading-18 tracking-wide font-semibold w-full md:w-11/12 drop-shadow-lg"
+                        >
+                            {t('hero.title_start')} <motion.strong
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
+                                className="bg-primary/90 rounded-2xl px-2 text-orange-800 inline-block"
+                            >{t('hero.title_highlight')}</motion.strong> {t('hero.title_end')}
+                        </motion.h1>
 
-                        <p className="text-sm sm:text-base font-normal text-white/90 w-full md:w-8/12 drop-shadow-md">
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                            className="text-sm sm:text-base font-normal text-white/90 w-full md:w-8/12 drop-shadow-md"
+                        >
                             {t('hero.subtitle')}
-                        </p>
-                        <div className="mt-2 md:mt-0">
+                        </motion.p>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.6 }}
+                            className="mt-2 md:mt-0"
+                        >
                             <MyButton
                                 label={t('hero.btn')}
                                 href="/collections"
                                 className={{
-                                    btn: "bg-primary px-4 md:px-5 py-2 h-10 hover:bg-white transition-colors text-sm md:text-base",
+                                    btn: "bg-primary px-4 md:px-5 py-2 h-10 hover:bg-white transition-all duration-300 hover:scale-105 text-sm md:text-base",
                                     label: ""
                                 }}
                             />
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
                 
-                <div className={`hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 flex-col items-center justify-evenly gap-2 ${styles.bannerLink} z-30`}>
-                    {socials.map(({ Icon, label, link }) => (
-                        <a key={label} href={link} target="_blank" rel="noopener noreferrer" aria-label={label}>
-                            <Icon strokeWidth={1} className="fill-white/80 text-white w-full min-h-fit h-auto max-w-12 hover:fill-primary hover:text-primary transition-colors" />
-                        </a>
+                <motion.div
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                    className={`hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 flex-col items-center justify-evenly gap-2 ${styles.bannerLink} z-30`}
+                >
+                    {socials.map(({ Icon, label, link }, index) => (
+                        <motion.a
+                            key={label}
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={label}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4, delay: 0.9 + (index * 0.1) }}
+                            whileHover={{ scale: 1.2, rotate: 5 }}
+                            whileTap={{ scale: 0.9 }}
+                        >
+                            <Icon strokeWidth={1} className="fill-white/80 text-white w-full min-h-fit h-auto max-w-12 hover:fill-primary hover:text-primary transition-all duration-300" />
+                        </motion.a>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Floating Catalog Button */}
                 <div className="absolute left-0 bottom-8 z-40 hidden lg:block">
