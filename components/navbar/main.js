@@ -89,7 +89,7 @@ const NavBar = ({ searchParams }) => {
                     {navItems.map((item, index) => (
                         <motion.div
                             key={item.id}
-                            className={`${item.megaMenu ? "static" : "relative"} group mx-5 first-of-type:mx-0`}
+                            className={`relative group mx-5 first-of-type:mx-0`}
                             whileHover={{ scale: 1.05 }}
                             transition={{ duration: 0.2 }}
                         >
