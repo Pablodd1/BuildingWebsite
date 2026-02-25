@@ -6,22 +6,27 @@ import { Facebook, Instagram } from "lucide-react";
 import Logo from 'My_UI/logo';
 import { useLanguage } from 'lib/LanguageContext';
 import { useBrand } from 'lib/BrandContext';
+import teamData from 'StaticData/team.json';
 
 const TikTokIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
     </svg>
 );
 
 const socials = [
-    { Icon: Facebook, label: "Facebook", link: "https://www.facebook.com/unitecusadesign/" },
-    { Icon: Instagram, label: "Instagram", link: "https://www.instagram.com/unitecusadesign/" },
-    { Icon: TikTokIcon, label: "TikTok", link: "https://www.tiktok.com/@unitecusadesign" },
+    { Icon: Facebook, label: "Facebook", key: "facebook" },
+    { Icon: Instagram, label: "Instagram", key: "instagram" },
+    { Icon: TikTokIcon, label: "TikTok", key: "tiktok" },
 ];
 
 const Footer = () => {
     const { t } = useLanguage();
-    const { brand } = useBrand();
+    const { activeBrand, brand } = useBrand();
+
+    const brandData = teamData[activeBrand] || teamData.binw;
+    const contact = brandData.contact || {};
+    const social = teamData.social || {};
 
     const navData = {
         logo: {
@@ -29,13 +34,12 @@ const Footer = () => {
             tagline: t("footer.logo.tagline")
         },
         contact: {
-            phone: "+1 (786) 968-5783",
-            email: "info@building-innovation.com", // Placeholder based on domain logic, can be updated if specified
-            address: [
-                "6120 NW 74th Ave",
-                "Doral, Miami, FL 33166",
-                "United States"
-            ]
+            phone: contact.phone,
+            phone2: contact.phone2 || null,
+            email: contact.email,
+            address: activeBrand === 'unitec'
+                ? [contact.address, contact.city, contact.country]
+                : [contact.address, contact.country].filter(Boolean)
         },
         information: [
             { title: t("footer.information.links.productList"), link: "/collections" },
@@ -71,6 +75,7 @@ const Footer = () => {
                         <div className="text-center mb-8 flex flex-col gap-1">
                             <p className="text-lg text-accent1 uppercase tracking-widest font-semibold">{t("footer.contact.title")}</p>
                             <p>{navData.contact.phone}</p>
+                            {navData.contact.phone2 && <p>{navData.contact.phone2}</p>}
                             {navData.contact.address.map((line, i) => (
                                 <p key={i}>{line}</p>
                             ))}
@@ -123,21 +128,25 @@ const Footer = () => {
                     transition={{ duration: 0.6 }}
                     className="relative flex justify-center space-x-4 border-t-2 border-gray-100 py-5"
                 >
-                    {socials.map(({ Icon, link }, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, scale: 0 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: index * 0.1 }}
-                            whileHover={{ scale: 1.2, rotate: 10 }}
-                            whileTap={{ scale: 0.9 }}
-                        >
-                            <Link href={link || ''} aria-label={`Go To ${link}`} className={`w-8 h-8 p-1 overflow-hidden flex items-center justify-center rounded-full bg-primary hover:bg-secondary transition-all duration-300`}>
-                                <Icon strokeWidth={1} className=" text-white fill-secondary w-full min-h-fit h-auto max-w-12" />
-                            </Link>
-                        </motion.div>
-                    ))}
+                    {socials.map(({ Icon, key }, index) => {
+                        const link = social[key];
+                        if (!link) return null;
+                        return (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: index * 0.1 }}
+                                whileHover={{ scale: 1.2, rotate: 10 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <Link href={link || ''} aria-label={`Go To ${key}`} className={`w-8 h-8 p-1 overflow-hidden flex items-center justify-center rounded-full bg-primary hover:bg-secondary transition-all duration-300`}>
+                                    <Icon strokeWidth={1} className=" text-white fill-secondary w-full min-h-fit h-auto max-w-12" />
+                                </Link>
+                            </motion.div>
+                        );
+                    })}
                     {/* Bottom Copyright */}
                     <div className="text-center font-serif text-sm absolute right-0">
                         <p>{t('footer.rights')} &copy; - 2026 {brand.name}.</p>

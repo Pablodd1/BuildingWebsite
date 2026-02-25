@@ -25,21 +25,24 @@ import {
 import Stylish_H2 from "My_UI/stylish_h2"
 import Map from "./map";
 import { useLanguage } from "lib/LanguageContext";
+import { useBrand } from 'lib/BrandContext';
 import teamData from 'StaticData/team.json';
 
 const TikTokIcon = ({ className }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
     </svg>
 );
 
 export default function ContactPage() {
     const { t, lang } = useLanguage();
+    const { activeBrand, brand } = useBrand();
     const isSpanish = lang === 'es';
-    const team = teamData.team || [];
-    const contact = teamData.contact || {};
+    const brandData = teamData[activeBrand] || teamData.binw;
+    const team = brandData.team || [];
+    const contact = brandData.contact || {};
     const social = teamData.social || {};
-    
+
     const [showScheduler, setShowScheduler] = useState(false);
     const [expandedFAQ, setExpandedFAQ] = useState(null);
     const [meetingData, setMeetingData] = useState({
@@ -100,7 +103,7 @@ export default function ContactPage() {
                     />
                     <div className="absolute inset-0 bg-black/70"></div>
                 </div>
-                
+
                 <div className="mx-auto max-w-6xl px-4 relative z-10">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
@@ -141,13 +144,13 @@ export default function ContactPage() {
                             {isSpanish ? 'Nuestro Equipo de Ventas' : 'Our Sales Team'}
                         </h2>
                         <p className="text-gray-600 max-w-2xl mx-auto">
-                            {isSpanish 
+                            {isSpanish
                                 ? 'Conoce a nuestro equipo especializado. Estamos aquí para ayudarte con tus proyectos.'
                                 : 'Meet our specialized team. We are here to help with your projects.'}
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${team.length <= 4 ? '2 xl:grid-cols-4' : '3 xl:grid-cols-5'} gap-4`}>
                         {team.map((member, idx) => (
                             <motion.div
                                 key={member.id}
@@ -169,7 +172,7 @@ export default function ContactPage() {
                                         {member.specialty}
                                     </p>
                                 </div>
-                                
+
                                 <div className="mt-4 space-y-2">
                                     <a
                                         href={`https://wa.me/${member.whatsapp}`}
@@ -198,9 +201,9 @@ export default function ContactPage() {
             <section className="py-12 md:py-16">
                 <div className="mx-auto max-w-6xl px-4">
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {/* WhatsApp USA */}
+                        {/* WhatsApp */}
                         <motion.a
-                            href="https://wa.me/17869685783"
+                            href={`https://wa.me/${contact.whatsapp}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             whileHover={{ scale: 1.02 }}
@@ -208,49 +211,47 @@ export default function ContactPage() {
                         >
                             <MessageCircle size={32} fill="white" />
                             <div>
-                                <p className="font-bold">WhatsApp USA</p>
-                                <p className="text-sm opacity-90">+1 (786) 968-5783</p>
+                                <p className="font-bold">WhatsApp</p>
+                                <p className="text-sm opacity-90">{contact.phone}</p>
                             </div>
                         </motion.a>
 
-                        {/* WhatsApp Colombia */}
+                        {/* Phone 2 (if exists) or Phone */}
                         <motion.a
-                            href="https://wa.me/573113017763"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.02 }}
-                            className="flex items-center gap-4 p-4 rounded-xl bg-green-600 text-white shadow-lg hover:shadow-xl transition-shadow"
-                        >
-                            <MessageCircle size={32} fill="white" />
-                            <div>
-                                <p className="font-bold">WhatsApp Colombia</p>
-                                <p className="text-sm opacity-90">+57 311 3017763</p>
-                            </div>
-                        </motion.a>
-
-                        {/* Phone */}
-                        <motion.a
-                            href="tel:+17869685783"
+                            href={`tel:${(contact.phone2 || contact.phone)?.replace(/[^+\d]/g, '')}`}
                             whileHover={{ scale: 1.02 }}
                             className="flex items-center gap-4 p-4 rounded-xl bg-blue-500 text-white shadow-lg hover:shadow-xl transition-shadow"
                         >
                             <Phone size={32} />
                             <div>
                                 <p className="font-bold">{isSpanish ? 'Teléfono' : 'Phone'}</p>
-                                <p className="text-sm opacity-90">+1 (786) 968-5783</p>
+                                <p className="text-sm opacity-90">{contact.phone2 || contact.phone}</p>
+                            </div>
+                        </motion.a>
+
+                        {/* Phone (main) */}
+                        <motion.a
+                            href={`tel:${contact.phone?.replace(/[^+\d]/g, '')}`}
+                            whileHover={{ scale: 1.02 }}
+                            className="flex items-center gap-4 p-4 rounded-xl bg-blue-600 text-white shadow-lg hover:shadow-xl transition-shadow"
+                        >
+                            <Phone size={32} />
+                            <div>
+                                <p className="font-bold">{isSpanish ? 'Línea Principal' : 'Main Line'}</p>
+                                <p className="text-sm opacity-90">{contact.phone}</p>
                             </div>
                         </motion.a>
 
                         {/* Email */}
                         <motion.a
-                            href="mailto:info@building-innovation.com"
+                            href={`mailto:${contact.email}`}
                             whileHover={{ scale: 1.02 }}
                             className="flex items-center gap-4 p-4 rounded-xl bg-gray-800 text-white shadow-lg hover:shadow-xl transition-shadow"
                         >
                             <Mail size={32} />
                             <div>
                                 <p className="font-bold">Email</p>
-                                <p className="text-sm opacity-90">info@building-innovation.com</p>
+                                <p className="text-sm opacity-90">{contact.email}</p>
                             </div>
                         </motion.a>
                     </div>
@@ -261,7 +262,7 @@ export default function ContactPage() {
             <section className="py-12 md:py-20 bg-gray-50">
                 <div className="mx-auto grid max-w-6xl gap-8 md:gap-12 px-4 lg:grid-cols-5">
                     <Stylish_H2 h2={t('contact.talkTeam')} className="col-span-full tracking-widest uppercase text-xs md:text-sm lg:text-lg" />
-                    
+
                     {/* LEFT INFO */}
                     <div className="lg:col-span-2 space-y-6">
                         <div>
@@ -277,14 +278,16 @@ export default function ContactPage() {
                         <div className="space-y-4">
                             <InfoCard
                                 icon={MapPin}
-                                title={isSpanish ? 'Oficina Principal' : 'Main Office'}
-                                value="6120 NW 74th Ave, Doral, Miami, FL 33166"
-                                hint="United States"
+                                title={activeBrand === 'unitec'
+                                    ? 'Showroom'
+                                    : (isSpanish ? 'Oficina Principal' : 'Main Office')}
+                                value={`${contact.address}${contact.city ? ', ' + contact.city : ''}`}
+                                hint={contact.country}
                             />
                             <InfoCard
                                 icon={Clock}
                                 title={isSpanish ? 'Horario de Atención' : 'Business Hours'}
-                                value="Mon-Fri: 8AM - 6PM EST"
+                                value={isSpanish ? contact.hours_es : contact.hours}
                                 hint={isSpanish ? 'Respondemos en 24 horas' : 'We respond within 24 hours'}
                             />
                         </div>
@@ -340,7 +343,7 @@ export default function ContactPage() {
                                                 type="text"
                                                 placeholder={isSpanish ? 'Tu nombre' : 'Your Name'}
                                                 value={meetingData.name}
-                                                onChange={(e) => setMeetingData({...meetingData, name: e.target.value})}
+                                                onChange={(e) => setMeetingData({ ...meetingData, name: e.target.value })}
                                                 className="w-full rounded-lg border px-3 py-2 text-sm"
                                                 required
                                             />
@@ -348,7 +351,7 @@ export default function ContactPage() {
                                                 type="email"
                                                 placeholder={isSpanish ? 'Tu email' : 'Your Email'}
                                                 value={meetingData.email}
-                                                onChange={(e) => setMeetingData({...meetingData, email: e.target.value})}
+                                                onChange={(e) => setMeetingData({ ...meetingData, email: e.target.value })}
                                                 className="w-full rounded-lg border px-3 py-2 text-sm"
                                                 required
                                             />
@@ -357,20 +360,20 @@ export default function ContactPage() {
                                             type="tel"
                                             placeholder={isSpanish ? 'Tu teléfono' : 'Your Phone'}
                                             value={meetingData.phone}
-                                            onChange={(e) => setMeetingData({...meetingData, phone: e.target.value})}
+                                            onChange={(e) => setMeetingData({ ...meetingData, phone: e.target.value })}
                                             className="w-full rounded-lg border px-3 py-2 text-sm"
                                         />
                                         <div className="grid grid-cols-2 gap-4">
                                             <input
                                                 type="date"
                                                 value={meetingData.date}
-                                                onChange={(e) => setMeetingData({...meetingData, date: e.target.value})}
+                                                onChange={(e) => setMeetingData({ ...meetingData, date: e.target.value })}
                                                 className="w-full rounded-lg border px-3 py-2 text-sm"
                                                 required
                                             />
                                             <select
                                                 value={meetingData.time}
-                                                onChange={(e) => setMeetingData({...meetingData, time: e.target.value})}
+                                                onChange={(e) => setMeetingData({ ...meetingData, time: e.target.value })}
                                                 className="w-full rounded-lg border px-3 py-2 text-sm"
                                                 required
                                             >
@@ -389,7 +392,7 @@ export default function ContactPage() {
                                         <textarea
                                             placeholder={isSpanish ? 'Notas adicionales (opcional)' : 'Additional notes (optional)'}
                                             value={meetingData.notes}
-                                            onChange={(e) => setMeetingData({...meetingData, notes: e.target.value})}
+                                            onChange={(e) => setMeetingData({ ...meetingData, notes: e.target.value })}
                                             className="w-full rounded-lg border px-3 py-2 text-sm"
                                             rows={3}
                                         />
@@ -461,7 +464,7 @@ export default function ContactPage() {
                     <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
                         {isSpanish ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}
                     </h2>
-                    
+
                     <div className="space-y-3">
                         {faqs.map((faq, idx) => (
                             <div key={idx} className="border rounded-xl overflow-hidden">

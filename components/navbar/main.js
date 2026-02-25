@@ -38,30 +38,27 @@ const navItems = [
 ];
 
 const BrandToggle = () => {
-    const { activeBrand, toggleBrand } = useBrand();
+    const { activeBrand, toggleBrand, brand } = useBrand();
+    const otherBrand = activeBrand === 'binw' ? 'UNITEC' : 'BINW';
     return (
         <button
             onClick={toggleBrand}
-            className="flex items-center justify-center p-1 bg-black rounded hover:bg-gray-800 transition-colors ml-2 overflow-hidden"
-            aria-label="Toggle Brand"
+            className="group flex items-center gap-2 px-3 py-1.5 bg-black/80 backdrop-blur rounded-full hover:bg-gray-800 transition-all ml-2 border border-gray-700 hover:border-primary"
+            aria-label={`Switch to ${otherBrand}`}
+            title={`Switch to ${otherBrand}`}
         >
-            {activeBrand === 'binw' ? (
-                <Image
-                    src="/logo.png"
-                    alt="Building Innovation Logo"
-                    width={60}
-                    height={40}
-                    className="object-contain"
-                />
-            ) : (
-                <Image
-                    src="/unitec-logo.png"
-                    alt="Unitec Logo"
-                    width={60}
-                    height={40}
-                    className="object-contain"
-                />
-            )}
+            <Image
+                key={brand.id}
+                src={brand.logoImage}
+                alt={`${brand.name} Logo`}
+                width={36}
+                height={24}
+                className="object-contain"
+            />
+            <span className="hidden sm:inline-flex items-center gap-1 text-xs text-gray-400 group-hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5" /><path d="M8 21H3v-5" /><path d="M21 3l-9 9" /><path d="M3 21l9-9" /></svg>
+                {otherBrand}
+            </span>
         </button>
     )
 }

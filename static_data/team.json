@@ -1,87 +1,149 @@
 {
-  "team": [
-    {
-      "id": 1,
-      "name": "Juan David Garcia",
-      "role": "CEO",
-      "role_es": "CEO",
-      "phone": "+1 (786) 657-5441",
-      "whatsapp": "17866575441",
-      "email": "jdgarcia@building-innovation.com",
-      "specialty": "General Inquiries",
-      "specialty_es": "Consultas Generales",
-      "photo": "/raster/team/juan-david.jpg",
-      "availability": "Mon-Fri 8AM-6PM EST"
-    },
-    {
-      "id": 2,
-      "name": "Alexander Gomez Zapata",
-      "role": "International Account Manager",
-      "role_es": "Gerente de Cuentas Internacionales",
-      "phone": "+57 311 3017763",
-      "whatsapp": "573113017763",
-      "email": "ainternational@building-innovation.com",
-      "specialty": "Global Sales & Latin America",
-      "specialty_es": "Ventas Globales y Latinoamérica",
-      "photo": "/raster/team/alexander.jpg",
-      "availability": "Mon-Fri 8AM-6PM EST"
-    },
-    {
-      "id": 3,
-      "name": "Johana Mesa",
-      "role": "Distribution Sales Manager",
-      "role_es": "Gerente de Ventas de Distribución",
-      "phone": "+1 (786) 968-5783",
-      "whatsapp": "17869685783",
-      "email": "distribution@building-innovation.com",
-      "specialty": "Distribution & Wholesale",
-      "specialty_es": "Distribución y Mayoreo",
-      "photo": "/raster/team/johana.jpg",
-      "availability": "Mon-Fri 8AM-6PM EST"
-    },
-    {
-      "id": 4,
-      "name": "Antonio Borjas",
-      "role": "Sales Representative",
-      "role_es": "Representante de Ventas",
-      "phone": "+1 (786) 546-9051",
-      "whatsapp": "17865469051",
-      "email": "aborjas@building-innovation.com",
-      "specialty": "Retail & Contractors",
-      "specialty_es": "Minoristas y Contratistas",
-      "photo": "/raster/team/antonio.jpg",
-      "availability": "Mon-Fri 8AM-6PM EST"
-    },
-    {
-      "id": 5,
-      "name": "Marlon Moncada",
-      "role": "SW Florida Regional Sales",
-      "role_es": "Ventas Regional SW Florida",
-      "phone": "+1 (239) 878-9299",
-      "whatsapp": "12398789299",
-      "email": "mmoncada@building-innovation.com",
-      "specialty": "Southwest Florida Region",
-      "specialty_es": "Región Southwest Florida",
-      "photo": "/raster/team/marlon.jpg",
-      "availability": "Mon-Fri 8AM-6PM EST"
-    }
-  ],
-  "contact": {
-    "usa": {
+  "binw": {
+    "team": [
+      {
+        "id": 1,
+        "name": "Juan David Garcia",
+        "role": "CEO",
+        "role_es": "CEO",
+        "phone": "+1 (786) 657-5441",
+        "whatsapp": "17866575441",
+        "email": "jdgarcia@building-innovation.com",
+        "specialty": "General Inquiries",
+        "specialty_es": "Consultas Generales",
+        "photo": "/raster/team/juan-david.jpg",
+        "availability": "Mon-Fri 8AM-6PM EST"
+      },
+      {
+        "id": 2,
+        "name": "Alexander Gomez Zapata",
+        "role": "International Account Manager",
+        "role_es": "Gerente de Cuentas Internacionales",
+        "phone": "+57 311 3017763",
+        "whatsapp": "573113017763",
+        "email": "ainternational@building-innovation.com",
+        "specialty": "Global Sales & Latin America",
+        "specialty_es": "Ventas Globales y Latinoamérica",
+        "photo": "/raster/team/alexander.jpg",
+        "availability": "Mon-Fri 8AM-6PM EST"
+      },
+      {
+        "id": 3,
+        "name": "Johana Mesa",
+        "role": "Distribution Sales Manager",
+        "role_es": "Gerente de Ventas de Distribución",
+        "phone": "+1 (786) 968-5783",
+        "whatsapp": "17869685783",
+        "email": "distribution@building-innovation.com",
+        "specialty": "Distribution & Wholesale",
+        "specialty_es": "Distribución y Mayoreo",
+        "photo": "/raster/team/johana.jpg",
+        "availability": "Mon-Fri 8AM-6PM EST"
+      },
+      {
+        "id": 4,
+        "name": "Antonio Borjas",
+        "role": "Sales Representative",
+        "role_es": "Representante de Ventas",
+        "phone": "+1 (786) 546-9051",
+        "whatsapp": "17865469051",
+        "email": "aborjas@building-innovation.com",
+        "specialty": "Retail & Contractors",
+        "specialty_es": "Minoristas y Contratistas",
+        "photo": "/raster/team/antonio.jpg",
+        "availability": "Mon-Fri 8AM-6PM EST"
+      },
+      {
+        "id": 5,
+        "name": "Marlon Moncada",
+        "role": "SW Florida Regional Sales",
+        "role_es": "Ventas Regional SW Florida",
+        "phone": "+1 (239) 878-9299",
+        "whatsapp": "12398789299",
+        "email": "mmoncada@building-innovation.com",
+        "specialty": "Southwest Florida Region",
+        "specialty_es": "Región Southwest Florida",
+        "photo": "/raster/team/marlon.jpg",
+        "availability": "Mon-Fri 8AM-6PM EST"
+      }
+    ],
+    "contact": {
       "phone": "+1 (786) 968-5783",
       "whatsapp": "17869685783",
       "email": "info@building-innovation.com",
       "address": "6120 NW 74th Ave, Doral, Miami, FL 33166",
+      "address_es": "6120 NW 74th Ave, Doral, Miami, FL 33166",
+      "country": "United States",
       "hours": "Mon-Fri: 8AM - 6PM EST",
       "hours_es": "Lun-Vie: 8AM - 6PM EST"
-    },
-    "colombia": {
-      "phone": "+57 311 3017763",
-      "whatsapp": "573113017763",
+    }
+  },
+  "unitec": {
+    "team": [
+      {
+        "id": 101,
+        "name": "Juan David Garcia",
+        "role": "CEO",
+        "role_es": "CEO",
+        "phone": "+57 316 4544419",
+        "whatsapp": "573164544419",
+        "email": "jdgarcia@building-innovation.com",
+        "specialty": "General Inquiries",
+        "specialty_es": "Consultas Generales",
+        "photo": "/raster/team/juan-david.jpg",
+        "availability": "Lun-Vie 7AM-5PM COL"
+      },
+      {
+        "id": 102,
+        "name": "Yuldor Steven Avendaño",
+        "role": "Commercial Marketing Advisor",
+        "role_es": "Asesor Comercial Marketing",
+        "phone": "+57 310 5769694",
+        "whatsapp": "573105769694",
+        "email": "info@building-innovation.com",
+        "specialty": "Marketing & Sales",
+        "specialty_es": "Marketing y Ventas",
+        "photo": "",
+        "availability": "Lun-Vie 7AM-5PM COL"
+      },
+      {
+        "id": 103,
+        "name": "Merianny Rojas Ruiz",
+        "role": "Commercial Marketing Advisor",
+        "role_es": "Asesor Comercial Marketing",
+        "phone": "+57 314 2337199",
+        "whatsapp": "573142337199",
+        "email": "info@building-innovation.com",
+        "specialty": "Marketing & Sales",
+        "specialty_es": "Marketing y Ventas",
+        "photo": "",
+        "availability": "Lun-Vie 7AM-5PM COL"
+      },
+      {
+        "id": 104,
+        "name": "Yury Marcela Moreno",
+        "role": "Commercial Marketing Advisor",
+        "role_es": "Asesor Comercial Marketing",
+        "phone": "+57 310 4578337",
+        "whatsapp": "573104578337",
+        "email": "info@building-innovation.com",
+        "specialty": "Marketing & Sales",
+        "specialty_es": "Marketing y Ventas",
+        "photo": "",
+        "availability": "Lun-Vie 7AM-5PM COL"
+      }
+    ],
+    "contact": {
+      "phone": "+57 3142337199",
+      "phone2": "+57 3105769694",
+      "whatsapp": "573142332147",
       "email": "info@building-innovation.com",
-      "address": "Medellín, Colombia",
-      "hours": "Mon-Fri: 7AM - 5PM Colombia",
-      "hours_es": "Lun-Vie: 7AM - 5PM Colombia"
+      "address": "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274",
+      "address_es": "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274",
+      "city": "Itagüí, Medellín, Antioquia",
+      "country": "Colombia",
+      "hours": "Mon-Fri: 7AM - 5PM COL",
+      "hours_es": "Lun-Vie: 7AM - 5PM COL"
     }
   },
   "social": {

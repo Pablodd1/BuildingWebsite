@@ -1,19 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-    MessageCircle, 
-    Phone, 
-    Mail, 
-    Calendar, 
-    HelpCircle, 
+import {
+    MessageCircle,
+    Phone,
+    Mail,
+    Calendar,
+    HelpCircle,
     Package,
     X,
     Send,
     User,
     ChevronDown,
-    ChevronUp,
     MapPin,
     Clock,
     Facebook,
@@ -21,71 +20,36 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from 'lib/LanguageContext';
+import { useBrand } from 'lib/BrandContext';
 import teamData from 'StaticData/team.json';
 
 const TikTokIcon = ({ className }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
     </svg>
 );
 
 const inquiryTypes = [
-    { id: 'general', icon: MessageCircle, label: 'general', label_es: 'General' },
-    { id: 'product', icon: Package, label: 'product', label_es: 'Producto' },
-    { id: 'quote', icon: Calendar, label: 'quote', label_es: 'Cotización' },
-    { id: 'support', icon: HelpCircle, label: 'support', label_es: 'Soporte' },
-];
-
-const contactOptions = [
-    { 
-        id: 'whatsapp-usa', 
-        icon: MessageCircle, 
-        label: 'WhatsApp USA', 
-        label_es: 'WhatsApp USA',
-        value: '+1 (786) 968-5783',
-        url: 'https://wa.me/17869685783'
-    },
-    { 
-        id: 'whatsapp-col', 
-        icon: MessageCircle, 
-        label: 'WhatsApp Colombia', 
-        label_es: 'WhatsApp Colombia',
-        value: '+57 311 3017763',
-        url: 'https://wa.me/573113017763'
-    },
-    { 
-        id: 'phone', 
-        icon: Phone, 
-        label: 'Call Us', 
-        label_es: 'Llámanos',
-        value: '+1 (786) 968-5783',
-        url: 'tel:+17869685783'
-    },
-    { 
-        id: 'email', 
-        icon: Mail, 
-        label: 'Email Us', 
-        label_es: 'Escríbenos',
-        value: 'info@building-innovation.com',
-        url: 'mailto:info@building-innovation.com'
-    },
+    { id: 'general', icon: MessageCircle, label: 'General Inquiry', label_es: 'Consulta General' },
+    { id: 'product', icon: Package, label: 'Product Info', label_es: 'Info de Producto' },
+    { id: 'quote', icon: Calendar, label: 'Request Quote', label_es: 'Solicitar Cotización' },
+    { id: 'support', icon: HelpCircle, label: 'Support', label_es: 'Soporte' },
 ];
 
 export default function VirtualFrontDesk() {
     const { t, lang } = useLanguage();
+    const { activeBrand, brand } = useBrand();
     const [isOpen, setIsOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('menu');
     const [showTeam, setShowTeam] = useState(false);
     const [showFAQ, setShowFAQ] = useState(false);
-    const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '', type: 'general' });
-    const [formSubmitted, setFormSubmitted] = useState(false);
-    const [selectedTeamMember, setSelectedTeamMember] = useState(null);
-    const [meetingDate, setMeetingDate] = useState('');
-    const [meetingTime, setMeetingTime] = useState('');
 
     const isSpanish = lang === 'es';
-    const team = teamData.team || [];
-    const contact = teamData.contact || {};
+
+    // Brand-specific data
+    const brandData = teamData[activeBrand] || teamData.binw;
+    const team = brandData.team || [];
+    const contact = brandData.contact || {};
     const social = teamData.social || {};
 
     const faqs = [
@@ -110,25 +74,42 @@ export default function VirtualFrontDesk() {
         {
             q: 'Do you install products?',
             q_es: '¿Instalan los productos?',
-            a: 'We work with certified installers across the US. Contact us for recommendations.',
-            a_es: 'Trabajamos con instaladores certificados en EE.UU. Contáctanos para recomendaciones.'
+            a: 'We work with certified installers. Contact us for recommendations.',
+            a_es: 'Trabajamos con instaladores certificados. Contáctanos para recomendaciones.'
         }
     ];
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        const subject = `${formData.type.toUpperCase()} Inquiry - ${formData.name}`;
-        const body = `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nType: ${formData.type}\n\nMessage:\n${formData.message}`;
-        window.location.href = `mailto:info@building-innovation.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        setFormSubmitted(true);
-    };
-
-    const handleMeetingRequest = () => {
-        const subject = `Meeting Request - ${meetingDate} at ${meetingTime}`;
-        const body = `I'd like to schedule a meeting.\n\nPreferred Date: ${meetingDate}\nPreferred Time: ${meetingTime}\n\nContact Info:\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}`;
-        window.location.href = `mailto:info@building-innovation.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        setFormSubmitted(true);
-    };
+    // Build contact options dynamically from brand data
+    const contactOptions = [
+        {
+            id: 'whatsapp-main',
+            icon: MessageCircle,
+            label: 'WhatsApp',
+            value: contact.phone,
+            url: `https://wa.me/${contact.whatsapp}`
+        },
+        {
+            id: 'phone',
+            icon: Phone,
+            label: isSpanish ? 'Llamar' : 'Call Us',
+            value: contact.phone,
+            url: `tel:${contact.phone?.replace(/[^+\d]/g, '')}`
+        },
+        ...(contact.phone2 ? [{
+            id: 'phone2',
+            icon: Phone,
+            label: isSpanish ? 'Línea 2' : 'Line 2',
+            value: contact.phone2,
+            url: `tel:${contact.phone2?.replace(/[^+\d]/g, '')}`
+        }] : []),
+        {
+            id: 'email',
+            icon: Mail,
+            label: isSpanish ? 'Correo' : 'Email',
+            value: contact.email,
+            url: `mailto:${contact.email}`
+        },
+    ];
 
     const tabs = [
         { id: 'menu', label: isSpanish ? 'Menú' : 'Menu', icon: MessageCircle },
@@ -190,7 +171,7 @@ export default function VirtualFrontDesk() {
                         <div className="bg-gradient-to-r from-gray-900 to-gray-800 p-4 text-white">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h3 className="font-bold text-lg">Virtual Front Desk</h3>
+                                    <h3 className="font-bold text-lg">{brand.name}</h3>
                                     <p className="text-sm text-gray-300">
                                         {isSpanish ? '¡Hola! ¿Cómo podemos ayudarte?' : 'Hi! How can we help you?'}
                                     </p>
@@ -201,9 +182,9 @@ export default function VirtualFrontDesk() {
                                             key={tab.id}
                                             onClick={() => {
                                                 setActiveTab(tab.id);
-                        setShowTeam(false);
-                        setShowFAQ(false);
-                    }}
+                                                setShowTeam(false);
+                                                setShowFAQ(false);
+                                            }}
                                             className={`p-2 rounded-lg transition-colors ${activeTab === tab.id ? 'bg-white/20' : 'hover:bg-white/10'}`}
                                         >
                                             <tab.icon size={20} />
@@ -277,7 +258,7 @@ export default function VirtualFrontDesk() {
                                         </p>
                                         <div className="grid grid-cols-2 gap-2">
                                             <a
-                                                href="https://wa.me/17869685783"
+                                                href={`https://wa.me/${contact.whatsapp}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="flex items-center justify-center gap-2 p-2 rounded-lg bg-green-500 text-white text-sm font-medium hover:bg-green-600 transition-colors"
@@ -286,7 +267,7 @@ export default function VirtualFrontDesk() {
                                                 WhatsApp
                                             </a>
                                             <a
-                                                href="tel:+17869685783"
+                                                href={`tel:${contact.phone?.replace(/[^+\d]/g, '')}`}
                                                 className="flex items-center justify-center gap-2 p-2 rounded-lg bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 transition-colors"
                                             >
                                                 <Phone size={16} />
@@ -301,7 +282,7 @@ export default function VirtualFrontDesk() {
                             {(activeTab === 'team' || showTeam) && !showFAQ && (
                                 <div className="p-4">
                                     <button
-                                        onClick={() => setShowTeam(false)}
+                                        onClick={() => { setShowTeam(false); setActiveTab('menu'); }}
                                         className="text-sm text-primary hover:underline mb-3 flex items-center gap-1"
                                     >
                                         ← {isSpanish ? 'Volver' : 'Back'}
@@ -323,7 +304,7 @@ export default function VirtualFrontDesk() {
                                                             {isSpanish ? member.role_es : member.role}
                                                         </p>
                                                         <p className="text-xs text-primary">
-                                                            {member.specialty}
+                                                            {isSpanish ? member.specialty_es : member.specialty}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -338,7 +319,7 @@ export default function VirtualFrontDesk() {
                                                         WhatsApp
                                                     </a>
                                                     <a
-                                                        href={`tel:${member.phone}`}
+                                                        href={`tel:${member.phone?.replace(/[^+\d]/g, '')}`}
                                                         className="flex-1 flex items-center justify-center gap-1 p-1.5 rounded-lg bg-blue-500 text-white text-xs hover:bg-blue-600"
                                                     >
                                                         <Phone size={12} />
@@ -385,12 +366,23 @@ export default function VirtualFrontDesk() {
                                     <div className="p-3 rounded-xl bg-gray-50">
                                         <div className="flex items-center gap-2 mb-2">
                                             <MapPin size={16} className="text-primary" />
-                                            <span className="font-semibold text-sm">{isSpanish ? 'Oficina Principal' : 'Main Office'}</span>
+                                            <span className="font-semibold text-sm">
+                                                {activeBrand === 'unitec'
+                                                    ? (isSpanish ? 'Showroom' : 'Showroom')
+                                                    : (isSpanish ? 'Oficina Principal' : 'Main Office')
+                                                }
+                                            </span>
                                         </div>
-                                        <p className="text-sm text-gray-600">{contact.usa?.address}</p>
+                                        <p className="text-sm text-gray-600">{contact.address}</p>
+                                        {contact.city && (
+                                            <p className="text-sm text-gray-600">{contact.city}</p>
+                                        )}
+                                        <p className="text-sm text-gray-500">{contact.country}</p>
                                         <div className="flex items-center gap-2 mt-2">
                                             <Clock size={14} className="text-gray-400" />
-                                            <span className="text-xs text-gray-500">{contact.usa?.hours}</span>
+                                            <span className="text-xs text-gray-500">
+                                                {isSpanish ? contact.hours_es : contact.hours}
+                                            </span>
                                         </div>
                                     </div>
 
@@ -403,13 +395,11 @@ export default function VirtualFrontDesk() {
                                             rel={option.url.startsWith('http') ? 'noopener noreferrer' : undefined}
                                             className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-primary hover:bg-primary/5 transition-colors"
                                         >
-                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${option.id.includes('whatsapp') ? 'bg-green-500' : option.id === 'phone' ? 'bg-blue-500' : 'bg-gray-700'}`}>
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${option.id.includes('whatsapp') ? 'bg-green-500' : option.id.includes('phone') ? 'bg-blue-500' : 'bg-gray-700'}`}>
                                                 <option.icon size={20} className="text-white" />
                                             </div>
                                             <div>
-                                                <p className="font-semibold text-sm text-gray-800">
-                                                    {isSpanish ? option.label_es : option.label}
-                                                </p>
+                                                <p className="font-semibold text-sm text-gray-800">{option.label}</p>
                                                 <p className="text-xs text-gray-500">{option.value}</p>
                                             </div>
                                         </a>
