@@ -56,13 +56,7 @@ const productCategories = {
             page: "/collections/complementos",
             icon: Sparkles,
             collection: "INTERIOR",
-            subcategories: ["CINTAS", "PEGANTE", "PELICULA INTELIGENTE"]
-        },
-        "LISTONES": {
-            page: "/collections/listones",
-            icon: Layers,
-            collection: "INTERIOR",
-            subcategories: []
+            subcategories: ["CINTAS", "PEGANTES", "PELICULA INTELIGENTE"]
         }
     },
     Exterior: {
@@ -88,7 +82,7 @@ const productCategories = {
             page: "/collections/paneles-wpc",
             icon: Building2,
             collection: "EXTERIOR",
-            subcategories: ["WPC EXTERIOR", "LISTONES"]
+            subcategories: ["WPC EXTERIOR"]
         },
         "PISOS DECK": {
             page: "/collections/pisos-deck",
@@ -163,7 +157,7 @@ const MegaMenu = () => {
                                                 if (sub === "LISTONES") tSubKey = "nav.listones";
                                                 if (sub === "ANGULOS") tSubKey = "nav.angulos";
                                                 if (sub === "CINTAS") tSubKey = "nav.cintas";
-                                                if (sub === "PEGANTE") tSubKey = "nav.pegante";
+                                                if (sub === "PEGANTES") tSubKey = "nav.pegantes";
                                                 if (sub === "PELICULA INTELIGENTE") tSubKey = "nav.peliculaInteligente";
 
                                                 return (
