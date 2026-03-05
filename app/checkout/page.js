@@ -2,16 +2,19 @@
 
 import { useEffect, useState, useRef } from "react"
 import { motion } from "framer-motion"
-import { Printer, Check, ArrowLeft, Building2, User, Mail, Phone, MapPin, FileText, Package, DollarSign, Send } from "lucide-react"
+import { Printer, Check, ArrowLeft, Building2, User, Mail, Phone, MapPin, FileText, Package, DollarSign, Send, AlertTriangle, Truck } from "lucide-react"
 import { useLanguage } from "lib/LanguageContext"
 import { getCart } from "utils/cart/cart.core"
+import { containerFillPercent } from "utils/cart/cart.utils"
 import Link from "next/link"
 
 export default function CheckoutPage() {
-    const { t } = useLanguage()
+    const { t, lang } = useLanguage()
+    const isSpanish = lang === 'es';
     const [cart, setCart] = useState([])
     const [mounted, setMounted] = useState(false)
     const [submitted, setSubmitted] = useState(false)
+    const [shipPartial, setShipPartial] = useState(false)
     const printRef = useRef()
     const [referenceId] = useState(() => `QR-${Date.now().toString(36).toUpperCase()}`)
 
@@ -50,6 +53,22 @@ export default function CheckoutPage() {
             return count + container.items.reduce((itemCount, item) => itemCount + item.qty, 0)
         }, 0)
     }
+
+    const getContainerFillStatus = () => {
+        return cart.map(container => {
+            const fill = containerFillPercent(container);
+            return {
+                id: container.id,
+                label: container.label || container.name,
+                fillPercent: fill.filledTotal,
+                availablePercent: fill.available
+            };
+        });
+    }
+
+    const containerStatus = getContainerFillStatus();
+    const hasPartialContainers = containerStatus.some(c => c.fillPercent < 80);
+    const allFull = containerStatus.every(c => c.fillPercent >= 80);
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target

@@ -37,8 +37,8 @@ export default function ProductDimensions({ dimension }) {
 
                     if (!val) return null;
 
-                    // If language is es (Spanish), we only want to show the LATAM (metric) formatted correctly
-                    const isLatam = lang === 'es';
+                    // Format based on language - Spanish uses metric (comma decimals), English uses imperial
+                    const locale = language === 'es' ? 'es-ES' : 'en-US';
 
                     return (
                         <motion.div
@@ -58,7 +58,7 @@ export default function ProductDimensions({ dimension }) {
                                 </p>
                                 <div className="flex flex-col gap-1">
                                     <span className="text-2xl font-bold text-gray-800">
-                                        {Number(val).toLocaleString(language === 'es' ? 'es-ES' : 'en-US', { maximumFractionDigits: 2 })}
+                                        {Number(val).toLocaleString(locale, { maximumFractionDigits: 2 })}
                                         <span className="text-sm font-normal text-gray-500 pl-1">{unit}</span>
                                     </span>
                                 </div>
