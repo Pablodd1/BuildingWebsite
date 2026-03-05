@@ -80,7 +80,12 @@ export default function CheckoutPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // In a real app, you would submit to an API here
+        
+        if (hasPartialContainers && !shipPartial) {
+            alert("Please select 'Ship partial container' to proceed with partially filled containers, or return to cart to fill containers.")
+            return
+        }
+        
         setSubmitted(true)
         window.scrollTo(0, 0)
     }
@@ -423,6 +428,24 @@ export default function CheckoutPage() {
                                     />
                                 </div>
 
+                                {/* Partial Container Option */}
+                                {hasPartialContainers && (
+                                    <div className="flex items-start gap-3 mb-6 p-4 bg-gray-50 rounded-xl">
+                                        <input
+                                            type="checkbox"
+                                            id="shipPartial"
+                                            checked={shipPartial}
+                                            onChange={(e) => setShipPartial(e.target.checked)}
+                                            className="mt-1 w-5 h-5 rounded border-gray-300 text-black focus:ring-black"
+                                        />
+                                        <label htmlFor="shipPartial" className="text-sm text-gray-700">
+                                            <span className="font-medium">Ship partial container</span>
+                                            <br />
+                                            Proceed with shipping partially filled containers. Additional shipping costs may apply for less than container load (LCL) shipments.
+                                        </label>
+                                    </div>
+                                )}
+
                                 <div className="flex items-start gap-3 mb-8">
                                     <input
                                         type="checkbox"
@@ -441,10 +464,18 @@ export default function CheckoutPage() {
 
                                 <button
                                     type="submit"
-                                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-black px-8 py-4 text-white font-semibold hover:bg-gray-900 transition-colors"
+                                    disabled={hasPartialContainers && !shipPartial}
+                                    className={`w-full flex items-center justify-center gap-2 rounded-xl px-8 py-4 font-semibold transition-colors ${
+                                        hasPartialContainers && !shipPartial
+                                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                            : 'bg-black text-white hover:bg-gray-900'
+                                    }`}
                                 >
                                     <Send size={20} />
-                                    Submit Quote Request
+                                    {hasPartialContainers && !shipPartial
+                                        ? 'Select Partial Container Option'
+                                        : 'Submit Quote Request'
+                                    }
                                 </button>
                             </form>
                         </div>
@@ -458,20 +489,57 @@ export default function CheckoutPage() {
                                 </h2>
 
                                 <div className="space-y-4 mb-6 max-h-96 overflow-y-auto">
-                                    {cart.map((container) => (
-                                        <div key={container.id} className="border-b border-gray-100 pb-4 last:border-0">
-                                            <h4 className="font-semibold text-sm mb-2">{container.name}</h4>
-                                            {container.items.map((item) => (
-                                                <div key={item.id} className="flex justify-between text-sm text-gray-600 py-1">
-                                                    <span>{item.name} × {item.qty}</span>
-                                                    {item.price && (
-                                                        <span>${(item.price * item.qty).toFixed(2)}</span>
+                                    {cart.map((container) => {
+                                        const status = containerStatus.find(s => s.id === container.id);
+                                        const fillPercent = status?.fillPercent || 0;
+                                        const isPartial = fillPercent < 80;
+                                        
+                                        return (
+                                            <div key={container.id} className="border-b border-gray-100 pb-4 last:border-0">
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <h4 className="font-semibold text-sm">{container.name}</h4>
+                                                    {isPartial && (
+                                                        <span className="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">
+                                                            {fillPercent.toFixed(0)}% full
+                                                        </span>
                                                     )}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    ))}
+                                                {container.items.map((item) => (
+                                                    <div key={item.id} className="flex justify-between text-sm text-gray-600 py-1">
+                                                        <span>{item.name} × {item.qty}</span>
+                                                        {item.price && (
+                                                            <span>${(item.price * item.qty).toFixed(2)}</span>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        );
+                                    })}
                                 </div>
+
+                                {/* Container Fill Warning */}
+                                {hasPartialContainers && !shipPartial && (
+                                    <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-xl">
+                                        <div className="flex items-start gap-2">
+                                            <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                                            <div className="text-sm">
+                                                <p className="font-medium text-amber-800">Partial Container</p>
+                                                <p className="text-amber-700">
+                                                    Some containers are not fully loaded. Select below to proceed with partial shipment.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {shipPartial && (
+                                    <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-xl">
+                                        <div className="flex items-center gap-2 text-sm text-blue-800">
+                                            <Truck className="w-4 h-4" />
+                                            <span>Partial container shipment requested</span>
+                                        </div>
+                                    </div>
+                                )}
 
                                 <div className="border-t border-gray-100 pt-4 space-y-2">
                                     <div className="flex justify-between text-sm text-gray-600">
