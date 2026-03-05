@@ -147,7 +147,7 @@ const MegaMenu = () => {
                                             className="flex items-center gap-3 font-bold text-gray-900 group-hover/item:text-blue-600 mb-3 text-xs uppercase tracking-widest transition-all"
                                         >
                                             <data.icon className="w-4 h-4" />
-                                            {t(tKey) || category}
+                                            {t(tKey) !== tKey ? t(tKey) : category}
                                         </Link>
                                         <div className="flex flex-wrap gap-x-4 gap-y-2 ml-1 border-l-2 border-gray-100 pl-4 py-1">
                                             {data.subcategories.map(sub => {
@@ -166,7 +166,7 @@ const MegaMenu = () => {
                                                         href={`${data.page}?subcategory=${sub}&collection=${data.collection}`}
                                                         className="text-gray-400 hover:text-gray-900 text-[10px] font-black uppercase transition-all whitespace-nowrap hover:scale-105"
                                                     >
-                                                        {t(tSubKey) || sub}
+                                                        {t(tSubKey) !== tSubKey ? t(tSubKey) : sub}
                                                     </Link>
                                                 );
                                             })}
@@ -210,7 +210,7 @@ const MegaMenu = () => {
                                             className="flex items-center gap-3 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-3 text-xs uppercase tracking-widest transition-all"
                                         >
                                             <data.icon className="w-4 h-4" />
-                                            {t(tKey) || category}
+                                            {t(tKey) !== tKey ? t(tKey) : category}
                                         </Link>
                                         <div className="flex flex-wrap gap-x-4 gap-y-2 ml-1 border-l-2 border-gray-100 pl-4 py-1">
                                             {data.subcategories.map(sub => {
@@ -224,7 +224,7 @@ const MegaMenu = () => {
                                                         href={`${data.page}?subcategory=${sub}&collection=${data.collection}`}
                                                         className="text-gray-400 hover:text-gray-900 text-[10px] font-black uppercase transition-all whitespace-nowrap hover:scale-105"
                                                     >
-                                                        {t(tSubKey) || sub}
+                                                        {t(tSubKey) !== tSubKey ? t(tSubKey) : sub}
                                                     </Link>
                                                 );
                                             })}

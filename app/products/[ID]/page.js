@@ -1,4 +1,5 @@
 import ProductSection from "My_UI/product_ui/product_section";
+import productData from "StaticData/products_full.json";
 // import productReview from "StaticData/products.json";
 import RecommendationsSection from "My_UI/product_ui/recommended_section";
 import ReviewsSection from "My_UI/product_ui/review_section";
@@ -15,20 +16,7 @@ export async function generateMetadata({ params }, parent) {
   const parentMeta = await parent;
   const { ID } = await params;
 
-  let product = null;
-
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/API/products/${ID}?fields=id,name,description,image`,
-      { cache: "no-store" }
-    );
-
-    if (res.ok) {
-      product = await res.json();
-    }
-  } catch (e) {
-    // silent fail – fallback meta will be used
-  }
+  const product = productData.find((item) => String(item.id) === String(ID));
 
   const title =
     product?.name
@@ -79,16 +67,7 @@ export async function generateMetadata({ params }, parent) {
 }
 
 async function fetchProduct(id) {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/API/products/${id}?fields=id,category,collection,itemsPerBox,subcategory,name,basePrice,image,discountPercent,description,dimensions`,
-      { cache: "no-store" }
-    )
-    if (!res.ok) return null
-    return res.json()
-  } catch (e) {
-    return null
-  }
+  return productData.find((item) => String(item.id) === String(id)) || null;
 }
 
 export default async function ProductPage({ params }) {
