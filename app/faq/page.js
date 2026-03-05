@@ -1,5 +1,5 @@
 import FAQ_UI from "My_UI/faq/main";
-import faqData from "StaticData/faqs.json";
+import faqData from "static_data/faqs.json";
 
 export const metadata = {
     title: "FAQ & Technical Resources | Unitec USA Design",
