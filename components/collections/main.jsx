@@ -42,7 +42,14 @@ export default function Collections_UI({ searchParams, h1, description, productU
     useEffect(() => {
         const fetchProducts = () => {
             setLoading(true);
-            fetch(`${productURL}currentPage=${currentPage}`)
+            const urlStr = productURL.startsWith('http') ? productURL : window.location.origin + (productURL.startsWith('/') ? '' : '/') + productURL;
+            const url = new URL(urlStr);
+            url.searchParams.set('currentPage', currentPage);
+            if (filters.collection && filters.collection !== 'All') url.searchParams.set('collection', filters.collection);
+            if (filters.category && filters.category !== 'All') url.searchParams.set('category', filters.category);
+            if (filters.subcategories?.length) url.searchParams.set('subcategories', filters.subcategories.join(','));
+
+            fetch(url.toString())
                 .then(res => res.json())
                 .then(data => {
                     setProducts(data.items);
@@ -51,7 +58,7 @@ export default function Collections_UI({ searchParams, h1, description, productU
                 }).catch(() => setLoading(false));
         }
         fetchProducts()
-    }, [currentPage]);
+    }, [currentPage, filters.collection, filters.category, filters.subcategories]);
 
 
     // Apply filters + sorting

@@ -11,6 +11,7 @@ const FIELDS = [
   "dimensions",
   "collection",
   "subcategory",
+  "category",
 ];
 
 
@@ -20,6 +21,10 @@ export async function GET(request) {
   const searchQuery = searchParams.get("query");
   const onlyDiscounted = searchParams.get("onlyDiscounted") === "true";
   const currentPage = Number(searchParams.get("currentPage")) || 1;
+  const collection = searchParams.get("collection");
+  const category = searchParams.get("category");
+  const subcategoriesStr = searchParams.get("subcategories");
+  const subcategories = subcategoriesStr ? subcategoriesStr.split(',') : [];
 
   const ITEMS_PER_PAGE = 15;
 
@@ -28,6 +33,12 @@ export async function GET(request) {
     .filter((item) =>
       onlyDiscounted ? Number(item.discountPercent) > 0 : true
     )
+    .filter((item) => {
+      if (collection && collection !== 'All' && item.collection?.toLowerCase() !== collection.toLowerCase()) return false;
+      if (category && category !== 'All' && item.category?.toLowerCase() !== category.toLowerCase()) return false;
+      if (subcategories.length && !subcategories.includes(item.subcategory)) return false;
+      return true;
+    })
     .filter((item) =>
       matchesSearchQuery(item, searchQuery)
     );

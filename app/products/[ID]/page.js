@@ -25,11 +25,11 @@ export async function generateMetadata({ params }, parent) {
 
   const description =
     product?.description
-      ? product.description.slice(0, 160)
+      ? String(product.description).slice(0, 160)
       : "Explore high-performance PVC and WPC building materials by Unitec USA Design, engineered for durability, aesthetics, and zero maintenance.";
 
   const image =
-    product?.image?.url || process.env.DEFAULT_IMAGE;
+    product?.image?.url || product?.image || process.env.DEFAULT_IMAGE || "/raster/interior.webp";
 
   const canonical = `${process.env.BASE_URL}/products/${ID}`;
 
