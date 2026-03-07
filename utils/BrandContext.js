@@ -32,8 +32,8 @@ export const BRAND_CONFIG = {
             secondary: '#3D6B7E',
             accent: '#144552',
         },
-        heroTagline: "Al alcanze de lo que imaginas. Building innovation: ¡We design the future!",
-        heroTagline_es: "Al alcanze de lo que imaginas. Building innovation: ¡We design the future!",
+        heroTagline: "Al alcanze de lo que imaginas.",
+        heroTagline_es: "Al alcanze de lo que imaginas.",
     }
 };
 

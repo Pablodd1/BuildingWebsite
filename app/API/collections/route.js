@@ -1,5 +1,6 @@
 import productData from "StaticData/products_full.json";
 import matchesSearchQuery from "./handleSearch";
+import { matchesSubcategoryFilter } from "lib/applyFilters";
 
 // fields to return (easy to manage / edit)
 const FIELDS = [
@@ -36,24 +37,8 @@ export async function GET(request) {
     .filter((item) => {
       if (collection && collection !== 'All' && item.collection?.toLowerCase() !== collection.toLowerCase()) return false;
       if (category && category !== 'All' && item.category?.toLowerCase() !== category.toLowerCase()) return false;
-      
-      // Robust subcategory matching
-      if (subcategories.length > 0) {
-        const itemSub = item.subcategory?.toLowerCase() || "";
-        const matchesAnySubcategory = subcategories.some(sub => {
-          const subLower = sub.toLowerCase();
-          // Direct match
-          if (itemSub === subLower) return true;
-          // Substring match
-          if (itemSub.includes(subLower)) return true;
-          
-          // Tokenized match (e.g. "ROLLO MARMOL" matches "ROLLOS ADHESIVOS DE MARMOL")
-          const subTokens = subLower.split(' ');
-          return subTokens.every(token => itemSub.includes(token));
-        });
-        
-        if (!matchesAnySubcategory) return false;
-      }
+
+      if (!matchesSubcategoryFilter(item.subcategory, subcategories)) return false;
       return true;
     })
     .filter((item) =>

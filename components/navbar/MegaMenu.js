@@ -143,7 +143,7 @@ const MegaMenu = () => {
                                 return (
                                     <div key={category} className="group/item">
                                         <Link
-                                            href={`${data.page}?collection=${data.collection}`}
+                                            href={`${data.page}?category=${category}&collection=${data.collection}`}
                                             className="flex items-center gap-3 font-bold text-gray-900 group-hover/item:text-blue-600 mb-3 text-xs uppercase tracking-widest transition-all"
                                         >
                                             <data.icon className="w-4 h-4" />
