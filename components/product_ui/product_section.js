@@ -278,6 +278,7 @@ export default function ProductSection({ product }) {
                         <AddToContainer
                             item={{
                                 id: product.id,
+                                ID: product.id,
                                 name: product.name,
                                 dimensions: product.dimensions,
                                 price: product.basePrice,
