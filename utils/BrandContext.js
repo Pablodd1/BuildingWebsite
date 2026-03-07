@@ -32,13 +32,13 @@ export const BRAND_CONFIG = {
             secondary: '#3D6B7E',
             accent: '#144552',
         },
-        heroTagline: "Premium Surfaces. Designed to Impress.",
-        heroTagline_es: "Superficies Premium. Diseñadas Para Impresionar.",
+        heroTagline: "Al alcanze de lo que imaginas. Building innovation: ¡We design the future!",
+        heroTagline_es: "Al alcanze de lo que imaginas. Building innovation: ¡We design the future!",
     }
 };
 
 export function BrandProvider({ children }) {
-    const [activeBrand, setActiveBrand] = useState("binw");
+    const [activeBrand, setActiveBrand] = useState("unitec");
 
     // Persist brand choice
     useEffect(() => {

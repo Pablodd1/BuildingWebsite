@@ -156,7 +156,7 @@ const translations = {
         footer: {
             logo: {
                 text: "Building Innovation",
-                tagline: "We design the future!"
+                tagline: "Al alcanze de lo que imaginas. Building innovation: ¡We design the future!",
             },
             contact: {
                 title: "Contact Us"
