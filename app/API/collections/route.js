@@ -24,7 +24,7 @@ export async function GET(request) {
   const collection = searchParams.get("collection");
   const category = searchParams.get("category");
   const subcategoriesStr = searchParams.get("subcategories");
-  const subcategories = subcategoriesStr ? subcategoriesStr.split(',') : [];
+  const subcategories = subcategoriesStr ? subcategoriesStr.split(',').filter(Boolean) : [];
 
   const ITEMS_PER_PAGE = 15;
 
@@ -36,7 +36,24 @@ export async function GET(request) {
     .filter((item) => {
       if (collection && collection !== 'All' && item.collection?.toLowerCase() !== collection.toLowerCase()) return false;
       if (category && category !== 'All' && item.category?.toLowerCase() !== category.toLowerCase()) return false;
-      if (subcategories.length && !subcategories.includes(item.subcategory)) return false;
+      
+      // Robust subcategory matching
+      if (subcategories.length > 0) {
+        const itemSub = item.subcategory?.toLowerCase() || "";
+        const matchesAnySubcategory = subcategories.some(sub => {
+          const subLower = sub.toLowerCase();
+          // Direct match
+          if (itemSub === subLower) return true;
+          // Substring match
+          if (itemSub.includes(subLower)) return true;
+          
+          // Tokenized match (e.g. "ROLLO MARMOL" matches "ROLLOS ADHESIVOS DE MARMOL")
+          const subTokens = subLower.split(' ');
+          return subTokens.every(token => itemSub.includes(token));
+        });
+        
+        if (!matchesAnySubcategory) return false;
+      }
       return true;
     })
     .filter((item) =>
