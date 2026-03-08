@@ -2,6 +2,8 @@ export const translations = {
   en: {
     // Navigation
     nav: {
+      interiors: "Interiors",
+      exteriors: "Exteriors",
       home: "Home",
       products: "Products",
       productList: "Products List",
@@ -275,6 +277,8 @@ export const translations = {
   es: {
     // Navigation
     nav: {
+      interiors: "Interiores",
+      exteriors: "Exteriores",
       home: "Inicio",
       products: "Productos",
       productList: "Lista de Productos",

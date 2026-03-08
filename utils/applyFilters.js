@@ -10,11 +10,38 @@ export function buildRanges(values) {
     }));
 }
 
+export function normalizeTaxonomyValue(value) {
+    return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
+}
+
+export function matchesSubcategoryFilter(productSubcategory, requestedSubcategories = []) {
+    if (!requestedSubcategories?.length) return true;
+
+    const normalizedProductSubcategory = normalizeTaxonomyValue(productSubcategory);
+    if (!normalizedProductSubcategory) return false;
+
+    return requestedSubcategories.some((requested) => {
+        const normalizedRequested = normalizeTaxonomyValue(requested);
+        if (!normalizedRequested) return false;
+
+        if (normalizedProductSubcategory === normalizedRequested) return true;
+        if (normalizedProductSubcategory.includes(normalizedRequested)) return true;
+
+        const requestedTokens = normalizedRequested.split(" ").filter(Boolean);
+        return requestedTokens.every((token) => normalizedProductSubcategory.includes(token));
+    });
+}
+
 export function applyFilters(products, filters) {
     return products.filter(p => {
         if (filters.collection && filters.collection !== 'All' && p.collection?.toLowerCase() !== filters.collection?.toLowerCase()) return false;
         if (filters.category && filters.category !== 'All' && p.category?.toLowerCase() !== filters.category?.toLowerCase()) return false;
-        if (filters.subcategories.length && !filters.subcategories.includes(p.subcategory)) return false;
+        if (filters.subcategories.length && !matchesSubcategoryFilter(p.subcategory, filters.subcategories)) return false;
 
         const inRange = (range, value) => !range?.length || (value >= range[0] && value <= range[1]);
 

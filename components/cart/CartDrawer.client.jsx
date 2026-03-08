@@ -7,11 +7,22 @@ import { subscribeCart } from "lib/cart/cart.events"
 import { getCart } from "lib/cart/cart.core"
 import { totalQty } from "lib/cart/cart.selectors"
 import RenderItemsList from "./renderItems"
+import { useLanguage } from "lib/LanguageContext"
+import Link from "next/link"
 
 export default function CartDrawer() {
   const [open, setOpen] = useState(false)
   const [qty, setQty] = useState(0)
   const [containers, setContainers] = useState([])
+  const { language } = useLanguage()
+  const isSpanish = language === 'es'
+
+  const t = {
+    cart: isSpanish ? "Carrito" : "Cart",
+    empty: isSpanish ? "El carrito está vacío" : "Cart is empty",
+    checkout: isSpanish ? "Pagar" : "Checkout",
+    close: isSpanish ? "Cerrar" : "Close"
+  }
 
   /* UI open / close */
   useEffect(() => {
@@ -57,11 +68,11 @@ export default function CartDrawer() {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b">
               <h2 className="text-lg font-semibold">
-                Cart ({Number(qty)})
+                {t.cart} ({Number(qty)})
               </h2>
               <button
                 onClick={closeCart}
-                aria-label="Close Drawer"
+                aria-label={t.close}
                 className="text-sm opacity-70 hover:opacity-100"
               >
                 ✕
@@ -79,16 +90,16 @@ export default function CartDrawer() {
                 ))
               ) : (
                 <p className="text-sm text-gray-500 text-center py-10">
-                  Cart is empty
+                  {t.empty}
                 </p>
               )}
             </div>
 
             {/* Footer */}
             <div className="p-4 border-t">
-              <button aria-label="Checkout" className="w-full bg-black text-white py-2 rounded-md">
-                Checkout
-              </button>
+              <Link href="/checkout" aria-label={t.checkout} onClick={closeCart} className="block w-full bg-black text-white text-center py-2 rounded-md">
+                {t.checkout}
+              </Link>
             </div>
           </motion.aside>
         </>

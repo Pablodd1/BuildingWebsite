@@ -35,7 +35,7 @@ const TikTokIcon = ({ className }) => (
 );
 
 export default function ContactPage() {
-    const { t, lang } = useLanguage();
+    const { t, language: lang } = useLanguage();
     const { activeBrand, brand } = useBrand();
     const isSpanish = lang === 'es';
     const brandData = teamData[activeBrand] || teamData.binw;
@@ -95,11 +95,11 @@ export default function ContactPage() {
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="/raster/containes.avif"
-                        alt="Containers background"
+                        src="/raster/Representation.png"
+                        alt="Contact Us"
                         fill
+                        className="object-cover object-center w-full h-full"
                         priority
-                        className="object-cover"
                     />
                     <div className="absolute inset-0 bg-black/70"></div>
                 </div>

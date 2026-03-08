@@ -47,7 +47,7 @@ export default function ProductItem({ item, isSlides = false, index = 0 }) {
                     <GetFinalPrice
                         basePrice={item.basePrice}
                         discountPercent={item.discountPercent}
-                        className='text-black bg-primary shadow shadow-secondary/75 px-2 py-1 rounded-md tracking-wide font-mono text-sm'
+                        className='text-black px-2 py-1 tracking-wide font-mono text-lg font-extrabold'
                     />
                 </div>
 
