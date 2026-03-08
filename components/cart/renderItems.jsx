@@ -9,11 +9,20 @@ import { subscribeCart } from "lib/cart/cart.events"
 import { Minus, Plus } from "lucide-react"
 import { getCart } from "lib/cart/cart.core"
 import { notify } from "lib/notify"
+import { useLanguage } from "lib/LanguageContext"
 
 export default function RenderItemsList({ container }) {
     const [items, setItems] = useState(container.items || [])
     const [products, setProducts] = useState({})
     const [loading, setLoading] = useState(true)
+    const { language } = useLanguage()
+    const isSpanish = language === 'es'
+
+    const t = {
+        noProducts: isSpanish ? "No hay productos en este contenedor" : "No products in this container",
+        remove: isSpanish ? "Eliminar producto" : "Remove Product",
+        add: isSpanish ? "Añadir producto" : "Add product"
+    }
 
     async function fetchProduct(id) {
         const res = await fetch(
@@ -83,7 +92,7 @@ export default function RenderItemsList({ container }) {
     if (!items.length)
         return (
             <div className="py-6 text-center text-sm text-gray-500">
-                No products in this container
+                {t.noProducts}
             </div>
         )
 
@@ -125,9 +134,9 @@ export default function RenderItemsList({ container }) {
                                         />
                                     </span>
 
-                                    <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-2">
                                         <button
-                                            aria-label="Remove Product"
+                                            aria-label={t.remove}
                                             onClick={() => removeProduct(container.id, item.ID)}
                                             className="flex h-7 w-7 items-center justify-center rounded-md border hover:bg-gray-100"
                                         >
@@ -144,7 +153,7 @@ export default function RenderItemsList({ container }) {
                                         />
 
                                         <button
-                                            aria-label="Add product"
+                                            aria-label={t.add}
                                             onClick={() => addProduct(container.id, item.ID)}
                                             className="flex h-7 w-7 items-center justify-center rounded-md border hover:bg-gray-100"
                                         >
