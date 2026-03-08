@@ -4,10 +4,14 @@ import { addOne } from "lib/cart/cart.actions";
 import { Loader, Plus } from "lucide-react";
 import { Suspense, useState } from "react";
 import ContainerModal from "./selectContainer";
+import { useLanguage } from "lib/LanguageContext";
 
 
 export default function AddToContainer({ item, isProductPage = false, callback }) {
     const [showModal, setShowModal] = useState(false);
+    const { language } = useLanguage();
+    const isSpanish = language === 'es';
+    
     const toggleModal = () => {
         setShowModal(prev => {
             const next = !prev;
@@ -18,7 +22,7 @@ export default function AddToContainer({ item, isProductPage = false, callback }
         <>
             <motion.button
                 onClick={toggleModal}
-                aria-label="Add to Container"
+                aria-label={isSpanish ? "Añadir al Contenedor" : "Add to Container"}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`
@@ -28,7 +32,7 @@ export default function AddToContainer({ item, isProductPage = false, callback }
                     }
              bg-black text-white hover:bg-primary transition-all duration-300 ease-in cursor-pointer font-semibold flex items-center justify-center gap-2`} >
                 <Plus className="w-4 h-4" />
-                Add to Container
+                {isSpanish ? "Añadir al Contenedor" : "Add to Container"}
             </motion.button>
             <ContainerModal {...{ showModal, toggleModal, item,  }} />
         </>
