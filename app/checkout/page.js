@@ -15,6 +15,8 @@ export default function CheckoutPage() {
     const [submitted, setSubmitted] = useState(false)
     const printRef = useRef()
     const [referenceId] = useState(() => `QR-${Date.now().toString(36).toUpperCase()}`)
+    const [shippingCost, setShippingCost] = useState(0)
+    const [shippingTime, setShippingTime] = useState("")
 
     const [formData, setFormData] = useState({
         companyName: "",
@@ -38,12 +40,50 @@ export default function CheckoutPage() {
         initializeCheckout()
     }, [])
 
+    useEffect(() => {
+        if (cart.length === 0 || !formData.country || !formData.state) {
+            setShippingCost(0)
+            setShippingTime("")
+            return
+        }
+
+        let costPerContainer = 0
+        let time = ""
+        const state = formData.state.toUpperCase()
+        
+        if (formData.country === "US") {
+            if (["FL", "FLORIDA"].includes(state)) {
+                costPerContainer = 450
+                time = "3-5 Business Days"
+            } else if (["CA", "CALIFORNIA", "NY", "NEW YORK"].includes(state)) {
+                costPerContainer = 1200
+                time = "7-10 Business Days"
+            } else {
+                costPerContainer = 850
+                time = "5-8 Business Days"
+            }
+        } else if (formData.country === "CA") {
+            costPerContainer = 1800
+            time = "10-14 Business Days"
+        } else if (formData.country === "MX") {
+            costPerContainer = 1500
+            time = "9-12 Business Days"
+        } else {
+            costPerContainer = 3000
+            time = "15-25 Business Days"
+        }
+
+        setShippingCost(cart.length * costPerContainer)
+        setShippingTime(time)
+    }, [formData.country, formData.state, cart])
+
     const calculateTotal = () => {
-        return cart.reduce((total, container) => {
+        const itemTotal = cart.reduce((total, container) => {
             return total + container.items.reduce((itemTotal, item) => {
                 return itemTotal + (item.price || 0) * item.qty
             }, 0)
         }, 0)
+        return itemTotal + shippingCost
     }
 
     const calculateItemCount = () => {
@@ -176,12 +216,22 @@ export default function CheckoutPage() {
                             ))}
 
                             <div className="border-t-2 border-gray-200 pt-4 mt-6">
+                                <div className="flex justify-between items-center text-gray-700 mb-2">
+                                    <span>Shipping ({cart.length} container{cart.length !== 1 ? 's' : ''}):</span>
+                                    <span>{shippingCost > 0 ? `$${shippingCost.toFixed(2)}` : 'TBD'}</span>
+                                </div>
+                                {shippingTime && (
+                                    <div className="flex justify-between items-center text-gray-600 text-sm mb-4">
+                                        <span>Estimated Delivery:</span>
+                                        <span>{shippingTime}</span>
+                                    </div>
+                                )}
                                 <div className="flex justify-between items-center text-xl font-bold">
                                     <span>Estimated Total:</span>
                                     <span>{calculateTotal() > 0 ? `$${calculateTotal().toFixed(2)}` : 'Contact for Pricing'}</span>
                                 </div>
                                 <p className="text-sm text-gray-500 mt-2">
-                                    *Final pricing includes shipping, taxes, and duties based on destination.
+                                    *Final pricing includes items and approximated shipping. Taxes and duties are calculated based on destination.
                                 </p>
                             </div>
 
@@ -374,15 +424,21 @@ export default function CheckoutPage() {
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
                                             Country *
                                         </label>
-                                        <input
-                                            type="text"
+                                        <select
                                             name="country"
                                             value={formData.country}
                                             onChange={handleInputChange}
                                             required
                                             className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
-                                            placeholder="United States"
-                                        />
+                                        >
+                                            <option value="" disabled>Select Country</option>
+                                            <option value="US">United States</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="MX">Mexico</option>
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="AU">Australia</option>
+                                            <option value="OTHER">Other</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -471,15 +527,18 @@ export default function CheckoutPage() {
                                 <div className="border-t border-gray-100 pt-4 space-y-2">
                                     <div className="flex justify-between text-sm text-gray-600">
                                         <span>Subtotal</span>
-                                        <span>{calculateTotal() > 0 ? `$${calculateTotal().toFixed(2)}` : 'Contact for pricing'}</span>
+                                        <span>{calculateTotal() - shippingCost > 0 ? `$${(calculateTotal() - shippingCost).toFixed(2)}` : 'Contact for pricing'}</span>
                                     </div>
                                     <div className="flex justify-between text-sm text-gray-600">
-                                        <span>Shipping</span>
-                                        <span>Calculated later</span>
+                                        <span>Shipping ({cart.length} container{cart.length > 1 ? 's' : ''})</span>
+                                        <span className="text-right">
+                                            {shippingCost > 0 ? `$${shippingCost.toFixed(2)}` : 'Calculated by location'}
+                                            {shippingTime && <div className="text-xs text-gray-400 mt-0.5">ETA: {shippingTime}</div>}
+                                        </span>
                                     </div>
-                                    <div className="flex justify-between text-sm text-gray-600">
-                                        <span>Taxes</span>
-                                        <span>Calculated later</span>
+                                    <div className="flex justify-between items-center text-lg font-bold pt-4 border-t border-gray-100 mt-4">
+                                        <span>Estimated Total</span>
+                                        <span>{calculateTotal() > 0 ? `$${calculateTotal().toFixed(2)}` : 'Contact for Pricing'}</span>
                                     </div>
                                 </div>
 

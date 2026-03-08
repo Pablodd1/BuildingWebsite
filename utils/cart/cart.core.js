@@ -86,3 +86,25 @@ export function removeContainer(containerId) {
   if (index !== -1) cart.splice(index, 1)
   persist()
 }
+
+// Set exact quantity of an item
+export function setQty(containerId, product, newQty) {
+  const container = cart.find(c => c.id === containerId)
+  if (!container) throw new Error("Container not found")
+
+  const existing = container.items.find(i => i.id === product.id)
+  
+  if (newQty <= 0) {
+      if (existing) {
+          container.items = container.items.filter(i => i.id !== product.id)
+      }
+  } else {
+      if (existing) {
+          existing.qty = newQty
+      } else {
+          container.items.push({ ...product, qty: newQty, type: "product" })
+      }
+  }
+  
+  persist()
+}

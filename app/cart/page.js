@@ -4,7 +4,8 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Trash2, Plus, Minus, Printer, ShoppingCart, ArrowRight, Package } from "lucide-react"
 import { useLanguage } from "lib/LanguageContext"
-import { getCart, removeContainer, removeOne, addOne } from "utils/cart/cart.core"
+import { getCart, removeContainer, removeOne, addOne, setQty } from "utils/cart/cart.core"
+import { containerFillPercent } from "utils/cart/cart.utils"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -38,6 +39,22 @@ export default function CartPage() {
     const handleAddItem = (containerId, product) => {
         addOne(containerId, product)
         updateCart()
+    }
+
+    const handleSetQty = (containerId, product, qty) => {
+        const val = parseInt(qty)
+        if (isNaN(val) || val < 0) return
+        setQty(containerId, product, val)
+        updateCart()
+    }
+
+    const isAllContainersFull = () => {
+        if (cart.length === 0) return false;
+        for (const container of cart) {
+            const { filledTotal } = containerFillPercent(container);
+            if (filledTotal < 99) return false;
+        }
+        return true;
     }
 
     const calculateTotal = () => {
@@ -129,17 +146,41 @@ export default function CartPage() {
                                     className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
                                 >
                                     {/* Container Header */}
-                                    <div className="bg-gray-50 px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <Package className="w-5 h-5 text-gray-600" />
-                                            <div>
-                                                <h3 className="font-semibold text-gray-900">{container.name}</h3>
-                                                <p className="text-sm text-gray-500">
-                                                    {container.dimension?.length || 20}ft Container
-                                                </p>
+                                        <div className="bg-gray-50 px-6 py-4 border-b border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                                            <div className="flex items-center gap-3">
+                                                <Package className="w-5 h-5 text-gray-600" />
+                                                <div>
+                                                    <h3 className="font-semibold text-gray-900">{container.name}</h3>
+                                                    <p className="text-sm text-gray-500">
+                                                        {container.dimension?.length || 20}ft Container
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <button
+
+                                            {/* Container Fill Progress */}
+                                            <div className="flex-1 w-full md:max-w-xs md:mx-auto">
+                                                {(() => {
+                                                    const { filledTotal } = containerFillPercent(container);
+                                                    return (
+                                                        <div className="flex flex-col gap-1 w-full">
+                                                            <div className="flex justify-between text-xs font-semibold">
+                                                                <span className={filledTotal >= 99 ? "text-green-600 text-sm" : "text-gray-600"}>
+                                                                    {filledTotal >= 99 ? 'Container Full' : 'Container filling...'}
+                                                                </span>
+                                                                <span className={filledTotal >= 99 ? "text-green-600 text-sm" : "text-gray-900"}>{filledTotal.toFixed(1)}%</span>
+                                                            </div>
+                                                            <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                                                                <div 
+                                                                    className={`h-2 rounded-full transition-all duration-300 ${filledTotal >= 99 ? "bg-green-500" : "bg-blue-600"}`} 
+                                                                    style={{ width: `${filledTotal}%` }}
+                                                                ></div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })()}
+                                            </div>
+
+                                            <button
                                             onClick={() => handleRemoveContainer(container.id)}
                                             className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                                             aria-label="Remove container"
@@ -172,22 +213,30 @@ export default function CartPage() {
                                                 </div>
 
                                                 {/* Quantity Controls */}
-                                                <div className="flex items-center gap-3">
-                                                    <button
-                                                        onClick={() => handleRemoveItem(container.id, item.id)}
-                                                        className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
-                                                        aria-label="Decrease quantity"
-                                                    >
-                                                        <Minus size={16} />
-                                                    </button>
-                                                    <span className="w-12 text-center font-medium">{item.qty}</span>
-                                                    <button
-                                                        onClick={() => handleAddItem(container.id, item)}
-                                                        className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
-                                                        aria-label="Increase quantity"
-                                                    >
-                                                        <Plus size={16} />
-                                                    </button>
+                                                <div className="flex flex-col items-center gap-2">
+                                                    <div className="flex items-center gap-2">
+                                                        <button
+                                                            onClick={() => handleRemoveItem(container.id, item.id)}
+                                                            className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
+                                                            aria-label="Decrease quantity"
+                                                        >
+                                                            <Minus size={16} />
+                                                        </button>
+                                                        <input 
+                                                            type="number"
+                                                            value={item.qty}
+                                                            onChange={(e) => handleSetQty(container.id, item, e.target.value)}
+                                                            className="w-16 h-8 text-center font-medium border border-gray-200 rounded-lg outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                                            min="1"
+                                                        />
+                                                        <button
+                                                            onClick={() => handleAddItem(container.id, item)}
+                                                            className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
+                                                            aria-label="Increase quantity"
+                                                        >
+                                                            <Plus size={16} />
+                                                        </button>
+                                                    </div>
                                                 </div>
 
                                                 {/* Item Total */}
@@ -258,9 +307,17 @@ export default function CartPage() {
                                     </div>
                                 </div>
 
+                                {cart.length > 0 && !isAllContainersFull() && (
+                                    <div className="mb-4 p-4 bg-orange-50 border border-orange-200 rounded-xl text-orange-800 text-sm">
+                                        <p className="font-medium flex items-center gap-2">⚠️ Containers must be full</p>
+                                        <p className="mt-1">Please completely fill all your containers (100%) to proceed with checkout.</p>
+                                    </div>
+                                )}
+
                                 <Link 
-                                    href="/checkout"
-                                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-black px-6 py-4 text-sm font-semibold text-white transition hover:bg-gray-900"
+                                    href={isAllContainersFull() ? "/checkout" : "#"}
+                                    onClick={(e) => { if (!isAllContainersFull() || cart.length === 0) e.preventDefault() }}
+                                    className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold text-white transition ${isAllContainersFull() && cart.length > 0 ? "bg-black hover:bg-gray-900" : "bg-gray-300 cursor-not-allowed"}`}
                                 >
                                     Proceed to Checkout
                                     <ArrowRight size={18} />
