@@ -1,8 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Home, Building2, Ruler, Layers, Box, Grid3X3, Package } from "lucide-react";
 import Stylish_H2 from "My_UI/stylish_h2";
 import { useLanguage } from "lib/LanguageContext";
+import { translateText } from "lib/translate";
 
 const storyTranslations = {
     en: {
@@ -18,7 +20,8 @@ const storyTranslations = {
         collection: "Collection",
         packaging: "Packaging",
         itemsPerBox: "item / box",
-        notAvailable: "N/A"
+        notAvailable: "N/A",
+        loading: "Translating..."
     },
     es: {
         materialApplication: "Material y Aplicación",
@@ -33,13 +36,39 @@ const storyTranslations = {
         collection: "Colección",
         packaging: "Embalaje",
         itemsPerBox: "artículo / caja",
-        notAvailable: "N/D"
+        notAvailable: "N/D",
+        loading: "Traduciendo..."
     }
 };
 
 export default function ProductStory({ product, description }) {
     const { language } = useLanguage();
     const t = storyTranslations[language] || storyTranslations.en;
+    
+    const [translatedDesc, setTranslatedDesc] = useState(description);
+    const [isTranslating, setIsTranslating] = useState(false);
+    
+    useEffect(() => {
+        const translateDescription = async () => {
+            if (language === 'en') {
+                setTranslatedDesc(description);
+                return;
+            }
+            
+            setIsTranslating(true);
+            try {
+                const translated = await translateText(description, 'es');
+                setTranslatedDesc(translated);
+            } catch (error) {
+                console.error('Translation error:', error);
+                setTranslatedDesc(description);
+            } finally {
+                setIsTranslating(false);
+            }
+        };
+        
+        translateDescription();
+    }, [language, description]);
     
     if (!product) return null;
     const { category, subcategory, collection, itemsPerBox } = product;
@@ -49,7 +78,7 @@ export default function ProductStory({ product, description }) {
             <Stylish_H2 h2={t.materialApplication} />
 
             <p className="text-sm leading-relaxed text-gray-600 max-w-4/5">
-                {description}
+                {isTranslating ? t.loading || 'Translating...' : translatedDesc}
             </p>
 
             {/* Applications */}

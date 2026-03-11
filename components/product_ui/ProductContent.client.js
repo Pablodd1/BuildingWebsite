@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useLanguage } from "lib/LanguageContext";
 import { useBrand } from "lib/BrandContext";
+import { translateText } from "lib/translate";
 
 const productTranslations = {
     en: {
@@ -19,16 +21,17 @@ const productTranslations = {
         secureTransaction: "Secure transaction",
         ratings: "ratings",
         collection: "Collection",
-        category: "Category"
+        category: "Category",
+        loading: "Loading translation..."
     },
     es: {
         aboutThisItem: "Acerca de este producto",
         engineeredFor: "Diseñado para durabilidad y alto rendimiento.",
-        perfectlySuited: "Perfectamente suited para",
+        perfectlySuited: "Perfectamente adecuado para",
         variousApplications: "varias aplicaciones",
         itemsPerBox: "Artículos por caja",
         inStock: "En Stock",
-        shipsWithin: "Usually ships within 2-3 work days.",
+        shipsWithin: "Generalmente envía dentro de 2-3 días hábiles.",
         shipsFrom: "Envía desde",
         soldBy: "Vendido por",
         returns: "Devoluciones",
@@ -36,7 +39,8 @@ const productTranslations = {
         secureTransaction: "Transacción segura",
         ratings: "calificaciones",
         collection: "Colección",
-        category: "Categoría"
+        category: "Categoría",
+        loading: "Cargando traducción..."
     }
 };
 
@@ -80,6 +84,10 @@ export function ProductContent({ product }) {
     const { language } = useLanguage();
     const { activeBrand } = useBrand();
     
+    const [translatedName, setTranslatedName] = useState(product.name);
+    const [translatedDesc, setTranslatedDesc] = useState(product.description);
+    const [isTranslating, setIsTranslating] = useState(false);
+    
     const t = productTranslations[language] || productTranslations.en;
     const category = product.category || '';
     const collection = product.collection || '';
@@ -88,11 +96,42 @@ export function ProductContent({ product }) {
     const translatedCollection = collectionTranslations[language]?.[collection] || collection;
     
     const companyName = activeBrand === 'unitec' ? 'UNITEC USA Design' : 'Building Innovation';
+    
+    useEffect(() => {
+        const translateProduct = async () => {
+            if (language === 'en') {
+                setTranslatedName(product.name);
+                setTranslatedDesc(product.description);
+                return;
+            }
+            
+            setIsTranslating(true);
+            try {
+                const [name, desc] = await Promise.all([
+                    translateText(product.name, 'es'),
+                    translateText(product.description, 'es')
+                ]);
+                setTranslatedName(name);
+                setTranslatedDesc(desc);
+            } catch (error) {
+                console.error('Translation error:', error);
+                setTranslatedName(product.name);
+                setTranslatedDesc(product.description);
+            } finally {
+                setIsTranslating(false);
+            }
+        };
+        
+        translateProduct();
+    }, [language, product.name, product.description]);
+    
+    const displayName = isTranslating ? t.loading : translatedName;
+    const displayDesc = isTranslating ? t.loading : translatedDesc;
 
     return (
         <div className="lg:col-span-4 flex flex-col pt-2 lg:pt-6">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-2">
-                {product.name}
+                {displayName}
             </h1>
             
             <div className="text-sm text-blue-600 font-semibold mb-4 uppercase tracking-wider">
@@ -111,7 +150,7 @@ export function ProductContent({ product }) {
             <div className="mb-6">
                 <div className="text-sm font-semibold text-gray-900 mb-2">{t.aboutThisItem}</div>
                 <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
-                    <li>{product.description}</li>
+                    <li>{displayDesc}</li>
                     <li>{t.engineeredFor}</li>
                     <li>{t.perfectlySuited} {product.subcategory?.toLowerCase() || t.variousApplications}.</li>
                     {product.itemsPerBox && <li>{t.itemsPerBox}: {product.itemsPerBox}</li>}
