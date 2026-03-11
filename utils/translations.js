@@ -27,6 +27,12 @@ const translations = {
                     city: "Doral, Miami, FL 33166",
                     country: "United States",
                     phone: "+1 (786) 968-5783"
+                },
+                quality: {
+                    title: "Committed to Quality",
+                    quote: "\"At UNITEC USA, quality is not a standard—it's a promise.\"",
+                    intro: "Every product undergoes certified technical control processes and material selection, ensuring durability, precision, and high-end finishes.",
+                    closing: "Quality you can see, feel, and trust over time"
                 }
             },
             binw: {
@@ -55,6 +61,12 @@ const translations = {
                     city: "Doral, Miami, FL 33166",
                     country: "United States",
                     phone: "+1 (786) 968-5783"
+                },
+                quality: {
+                    title: "Committed to Quality",
+                    quote: "\"At Building Innovation, quality is not a standard—it's a promise.\"",
+                    intro: "Every product undergoes certified technical control processes and material selection, ensuring durability, precision, and high-end finishes.",
+                    closing: "Quality you can see, feel, and trust over time"
                 }
             }
         },
@@ -87,6 +99,35 @@ const translations = {
             interiors: "Interior",
             exteriors: "Exterior",
             tagline: "Building Materials"
+        },
+        cart: {
+            title: "Shopping Cart",
+            empty: "Your Cart is Empty",
+            emptyDescription: "Start building your container with our premium PVC and WPC building materials.",
+            browseProducts: "Browse Products",
+            itemsIn: "items in",
+            container: "container",
+            containers: "containers",
+            printSummary: "Print Summary",
+            containerFull: "Container Full",
+            containerFilling: "Container filling...",
+            removeContainer: "Remove container",
+            id: "ID",
+            each: "each",
+            decreaseQuantity: "Decrease quantity",
+            increaseQuantity: "Increase quantity",
+            items: "items",
+            subtotal: "Subtotal",
+            total: "Total",
+            proceedToCheckout: "Proceed to Checkout",
+            continueShopping: "Continue Shopping",
+            volume: "Volume",
+            weight: "Weight",
+            containerSize: "Container Size",
+            addToContainer: "Add to Container",
+            createContainer: "Create New Container",
+            noContainers: "No containers yet",
+            addFirstContainer: "Add your first container to start building"
         },
         dimensions: {
             width: "WIDTH",
@@ -271,11 +312,19 @@ const translations = {
                 }
             },
             mission: {
-                title: "Our Mission",
-                p1: "At Unitec USA Design, our mission is to redefine modern construction by delivering innovative, sustainable, and high-quality PVC and WPC building materials that elevate everyday spaces.",
+                title: "Nuestra Misión",
+                p1: "En Unitec USA Design, nuestra misión es redefinir la construcción moderna delivering innovative, sustainable, and high-quality PVC and WPC building materials that elevate everyday spaces.",
                 p2: "We believe building materials should do more than function — they should inspire creativity, simplify installation, and contribute to a more sustainable built environment.",
+                purpose: "Nuestro Propósito",
+                innovation: "Innovación",
+                innovationDesc: "Desarrollando nuevos materiales y soluciones",
+                partnership: "Alianzas",
+                partnershipDesc: "Construyendo relaciones a largo plazo",
+                globalImpact: "Impacto Global",
+                globalImpactDesc: "Mejorando la calidad de vida",
+                commitments: "Nuestros Compromisos",
                 items: [
-                    "Future-proof product development",
+                    "Innovative, future-ready product development",
                     "Eco-conscious materials and manufacturing",
                     "Premium quality without compromise",
                     "Solutions that empower professionals and homeowners",
@@ -703,6 +752,12 @@ const translations = {
                     city: "Doral, Miami, FL 33166",
                     country: "Estados Unidos",
                     phone: "+1 (786) 968-5783"
+                },
+                quality: {
+                    title: "Comprometidos con la Calidad",
+                    quote: "\"En UNITEC USA, la calidad no es un estándar—es una promesa.\"",
+                    intro: "Cada producto pasa por procesos de control técnico y selección de materiales certificados, asegurando durabilidad, precisión y acabados de alta gama.",
+                    closing: "Calidad que puede ver, sentir y confiar a través del tiempo"
                 }
             },
             binw: {
@@ -731,6 +786,12 @@ const translations = {
                     city: "Doral, Miami, FL 33166",
                     country: "Estados Unidos",
                     phone: "+1 (786) 968-5783"
+                },
+                quality: {
+                    title: "Comprometidos con la Calidad",
+                    quote: "\"En Building Innovation, la calidad no es un estándar—es una promesa.\"",
+                    intro: "Cada producto pasa por procesos de control técnico y selección de materiales certificados, asegurando durabilidad, precisión y acabados de alta gama.",
+                    closing: "Calidad que puede ver, sentir y confiar a través del tiempo"
                 }
             }
         },
@@ -763,6 +824,35 @@ const translations = {
             interiors: "Interior",
             exteriors: "Exterior",
             tagline: "Materiales de Construcción"
+        },
+        cart: {
+            title: "Carrito de Compras",
+            empty: "Tu Carrito Está Vacío",
+            emptyDescription: "Comienza a construir tu contenedor con nuestros materiales premium de PVC y WPC.",
+            browseProducts: "Explorar Productos",
+            itemsIn: "artículos en",
+            container: "contenedor",
+            containers: "contenedores",
+            printSummary: "Imprimir Resumen",
+            containerFull: "Contenedor Lleno",
+            containerFilling: "Llenando contenedor...",
+            removeContainer: "Eliminar contenedor",
+            id: "ID",
+            each: "cada uno",
+            decreaseQuantity: "Disminuir cantidad",
+            increaseQuantity: "Aumentar cantidad",
+            items: "artículos",
+            subtotal: "Subtotal",
+            total: "Total",
+            proceedToCheckout: "Proceder al Pago",
+            continueShopping: "Continuar Comprando",
+            volume: "Volumen",
+            weight: "Peso",
+            containerSize: "Tamaño del Contenedor",
+            addToContainer: "Agregar al Contenedor",
+            createContainer: "Crear Nuevo Contenedor",
+            noContainers: "Aún no hay contenedores",
+            addFirstContainer: "Agrega tu primer contenedor para comenzar"
         },
         dimensions: {
             width: "ANCHO",

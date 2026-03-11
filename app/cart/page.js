@@ -91,15 +91,15 @@ export default function CartPage() {
                 <section className="bg-gray-900 py-20 text-white">
                     <div className="mx-auto max-w-6xl px-4 text-center">
                         <ShoppingCart className="w-16 h-16 mx-auto mb-6" />
-                        <h1 className="text-4xl md:text-5xl font-bold mb-6">Your Cart is Empty</h1>
+                        <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('cart.empty')}</h1>
                         <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-                            Start building your container with our premium PVC and WPC building materials.
+                            {t('cart.emptyDescription')}
                         </p>
                         <Link 
                             href="/collections"
                             className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-semibold text-black transition hover:bg-gray-200"
                         >
-                            Browse Products
+                            {t('cart.browseProducts')}
                             <ArrowRight size={18} />
                         </Link>
                     </div>
@@ -115,9 +115,9 @@ export default function CartPage() {
                 <div className="mx-auto max-w-7xl px-4">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                         <div>
-                            <h1 className="text-3xl md:text-5xl font-bold mb-2">Shopping Cart</h1>
+                            <h1 className="text-3xl md:text-5xl font-bold mb-2">{t('cart.title')}</h1>
                             <p className="text-gray-300">
-                                {calculateItemCount()} items in {cart.length} container{cart.length > 1 ? 's' : ''}
+                                {calculateItemCount()} {t('cart.itemsIn')} {cart.length} {cart.length > 1 ? t('cart.containers') : t('cart.container')}
                             </p>
                         </div>
                         <button
@@ -125,7 +125,7 @@ export default function CartPage() {
                             className="flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-xl transition-colors"
                         >
                             <Printer size={20} />
-                            Print Summary
+                            {t('cart.printSummary')}
                         </button>
                     </div>
                 </div>
@@ -165,7 +165,7 @@ export default function CartPage() {
                                                         <div className="flex flex-col gap-1 w-full">
                                                             <div className="flex justify-between text-xs font-semibold">
                                                                 <span className={filledTotal >= 99 ? "text-green-600 text-sm" : "text-gray-600"}>
-                                                                    {filledTotal >= 99 ? 'Container Full' : 'Container filling...'}
+                                                                    {filledTotal >= 99 ? t('cart.containerFull') : t('cart.containerFilling')}
                                                                 </span>
                                                                 <span className={filledTotal >= 99 ? "text-green-600 text-sm" : "text-gray-900"}>{filledTotal.toFixed(1)}%</span>
                                                             </div>
@@ -183,7 +183,7 @@ export default function CartPage() {
                                             <button
                                             onClick={() => handleRemoveContainer(container.id)}
                                             className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                                            aria-label="Remove container"
+                                            aria-label={t('cart.removeContainer')}
                                         >
                                             <Trash2 size={20} />
                                         </button>
@@ -204,10 +204,10 @@ export default function CartPage() {
                                                 {/* Product Info */}
                                                 <div className="flex-1 min-w-0">
                                                     <h4 className="font-medium text-gray-900 truncate">{item.name}</h4>
-                                                    <p className="text-sm text-gray-500">ID: {item.id}</p>
+                                                    <p className="text-sm text-gray-500">{t('cart.id')}: {item.id}</p>
                                                     {item.price && (
                                                         <p className="text-sm font-medium text-gray-900 mt-1">
-                                                            ${item.price.toFixed(2)} each
+                                                            ${item.price.toFixed(2)} {t('cart.each')}
                                                         </p>
                                                     )}
                                                 </div>
@@ -218,7 +218,7 @@ export default function CartPage() {
                                                         <button
                                                             onClick={() => handleRemoveItem(container.id, item.id)}
                                                             className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
-                                                            aria-label="Decrease quantity"
+                                                            aria-label={t('cart.decreaseQuantity')}
                                                         >
                                                             <Minus size={16} />
                                                         </button>
@@ -232,7 +232,7 @@ export default function CartPage() {
                                                         <button
                                                             onClick={() => handleAddItem(container.id, item)}
                                                             className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
-                                                            aria-label="Increase quantity"
+                                                            aria-label={t('cart.increaseQuantity')}
                                                         >
                                                             <Plus size={16} />
                                                         </button>
@@ -255,11 +255,11 @@ export default function CartPage() {
                                     <div className="bg-gray-50 px-6 py-4 border-t border-gray-100">
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-600">
-                                                {container.items.reduce((sum, item) => sum + item.qty, 0)} items
+                                                {container.items.reduce((sum, item) => sum + item.qty, 0)} {t('cart.items')}
                                             </span>
                                             {container.items.some(item => item.price) && (
                                                 <span className="font-semibold text-gray-900">
-                                                    Subtotal: ${container.items.reduce((sum, item) => sum + (item.price || 0) * item.qty, 0).toFixed(2)}
+                                                    {t('cart.subtotal')}: ${container.items.reduce((sum, item) => sum + (item.price || 0) * item.qty, 0).toFixed(2)}
                                                 </span>
                                             )}
                                         </div>
@@ -275,20 +275,20 @@ export default function CartPage() {
                                 animate={{ opacity: 1, x: 0 }}
                                 className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-24"
                             >
-                                <h2 className="text-xl font-bold mb-6">Order Summary</h2>
+                                <h2 className="text-xl font-bold mb-6">{t('cart.subtotal')}</h2>
                                 
                                 <div className="space-y-4 mb-6">
                                     <div className="flex justify-between text-gray-600">
-                                        <span>Containers</span>
+                                        <span>{cart.length > 1 ? t('cart.containers') : t('cart.container')}</span>
                                         <span>{cart.length}</span>
                                     </div>
                                     <div className="flex justify-between text-gray-600">
-                                        <span>Total Items</span>
+                                        <span>{t('cart.items')}</span>
                                         <span>{calculateItemCount()}</span>
                                     </div>
                                     {calculateTotal() > 0 && (
                                         <div className="flex justify-between text-gray-600">
-                                            <span>Subtotal</span>
+                                            <span>{t('cart.subtotal')}</span>
                                             <span>${calculateTotal().toFixed(2)}</span>
                                         </div>
                                     )}
@@ -300,7 +300,7 @@ export default function CartPage() {
 
                                 <div className="border-t border-gray-100 pt-4 mb-6">
                                     <div className="flex justify-between items-center">
-                                        <span className="text-lg font-bold">Estimated Total</span>
+                                        <span className="text-lg font-bold">{t('cart.total')}</span>
                                         <span className="text-2xl font-bold">
                                             {calculateTotal() > 0 ? `$${calculateTotal().toFixed(2)}` : 'Contact for Pricing'}
                                         </span>
@@ -309,7 +309,7 @@ export default function CartPage() {
 
                                 {cart.length > 0 && !isAllContainersFull() && (
                                     <div className="mb-4 p-4 bg-orange-50 border border-orange-200 rounded-xl text-orange-800 text-sm">
-                                        <p className="font-medium flex items-center gap-2">⚠️ Containers must be full</p>
+                                        <p className="font-medium flex items-center gap-2">⚠️ {t('cart.containerFull')}</p>
                                         <p className="mt-1">Please completely fill all your containers (100%) to proceed with checkout.</p>
                                     </div>
                                 )}
@@ -319,7 +319,7 @@ export default function CartPage() {
                                     onClick={(e) => { if (!isAllContainersFull() || cart.length === 0) e.preventDefault() }}
                                     className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold text-white transition ${isAllContainersFull() && cart.length > 0 ? "bg-black hover:bg-gray-900" : "bg-gray-300 cursor-not-allowed"}`}
                                 >
-                                    Proceed to Checkout
+                                    {t('cart.proceedToCheckout')}
                                     <ArrowRight size={18} />
                                 </Link>
 
@@ -327,7 +327,7 @@ export default function CartPage() {
                                     href="/collections"
                                     className="flex w-full items-center justify-center mt-3 text-gray-600 hover:text-gray-900 transition-colors"
                                 >
-                                    Continue Shopping
+                                    {t('cart.continueShopping')}
                                 </Link>
 
                                 <div className="mt-6 pt-6 border-t border-gray-100 text-sm text-gray-500">

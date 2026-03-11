@@ -3,9 +3,13 @@
 import React from 'react';
 import { Target, Lightbulb, Heart, Globe, CheckCircle } from 'lucide-react';
 import { useLanguage } from 'lib/LanguageContext';
+import { useBrand } from 'lib/BrandContext';
 
 export default function MissionPage() {
-    const { t } = useLanguage();
+    const { t, language: lang } = useLanguage();
+    const { activeBrand } = useBrand();
+    
+    const isSpanish = lang === 'es';
     
     return (
         <main className="w-full">
@@ -35,7 +39,7 @@ export default function MissionPage() {
                         </div>
                         
                         <h2 className="text-3xl font-bold text-center mb-8 uppercase tracking-wide">
-                            Our Purpose
+                            {isSpanish ? 'Nuestro Propósito' : 'Our Purpose'}
                         </h2>
                         
                         <p className="text-lg text-gray-700 leading-relaxed text-center mb-8">
@@ -47,22 +51,22 @@ export default function MissionPage() {
                                 <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Lightbulb className="w-8 h-8 text-white" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-2">Innovation</h3>
-                                <p className="text-gray-600">Pioneering new materials and solutions</p>
+                                <h3 className="text-xl font-bold mb-2">{isSpanish ? 'Innovación' : 'Innovation'}</h3>
+                                <p className="text-gray-600">{isSpanish ? 'Desarrollando nuevos materiales y soluciones' : 'Pioneering new materials and solutions'}</p>
                             </div>
                             <div className="text-center">
                                 <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Heart className="w-8 h-8 text-white" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-2">Partnership</h3>
-                                <p className="text-gray-600">Building long-term relationships</p>
+                                <h3 className="text-xl font-bold mb-2">{isSpanish ? 'Alianzas' : 'Partnership'}</h3>
+                                <p className="text-gray-600">{isSpanish ? 'Construyendo relaciones a largo plazo' : 'Building long-term relationships'}</p>
                             </div>
                             <div className="text-center">
                                 <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Globe className="w-8 h-8 text-white" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-2">Global Impact</h3>
-                                <p className="text-gray-600">Enhancing quality of life</p>
+                                <h3 className="text-xl font-bold mb-2">{isSpanish ? 'Impacto Global' : 'Global Impact'}</h3>
+                                <p className="text-gray-600">{isSpanish ? 'Mejorando la calidad de vida' : 'Enhancing quality of life'}</p>
                             </div>
                         </div>
                     </div>
@@ -73,7 +77,7 @@ export default function MissionPage() {
             <section className="bg-gray-50 py-20">
                 <div className="mx-auto max-w-6xl px-4">
                     <h2 className="text-3xl font-bold text-center mb-12 uppercase tracking-wide">
-                        Our Commitments
+                        {isSpanish ? 'Nuestros Compromisos' : 'Our Commitments'}
                     </h2>
 
                     <div className="grid md:grid-cols-2 gap-8">

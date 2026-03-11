@@ -3,9 +3,17 @@
 import React from 'react';
 import { ShieldCheck, Eye, Award, TrendingUp } from 'lucide-react';
 import { useLanguage } from 'lib/LanguageContext';
+import { useBrand } from 'lib/BrandContext';
 
 export default function QualityPage() {
-    const { t } = useLanguage();
+    const { t, getCompanyText } = useLanguage();
+    const { activeBrand } = useBrand();
+    
+    const companyKey = activeBrand === 'unitec' ? 'unitec' : 'binw';
+    const qualityTitle = getCompanyText(companyKey, 'quality.title');
+    const qualityQuote = getCompanyText(companyKey, 'quality.quote');
+    const qualityIntro = getCompanyText(companyKey, 'quality.intro');
+    const qualityClosing = getCompanyText(companyKey, 'quality.closing');
     
     return (
         <main className="w-full">
@@ -16,7 +24,7 @@ export default function QualityPage() {
             >
                 <div className="mx-auto max-w-6xl px-4 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-wider">
-                        {t('quality.title')}
+                        {qualityTitle}
                     </h1>
                 </div>
             </section>
@@ -25,10 +33,10 @@ export default function QualityPage() {
 
             <div className="max-w-3xl mx-auto mb-16 text-center">
                 <p className="text-2xl font-medium text-gray-800 italic mb-8">
-                    {t('quality.quote')}
+                    {qualityQuote}
                 </p>
                 <p className="text-lg text-gray-600 leading-relaxed">
-                    {t('quality.intro')}
+                    {qualityIntro}
                 </p>
             </div>
 
@@ -72,7 +80,7 @@ export default function QualityPage() {
 
             <div className="bg-black text-white p-8 rounded-2xl text-center">
                 <h3 className="text-2xl font-bold tracking-widest uppercase">
-                    {t('quality.closing')}
+                    {qualityClosing}
                 </h3>
             </div>
             </div>
