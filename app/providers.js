@@ -3,10 +3,10 @@
 import { LanguageProvider } from "lib/LanguageContext";
 import { BrandProvider } from "lib/BrandContext";
 
-export default function Providers({ children }) {
+export default function Providers({ children, lang = "es" }) {
     return (
         <BrandProvider>
-            <LanguageProvider>
+            <LanguageProvider initialLang={lang}>
                 {children}
             </LanguageProvider>
         </BrandProvider>

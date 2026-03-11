@@ -3,9 +3,15 @@
 import { motion } from "framer-motion";
 import Stylish_H2 from "My_UI/stylish_h2";
 import { useLanguage } from "lib/LanguageContext";
+import { useBrand } from "lib/BrandContext";
 
 export default function WhyWeSection() {
-    const { t } = useLanguage();
+    const { t, getCompanyText } = useLanguage();
+    const { activeBrand } = useBrand();
+
+    const companyKey = activeBrand === 'unitec' ? 'unitec' : 'binw';
+    const whyTitle = getCompanyText(companyKey, 'whyTitle');
+    const whyDescription = getCompanyText(companyKey, 'whyDescription');
 
     const features = [
         {
@@ -57,7 +63,7 @@ export default function WhyWeSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <Stylish_H2 h2={t("why.title")} />
+                    <Stylish_H2 h2={whyTitle} />
                 </motion.div>
 
                 {/* Description */}
@@ -68,7 +74,7 @@ export default function WhyWeSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="max-w-3xl text-md text-accent2 mx-auto text-center mb-14"
                 >
-                    {t("why.description")}
+                    {whyDescription}
                 </motion.p>
 
                 {/* Features */}

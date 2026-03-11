@@ -1,5 +1,63 @@
 const translations = {
     en: {
+        company: {
+            unitec: {
+                name: "UNITEC USA Design",
+                shortName: "UNITEC",
+                tagline: "At the reach of what you imagine.",
+                heroTitle: "Fill Your Container. Ship Your Way.",
+                heroSubtitle: "Choose the products you want, pack them into your container, and we'll handle the shipping — simple, flexible, and built around you.",
+                heroCta: "Explore Products",
+                metaTitle: "UNITEC USA Design | Premium Building Solutions",
+                metaDescription: "Premium PVC, WPC, and SPC architectural materials for walls, ceilings, floors, and facades. Sustainable, waterproof, and high-design solutions.",
+                whyTitle: "Why UNITEC USA",
+                whyDescription: "UNITEC USA Design was founded on a simple idea: building materials should be innovative, durable, and environmentally responsible—without being complicated or costly.",
+                aboutHero: {
+                    title: "Built for Scale.",
+                    subtitle: "Designed for Containers.",
+                    description: "We help businesses move products in bulk using a structured, container-centric approach — reducing waste, optimizing space, and simplifying logistics from order to shipment."
+                },
+                contact: {
+                    title: "Let's Move Your Products —",
+                    subtitle: "At Scale",
+                    description: "We specialize in bulk product handling, container-based shipping, and optimized logistics workflows. Reach out to discuss volumes, containers, and delivery timelines."
+                },
+                headquarters: {
+                    address: "6120 NW 74th Ave",
+                    city: "Doral, Miami, FL 33166",
+                    country: "United States",
+                    phone: "+1 (786) 968-5783"
+                }
+            },
+            binw: {
+                name: "Building Innovation",
+                shortName: "BINW",
+                tagline: "We Design the Future!",
+                heroTitle: "We Design the Future",
+                heroSubtitle: "Sustainable Architectural Materials for Modern Construction. Premium PVC, WPC, and SPC solutions for walls, ceilings, floors, and facades.",
+                heroCta: "Explore Products",
+                metaTitle: "Building Innovation | Premium PVC & WPC Building Materials",
+                metaDescription: "Premium PVC, WPC, and SPC solutions for walls, ceilings, floors, and facades. High-design, waterproof, and eco-friendly materials.",
+                whyTitle: "Why Choose Building Innovation?",
+                whyDescription: "Excellence in Every Detail. We combine quality, technology, and functionality in every product, transforming spaces and enhancing project value.",
+                aboutHero: {
+                    title: "We Design the Future!",
+                    subtitle: "Sustainable Construction Solutions",
+                    description: "We are an international company dedicated to the development and supply of innovative solutions for construction and architectural design."
+                },
+                contact: {
+                    title: "Contact Us",
+                    subtitle: "We're Here to Help",
+                    description: "We specialize in providing premium building materials for construction projects of all sizes. Reach out to discuss your needs."
+                },
+                headquarters: {
+                    address: "6120 NW 74th Ave",
+                    city: "Doral, Miami, FL 33166",
+                    country: "United States",
+                    phone: "+1 (786) 968-5783"
+                }
+            }
+        },
         nav: {
             home: "Home",
             collections: "Collections",
@@ -618,6 +676,64 @@ const translations = {
         }
     },
     es: {
+        company: {
+            unitec: {
+                name: "UNITEC USA Design",
+                shortName: "UNITEC",
+                tagline: "Al alcance de lo que imaginas.",
+                heroTitle: "Llene Su Contenedor. Envíe a Su Manera.",
+                heroSubtitle: "Elija los productos que desee, empáquelos en su contenedor y nosotros nos encargamos del envío: simple, flexible y diseñado para usted.",
+                heroCta: "Explorar Productos",
+                metaTitle: "UNITEC USA Design | Soluciones de Construcción Premium",
+                metaDescription: "Materiales arquitectónicos premium de PVC, WPC y SPC para paredes, techos, pisos y fachadas. Soluciones sostenibles, impermeables y de alto diseño.",
+                whyTitle: "Por Qué UNITEC USA",
+                whyDescription: "UNITEC USA Design se fundó sobre una idea simple: los materiales de construcción deben ser innovadores, duraderos y ambientalmente responsables, sin ser complicados ni costosos.",
+                aboutHero: {
+                    title: "Construido para Escala.",
+                    subtitle: "Diseñado para Contenedores.",
+                    description: "Ayudamos a las empresas a mover productos a granel utilizando un enfoque estructurado centrado en contenedores — reduciendo desperdicio, optimizando espacio y simplificando la logística desde el pedido hasta el envío."
+                },
+                contact: {
+                    title: "Movamos Sus Productos —",
+                    subtitle: "A Escala",
+                    description: "Nos especializamos en manejo de productos a granel, envío basado en contenedores y flujos de trabajo logísticos optimizados. Contáctenos para discutir volúmenes, contenedores y plazos de entrega."
+                },
+                headquarters: {
+                    address: "6120 NW 74th Ave",
+                    city: "Doral, Miami, FL 33166",
+                    country: "Estados Unidos",
+                    phone: "+1 (786) 968-5783"
+                }
+            },
+            binw: {
+                name: "Building Innovation",
+                shortName: "BINW",
+                tagline: "¡Diseñamos el Futuro!",
+                heroTitle: "Diseñamos el Futuro",
+                heroSubtitle: "Materiales Arquitectónicos Sostenibles para la Construcción Moderna. Soluciones premium de PVC, WPC y SPC para paredes, techos, pisos y fachadas.",
+                heroCta: "Explorar Productos",
+                metaTitle: "Building Innovation | Materiales de Construcción Premium de PVC y WPC",
+                metaDescription: "Soluciones premium de PVC, WPC y SPC para paredes, techos, pisos y fachadas. Materiales de alto diseño, impermeables y ecológicos.",
+                whyTitle: "¿Por Qué Elegir Building Innovation?",
+                whyDescription: "Excelencia en Cada Detalle. Combinamos calidad, tecnología y funcionalidad en cada producto, transformando espacios y mejorando el valor de cada proyecto.",
+                aboutHero: {
+                    title: "¡Diseñamos el Futuro!",
+                    subtitle: "Soluciones de Construcción Sostenible",
+                    description: "Somos una empresa internacional dedicada al desarrollo y suministro de soluciones innovadoras para construcción y diseño arquitectónico."
+                },
+                contact: {
+                    title: "Contáctenos",
+                    subtitle: "Estamos Aquí para Ayudarle",
+                    description: "Nos especializamos en proporcionar materiales de construcción premium para proyectos de construcción de todos los tamaños. Contáctenos para discutir sus necesidades."
+                },
+                headquarters: {
+                    address: "6120 NW 74th Ave",
+                    city: "Doral, Miami, FL 33166",
+                    country: "Estados Unidos",
+                    phone: "+1 (786) 968-5783"
+                }
+            }
+        },
         nav: {
             home: "Inicio",
             collections: "Colecciones",

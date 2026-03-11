@@ -35,9 +35,15 @@ const TikTokIcon = ({ className }) => (
 );
 
 export default function ContactPage() {
-    const { t, language: lang } = useLanguage();
+    const { t, language: lang, getCompanyText } = useLanguage();
     const { activeBrand, brand } = useBrand();
     const isSpanish = lang === 'es';
+    const companyKey = activeBrand === 'unitec' ? 'unitec' : 'binw';
+    
+    const contactHeroTitle = getCompanyText(companyKey, 'contact.title');
+    const contactHeroSubtitle = getCompanyText(companyKey, 'contact.subtitle');
+    const contactHeroDescription = getCompanyText(companyKey, 'contact.description');
+    
     const brandData = teamData[activeBrand] || teamData.binw;
     const team = brandData.team || [];
     const contact = brandData.contact || {};
@@ -110,12 +116,12 @@ export default function ContactPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-3xl text-2xl sm:text-3xl font-bold leading-tight md:text-4xl"
                     >
-                        {t('contact.hero.title')}
-                        <span className="text-gray-300"> {t('contact.hero.subtitle')}</span>
+                        {contactHeroTitle}
+                        <span className="text-gray-300"> {contactHeroSubtitle}</span>
                     </motion.h1>
 
                     <p className="my-4 max-w-2xl text-sm text-gray-300">
-                        {t('contact.hero.description')}
+                        {contactHeroDescription}
                     </p>
 
                     {/* Trust signals */}

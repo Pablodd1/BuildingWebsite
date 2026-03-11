@@ -21,8 +21,11 @@ const socials = [
 ];
 
 const Footer = () => {
-    const { t } = useLanguage();
+    const { t, getCompanyText } = useLanguage();
     const { activeBrand, brand } = useBrand();
+
+    const companyKey = activeBrand === 'unitec' ? 'unitec' : 'binw';
+    const companyTagline = getCompanyText(companyKey, 'tagline');
 
     const brandData = teamData[activeBrand] || teamData.binw;
     const contact = brandData.contact || {};
@@ -31,7 +34,7 @@ const Footer = () => {
     const navData = {
         logo: {
             text: brand.name,
-            tagline: t("footer.logo.tagline")
+            tagline: companyTagline
         },
         contact: {
             phone: contact.phone,

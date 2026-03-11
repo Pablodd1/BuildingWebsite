@@ -10,7 +10,7 @@ const montserrat = Montserrat({
 });
 
 export async function generateMetadata({ params }) {
-  const lang = params?.lang || 'en';
+  const lang = params?.lang || 'es';
   const dict = getDictionary(lang);
 
   const rawBaseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL || "";
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
   };
 
   const BASE_URL = resolveBaseUrl(rawBaseUrl);
-  const canonicalUrl = `${BASE_URL}${lang === 'en' ? '' : `/${lang}`}`;
+  const canonicalUrl = `${BASE_URL}/${lang}`;
 
   const defaults = {
     title: dict.meta.siteName + " | " + (lang === 'es' ? "Diseñamos el Futuro" : "We Design the Future"),
@@ -139,7 +139,7 @@ export async function generateStaticParams() {
 import RootLayoutClient from "./layout-client";
 
 export default async function RootLayout({ children, params }) {
-  const lang = params?.lang || 'en';
+  const lang = params?.lang || 'es';
   const dict = getDictionary(lang);
 
   return (

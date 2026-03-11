@@ -3,9 +3,16 @@
 import React from 'react';
 import { MapPin } from 'lucide-react';
 import { useLanguage } from 'lib/LanguageContext';
+import { useBrand } from 'lib/BrandContext';
 
 export default function WhoWeArePage() {
-    const { t } = useLanguage();
+    const { t, getCompanyText } = useLanguage();
+    const { activeBrand } = useBrand();
+    
+    const companyKey = activeBrand === 'unitec' ? 'unitec' : 'binw';
+    const companyName = getCompanyText(companyKey, 'name');
+    const companyTagline = getCompanyText(companyKey, 'tagline');
+    
     const intro = t('whoWeAre.intro') || [];
     
     return (
@@ -24,8 +31,8 @@ export default function WhoWeArePage() {
 
             <section className="mb-16">
                 <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100">
-                    <h2 className="text-3xl font-bold mb-2">{t('whoWeAre.company')}</h2>
-                    <p className="text-xl text-gray-500 italic mb-6">{t('whoWeAre.tagline')}</p>
+                    <h2 className="text-3xl font-bold mb-2">{companyName}</h2>
+                    <p className="text-xl text-gray-500 italic mb-6">{companyTagline}</p>
 
                     <div className="text-lg text-gray-700 leading-relaxed text-justify space-y-4">
                         {intro && Array.isArray(intro) ? intro.map((paragraph, idx) => (
@@ -63,7 +70,7 @@ export default function WhoWeArePage() {
                         <p>{t('whoWeAre.headquarters.country')}</p>
                     </address>
                     <div className="mt-6 text-center">
-                        <p className="text-white font-semibold">{t('whoWeAre.headquarters.phone')}</p>
+                        <p className="text-white font-semibold">{getCompanyText(companyKey, 'headquarters.phone')}</p>
                     </div>
                 </div>
                 <div className="rounded-2xl overflow-hidden h-64 md:h-auto min-h-[300px]">

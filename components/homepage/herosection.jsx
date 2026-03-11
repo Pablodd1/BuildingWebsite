@@ -7,6 +7,7 @@ import MyButton from "My_UI/btn/main";
 import CatalogFloatingBtn from "My_UI/hero/catalog_btn";
 import { Facebook, Instagram } from "lucide-react";
 import { useLanguage } from "lib/LanguageContext";
+import { useBrand } from "lib/BrandContext";
 
 // TikTok icon component since lucide-react doesn't have it
 const TikTokIcon = ({ className, strokeWidth }) => (
@@ -27,7 +28,19 @@ const socials = [
 ];
 
 export default function HeroSec() {
-    const { t } = useLanguage();
+    const { t, getCompanyText } = useLanguage();
+    const { activeBrand } = useBrand();
+
+    const companyKey = activeBrand === 'unitec' ? 'unitec' : 'binw';
+    const heroTitle = getCompanyText(companyKey, 'heroTitle');
+    const heroSubtitle = getCompanyText(companyKey, 'heroSubtitle');
+    const heroCta = getCompanyText(companyKey, 'heroCta');
+
+    const titleParts = heroTitle.split(/ (.*)/);
+    const titleStart = titleParts[0] || '';
+    const titleHighlightEnd = titleParts[1] ? titleParts[1].split(/ (.*)/) : ['', ''];
+    const titleHighlight = titleHighlightEnd[0] || '';
+    const titleEnd = titleHighlightEnd[1] || '';
 
     return (
         <main className="overflow-hidden min-h-screen relative">
@@ -77,12 +90,12 @@ export default function HeroSec() {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="text-2xl sm:text-3xl md:text-6xl md:leading-18 tracking-wide font-semibold w-full md:w-11/12 drop-shadow-lg"
                         >
-                            {t('hero.title_start')} <motion.strong
+                            {titleStart} <motion.strong
                                 initial={{ scale: 0.8, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
                                 transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
                                 className="bg-primary/90 rounded-2xl px-2 text-orange-800 inline-block"
-                            >{t('hero.title_highlight')}</motion.strong> {t('hero.title_end')}
+                            >{titleHighlight}</motion.strong> {titleEnd}
                         </motion.h1>
 
                         <motion.p
@@ -91,7 +104,7 @@ export default function HeroSec() {
                             transition={{ duration: 0.6, delay: 0.4 }}
                             className="text-sm sm:text-base font-normal text-white/90 w-full md:w-8/12 drop-shadow-md"
                         >
-                            {t('hero.subtitle')}
+                            {heroSubtitle}
                         </motion.p>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -100,7 +113,7 @@ export default function HeroSec() {
                             className="mt-2 md:mt-0"
                         >
                             <MyButton
-                                label={t('hero.btn')}
+                                label={heroCta}
                                 href="/collections"
                                 className={{
                                     btn: "bg-primary px-4 md:px-5 py-2 h-10 hover:bg-white transition-all duration-300 hover:scale-105 text-sm md:text-base",

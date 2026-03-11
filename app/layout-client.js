@@ -18,7 +18,7 @@ const NotifyPortal = dynamic(() => import("lib/notify"), {
 
 export default function RootLayoutClient({ children, lang, dict }) {
   return (
-    <Providers>
+    <Providers lang={lang}>
       <NavBar lang={lang} dict={dict} />
       {children}
       <Footer lang={lang} dict={dict} />

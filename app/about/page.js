@@ -24,10 +24,17 @@ import {
 } from "lucide-react"
 import Stylish_H2 from "My_UI/stylish_h2"
 import { useLanguage } from 'lib/LanguageContext';
+import { useBrand } from 'lib/BrandContext';
 
 export default function AboutPage() {
-    const { t } = useLanguage();
+    const { t, getCompanyText } = useLanguage();
+    const { activeBrand } = useBrand();
     
+    const companyKey = activeBrand === 'unitec' ? 'unitec' : 'binw';
+    const aboutHeroTitle = getCompanyText(companyKey, 'aboutHero.title');
+    const aboutHeroSubtitle = getCompanyText(companyKey, 'aboutHero.subtitle');
+    const aboutHeroDescription = getCompanyText(companyKey, 'aboutHero.description');
+
     return (
         <main className="w-full">
             {/* ================= HERO ================= */}
@@ -41,12 +48,12 @@ export default function AboutPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-4xl text-3xl font-bold leading-tight md:text-4xl"
                     >
-                        {t('about.hero.title')}
-                        <span className="text-gray-300"> {t('about.hero.subtitle')}</span>
+                        {aboutHeroTitle}
+                        <span className="text-gray-300"> {aboutHeroSubtitle}</span>
                     </motion.h1>
 
                     <p className="mt-5 max-w-3xl text-sm text-gray-300">
-                        {t('about.hero.description')}
+                        {aboutHeroDescription}
                     </p>
                 </div>
             </section>
