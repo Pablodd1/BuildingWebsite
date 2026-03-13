@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Boxes, Ruler, Layers3, ShieldCheck } from "lucide-react"
 import Stylish_H2 from "My_UI/stylish_h2"
+import { useLanguage } from "lib/LanguageContext"
 import { useBrand } from "lib/BrandContext"
 
 export default function BuiltForBulk() {

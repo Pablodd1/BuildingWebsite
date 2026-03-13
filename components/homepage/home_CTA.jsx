@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import MyButton from "My_UI/btn/main"
+import { useLanguage } from "lib/LanguageContext"
 import { useBrand } from "lib/BrandContext"
 
 export default function HomeCTA() {
