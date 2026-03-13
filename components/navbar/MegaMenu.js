@@ -56,25 +56,31 @@ const productCategories = {
             page: "/collections/paneles-wpc",
             icon: Building2,
             collection: "INTERIOR",
-            subcategories: ["PANEL WPC INTERIOR", "PANEL WPC REDONDO"]
+            subcategories: ["PANELES WPC INTERIOR", "PANELES WPC REDONDOS"]
         },
         "PAREDES": {
             page: "/collections/paredes",
             icon: Box,
             collection: "INTERIOR",
-            subcategories: ["PANEL PS", "PANEL ACUSTICO", "PANEL ACOLCHADO", "MUROFLEX", "ARQUNITEC", "PIEDRA FLEXIBLE"]
+            subcategories: ["PANEL PS", "PANELES ACUSTICOS", "PANELES ACOLCHADOS", "PAREDES ACOLCHADAS", "PAREDES MUROFLEX", "PAREDES PU ARQUNITEC", "ROLLOS ADHESIVOS DE MARMOL", "PANELES ACRILICOS MARMOL"]
         },
-        "CINTAS Y PEGANTES": {
-            page: "/collections/interior",
+        "CINTAS": {
+            page: "/collections/cintas",
             icon: Pipette,
             collection: "INTERIOR",
-            subcategories: ["CINTAS", "PEGANTES"]
+            subcategories: ["CINTA ADHESIVA DE PAPEL", "CINTA ADHESIVA METALICA"]
+        },
+        "PEGANTES": {
+            page: "/collections/pegantes",
+            icon: Sparkles,
+            collection: "INTERIOR",
+            subcategories: ["PEGANTES"]
         },
         "PISOS Y ZÓCALOS": {
             page: "/collections/pisos",
             icon: Home,
             collection: "INTERIOR",
-            subcategories: ["PISO SPC", "ZOCALO SPC"]
+            subcategories: ["PISOS SPC", "ZOCALOS SPC"]
         }
     },
     Exterior: {
@@ -82,7 +88,7 @@ const productCategories = {
             page: "/collections/cubiertas-upvc",
             icon: Home,
             collection: "EXTERIOR",
-            subcategories: ["CUBIERTA ACANALADA UPVC BLANCA 11.80", "CUBIERTA ONDULADA ROMA", "CUBIERTA TERMOACUSTICA UPVC 2.0mm BLANCA ONDA BAJA", "CUBIERTA TERMOACUSTICA UPVC 2.5mm BLANCA ONDA ALTA", "CUBIERTA TRASLUCIDA ONDA ALTA OPAL", "LAMINA ALVEOLAR POLICARBONATO"]
+            subcategories: ["CUBIERTA ACANALADA UPVC BLANCA 11.80", "CUBIERTA ONDULADA ROMA", "CUBIERTA TERMOACUSTICA UPVC 2.0mm BLANCA ONDA BAJA", "CUBIERTA TERMOACUSTICA UPVC 2.5mm BLANCA ONDA ALTA", "CUBIERTA TRASLUCIDA ONDA ALTA OPAL", "LAMINA ALVEOLAR POLICARBONATO", "TEJA PVC TERRACOTA COLONIAL", "TEJA UPVC TIPO ZINC"]
         },
         "JARDINES EXTERIORES": {
             page: "/collections/jardines-artificiales",
@@ -90,17 +96,61 @@ const productCategories = {
             collection: "EXTERIOR",
             subcategories: ["JARDINES EXTERIOR"]
         },
-        "REVESTIMIENTOS": {
-            page: "/collections/fachadas",
+        "FACHADA DECK": {
+            page: "/collections/fachada-deck",
             icon: Building2,
             collection: "EXTERIOR",
-            subcategories: ["FACHADA DECK", "FACHADA EXTERIOR PVC", "LISTONES WPC EXTERIOR"]
+            dbCategory: "PAREDES",
+            dbSubcategory: "FACHADA DECK",
+            subcategories: ["FACHADA DECK"]
+        },
+        "FACHADA EXTERIOR PVC": {
+            page: "/collections/fachada-exterior-pvc",
+            icon: Layers,
+            collection: "EXTERIOR",
+            dbCategory: "PAREDES",
+            dbSubcategory: "FACHADA EXTERIOR PVC",
+            subcategories: ["FACHADA EXTERIOR PVC"]
+        },
+        "LISTONES WPC EXTERIOR": {
+            page: "/collections/listones-wpc-exterior",
+            icon: Maximize,
+            collection: "EXTERIOR",
+            dbCategory: "LISTONES",
+            dbSubcategory: "LISTONES WPC EXTERIOR",
+            subcategories: ["LISTONES WPC EXTERIOR"]
+        },
+        "PANELES WPC EXTERIOR": {
+            page: "/collections/paneles-wpc-exterior",
+            icon: Building2,
+            collection: "EXTERIOR",
+            dbCategory: "PANELES WPC Y ANGULOS",
+            dbSubcategory: "PANELES WPC EXTERIOR",
+            subcategories: ["PANELES WPC EXTERIOR"]
+        },
+        "PAREDES UNIFLEX": {
+            page: "/collections/paredes-uniflex",
+            icon: Box,
+            collection: "EXTERIOR",
+            dbCategory: "PAREDES",
+            dbSubcategory: "PAREDES UNIFLEX",
+            subcategories: ["PAREDES UNIFLEX"]
+        },
+        "POLIFACHADA": {
+            page: "/collections/polifachada",
+            icon: LayoutGrid,
+            collection: "EXTERIOR",
+            dbCategory: "PAREDES",
+            dbSubcategory: "POLIFACHADA",
+            subcategories: ["POLIFACHADA"]
         },
         "PISOS DECK": {
             page: "/collections/pisos-deck",
             icon: Waves,
             collection: "EXTERIOR",
-            subcategories: ["PISO DECK"]
+            dbCategory: "PISOS",
+            dbSubcategory: "PISOS DECK",
+            subcategories: ["PISOS DECK"]
         }
     }
 };
@@ -151,16 +201,24 @@ const MegaMenu = () => {
                                     if (name === "LISTONES") return "listones";
                                     if (name === "PANELES Y ÁNGULOS") return "panelesWpc";
                                     if (name === "PAREDES") return "paredes";
-                                    if (name === "CINTAS Y PEGANTES") return "complementos";
+                                    if (name === "CINTAS") return "cintas";
+                                    if (name === "PEGANTES") return "pegantes";
                                     if (name === "PISOS Y ZÓCALOS") return "pisos";
                                     return name.toLowerCase().replace(/ /g, '').replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u');
                                 };
                                 const tKey = `nav.${getCatKey(category)}`;
 
+                                // Determine DB tags for link
+                                const catParam = data.dbCategory || category;
+                                const subParam = data.dbSubcategory || null;
+                                const href = subParam 
+                                    ? `${data.page}?category=${catParam}&subcategory=${subParam}&collection=${data.collection}`
+                                    : `${data.page}?category=${catParam}&collection=${data.collection}`;
+
                                 return (
                                     <div key={category} className="group/item">
                                         <Link
-                                            href={`${data.page}?category=${category}&collection=${data.collection}`}
+                                            href={href}
                                             className="flex items-center gap-3 font-bold text-gray-900 group-hover/item:text-blue-600 mb-3 text-xs uppercase tracking-widest transition-all"
                                         >
                                             <data.icon className="w-4 h-4" />
@@ -218,14 +276,27 @@ const MegaMenu = () => {
                                     if (name === "JARDINES EXTERIORES") return "jardinesArtificiales";
                                     if (name === "REVESTIMIENTOS") return "fachadas";
                                     if (name === "PISOS DECK") return "pisosdeck";
+                                    if (name === "FACHADA DECK") return "fachadadeck";
+                                    if (name === "FACHADA EXTERIOR PVC") return "fachadaexteriorpvc";
+                                    if (name === "LISTONES WPC EXTERIOR") return "listoneswpcexterior";
+                                    if (name === "PANELES WPC EXTERIOR") return "panelesWpcExterior";
+                                    if (name === "PAREDES UNIFLEX") return "paredesUniflex";
+                                    if (name === "POLIFACHADA") return "polifachada";
                                     return name.toLowerCase().replace(/ /g, '').replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u');
                                 };
                                 const tKey = `nav.${getCatKey(category)}`;
 
+                                // Determine DB tags for link
+                                const catParam = data.dbCategory || category;
+                                const subParam = data.dbSubcategory || null;
+                                const href = subParam 
+                                    ? `${data.page}?category=${catParam}&subcategory=${subParam}&collection=${data.collection}`
+                                    : `${data.page}?category=${catParam}&collection=${data.collection}`;
+
                                 return (
                                     <div key={category} className="group/item">
                                         <Link
-                                            href={`${data.page}?collection=${data.collection}`}
+                                            href={href}
                                             className="flex items-center gap-3 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-3 text-xs uppercase tracking-widest transition-all"
                                         >
                                             <data.icon className="w-4 h-4" />
