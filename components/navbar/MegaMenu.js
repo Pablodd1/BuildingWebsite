@@ -336,18 +336,8 @@ const MegaMenu = () => {
                     </div>
                 </div>
 
-                {/* Modern Footer */}
-                <div className="bg-gray-950 py-3 px-6 flex justify-between items-center">
-                    <div className="flex gap-6">
-                        <div className="flex items-center gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
-                            <span className="text-white/40 text-[7px] font-black uppercase tracking-widest">Premium Quality</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-                            <span className="text-white/40 text-[7px] font-black uppercase tracking-widest">Sustainable Materials</span>
-                        </div>
-                    </div>
+                {/* Minimal Footer */}
+                <div className="bg-gray-950 py-2 px-6">
                     <span className="text-white/20 text-[7px] font-black uppercase tracking-widest">Building Innovation © 2026</span>
                 </div>
 
