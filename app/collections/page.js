@@ -57,6 +57,7 @@ export default async function Collections({ searchParams }) {
                 lengthRange: [],
                 sort: "name-asc",
             }}
+            currentCollection="All"
         />
     );
 }

@@ -1,10 +1,9 @@
 'use client';
 import { motion } from "framer-motion";
 
-export default function CollectionToggle({ value, onChange }) {
-    const options = ["All", "Interior", "Exterior"];
+export default function CollectionToggle({ value, onChange, options = ["All", "Interior", "Exterior"] }) {
     return (
-        <div className="flex flex-col sm:flex-row gap-2 rounded-2xl col-span-2 lg:col-span-1 w-full items-stretch justify-evenly bg-gray-100 p-1.5">
+        <div className="flex flex-col sm:flex-row gap-2 rounded-2xl w-full items-stretch justify-evenly bg-gray-100 p-1.5">
             {options.map(opt => (
                 <motion.button
                     key={opt}

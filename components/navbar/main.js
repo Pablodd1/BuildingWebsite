@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { House, Library, Search, Shapes, User, Menu, X } from 'lucide-react';
+import { House, Library, Search, Shapes, User, Menu, X, FileText } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CartButton } from './cartBtn';
@@ -12,6 +12,7 @@ import LanguageToggle from './LanguageToggle';
 import { useLanguage } from 'lib/LanguageContext';
 import { useBrand } from 'lib/BrandContext';
 import MegaMenu from './MegaMenu';
+import CatalogDropdown from './CatalogDropdown';
 
 const navItems = [
     { label: 'Home', id: 'home', href: '/', icon: <Logo size={50} className={'min-w-10'} />, onlyIcon: true },
@@ -21,6 +22,13 @@ const navItems = [
         icon: <Library className=' text-inherit h-5' />,
         href: '/collections',
         megaMenu: true
+    },
+    {
+        label: 'Catalogs',
+        id: 'catalogs',
+        icon: <FileText className=' text-inherit h-5' />,
+        href: '#',
+        catalogDropdown: true
     },
     {
         label: 'Institutional',
@@ -90,25 +98,39 @@ const NavBar = ({ searchParams }) => {
                             whileHover={{ scale: 1.05 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <Link
-                                href={item.href}
-                                aria-label={`Go To ${item.href}`}
-                                className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer hover:text-primary"
-                            >
-                                {
-                                    item.onlyIcon
-                                        ? item.icon
-                                        :
-                                        <>
-                                            {
-                                                item.icon ?
-                                                    <span className={`lg:inline-flex ${index > 1 ? "hidden" : "inline-flex"}`} >{item.icon}</span>
-                                                    : null
-                                            }
-                                            <span className={`lg:block ${index > 1 ? "hidden" : ""}`}> {t(`nav.${item.id}`)}</span>
-                                        </>
-                                }
-                            </Link>
+                            {item.catalogDropdown ? (
+                                <button
+                                    aria-label="Catalogs"
+                                    className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer hover:text-primary"
+                                >
+                                    {
+                                        item.icon ?
+                                            <span className={`lg:inline-flex ${index > 1 ? "hidden" : "inline-flex"}`} >{item.icon}</span>
+                                            : null
+                                    }
+                                    <span className={`lg:block ${index > 1 ? "hidden" : ""}`}> {t(`nav.${item.id}`)}</span>
+                                </button>
+                            ) : (
+                                <Link
+                                    href={item.href}
+                                    aria-label={`Go To ${item.href}`}
+                                    className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer hover:text-primary"
+                                >
+                                    {
+                                        item.onlyIcon
+                                            ? item.icon
+                                            :
+                                            <>
+                                                {
+                                                    item.icon ?
+                                                        <span className={`lg:inline-flex ${index > 1 ? "hidden" : "inline-flex"}`} >{item.icon}</span>
+                                                        : null
+                                                }
+                                                <span className={`lg:block ${index > 1 ? "hidden" : ""}`}> {t(`nav.${item.id}`)}</span>
+                                            </>
+                                    }
+                                </Link>
+                            )}
 
                             {/* Dropdown Menu */}
                             {item.submenu && (
@@ -133,6 +155,9 @@ const NavBar = ({ searchParams }) => {
 
                             {/* Mega Menu */}
                             {item.megaMenu && <MegaMenu />}
+
+                            {/* Catalog Dropdown */}
+                            {item.catalogDropdown && <CatalogDropdown />}
                         </motion.div>
                     ))}
                 </nav>
@@ -175,14 +200,24 @@ const NavBar = ({ searchParams }) => {
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: index * 0.1 }}
                                 >
-                                    <Link
-                                        href={item.href}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className="text-sm uppercase tracking-widest font-semibold flex items-center py-2 hover:text-primary transition-colors"
-                                    >
-                                        {item.icon && <span className="mr-2">{item.icon}</span>}
-                                        {t(`nav.${item.id}`)}
-                                    </Link>
+                                    {item.catalogDropdown ? (
+                                        <button
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="text-sm uppercase tracking-widest font-semibold flex items-center py-2 hover:text-primary transition-colors w-full text-left"
+                                        >
+                                            {item.icon && <span className="mr-2">{item.icon}</span>}
+                                            {t(`nav.${item.id}`)}
+                                        </button>
+                                    ) : (
+                                        <Link
+                                            href={item.href}
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="text-sm uppercase tracking-widest font-semibold flex items-center py-2 hover:text-primary transition-colors"
+                                        >
+                                            {item.icon && <span className="mr-2">{item.icon}</span>}
+                                            {t(`nav.${item.id}`)}
+                                        </Link>
+                                    )}
                                     {item.submenu && (
                                         <motion.div
                                             initial={{ opacity: 0, height: 0 }}

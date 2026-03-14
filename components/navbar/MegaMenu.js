@@ -6,16 +6,21 @@ import {
     ArrowRight,
     Home,
     Building2,
-    Layers,
     LayoutGrid,
     Trees,
     Sparkles,
     Zap,
-    Pipette,
     Maximize,
     Box,
     PanelTop,
-    Waves
+    Waves,
+    Sun,
+    Square,
+    RectangleHorizontal,
+    Grid3X3,
+    Palette,
+    Droplets,
+    ChevronDown
 } from 'lucide-react';
 import { useLanguage } from 'lib/LanguageContext';
 import { useBrand } from 'utils/BrandContext';
@@ -42,51 +47,51 @@ const productCategories = {
         },
         "LÁMINAS": {
             page: "/collections/laminas",
-            icon: LayoutGrid,
+            icon: Grid3X3,
             collection: "INTERIOR",
             subcategories: ["FOAM BOARD", "LAMINAS MARMOL PVC", "LAMINAS PVC BOARD", "LAMINAS SINTETICAS"]
         },
-        "LISTONES": {
-            page: "/collections/interior",
-            icon: Layers,
-            collection: "INTERIOR",
-            subcategories: ["LISTONES PVC CIELO RASO", "LISTONES PVC INTERIOR ESTRUCTURAL"]
-        },
-        "PANELES Y ÁNGULOS": {
+        "PANELES WPC": {
             page: "/collections/paneles-wpc",
-            icon: Building2,
+            icon: Square,
             collection: "INTERIOR",
             subcategories: ["PANELES WPC INTERIOR", "PANELES WPC REDONDOS"]
         },
         "PAREDES": {
             page: "/collections/paredes",
-            icon: Box,
+            icon: RectangleHorizontal,
             collection: "INTERIOR",
             subcategories: ["PANEL PS", "PANELES ACUSTICOS", "PANELES ACOLCHADOS", "PAREDES ACOLCHADAS", "PAREDES MUROFLEX", "PAREDES PU ARQUNITEC", "ROLLOS ADHESIVOS DE MARMOL", "PANELES ACRILICOS MARMOL"]
         },
         "CINTAS": {
             page: "/collections/cintas",
-            icon: Pipette,
+            icon: Palette,
             collection: "INTERIOR",
             subcategories: ["CINTA ADHESIVA DE PAPEL", "CINTA ADHESIVA METALICA"]
         },
         "PEGANTES": {
             page: "/collections/pegantes",
-            icon: Sparkles,
+            icon: Droplets,
             collection: "INTERIOR",
             subcategories: ["PEGANTES"]
         },
-        "PISOS Y ZÓCALOS": {
+        "PISOS": {
             page: "/collections/pisos",
             icon: Home,
             collection: "INTERIOR",
-            subcategories: ["PISOS SPC", "ZOCALOS SPC"]
+            subcategories: ["PISOS SPC"]
+        },
+        "ZÓCALOS": {
+            page: "/collections/zocalos",
+            icon: Maximize,
+            collection: "INTERIOR",
+            subcategories: ["ZOCALOS SPC"]
         }
     },
     Exterior: {
         "CUBIERTAS": {
             page: "/collections/cubiertas-upvc",
-            icon: Home,
+            icon: Sun,
             collection: "EXTERIOR",
             subcategories: ["CUBIERTA ACANALADA UPVC BLANCA 11.80", "CUBIERTA ONDULADA ROMA", "CUBIERTA TERMOACUSTICA UPVC 2.0mm BLANCA ONDA BAJA", "CUBIERTA TERMOACUSTICA UPVC 2.5mm BLANCA ONDA ALTA", "CUBIERTA TRASLUCIDA ONDA ALTA OPAL", "LAMINA ALVEOLAR POLICARBONATO", "TEJA PVC TERRACOTA COLONIAL", "TEJA UPVC TIPO ZINC"]
         },
@@ -98,7 +103,7 @@ const productCategories = {
         },
         "FACHADA DECK": {
             page: "/collections/fachada-deck",
-            icon: Building2,
+            icon: Box,
             collection: "EXTERIOR",
             dbCategory: "PAREDES",
             dbSubcategory: "FACHADA DECK",
@@ -106,13 +111,13 @@ const productCategories = {
         },
         "FACHADA EXTERIOR PVC": {
             page: "/collections/fachada-exterior-pvc",
-            icon: Layers,
+            icon: LayoutGrid,
             collection: "EXTERIOR",
             dbCategory: "PAREDES",
             dbSubcategory: "FACHADA EXTERIOR PVC",
             subcategories: ["FACHADA EXTERIOR PVC"]
         },
-        "LISTONES WPC EXTERIOR": {
+        "LISTONES WPC": {
             page: "/collections/listones-wpc-exterior",
             icon: Maximize,
             collection: "EXTERIOR",
@@ -120,9 +125,9 @@ const productCategories = {
             dbSubcategory: "LISTONES WPC EXTERIOR",
             subcategories: ["LISTONES WPC EXTERIOR"]
         },
-        "PANELES WPC EXTERIOR": {
+        "PANELES WPC": {
             page: "/collections/paneles-wpc-exterior",
-            icon: Building2,
+            icon: Square,
             collection: "EXTERIOR",
             dbCategory: "PANELES WPC Y ANGULOS",
             dbSubcategory: "PANELES WPC EXTERIOR",
@@ -130,7 +135,7 @@ const productCategories = {
         },
         "PAREDES UNIFLEX": {
             page: "/collections/paredes-uniflex",
-            icon: Box,
+            icon: RectangleHorizontal,
             collection: "EXTERIOR",
             dbCategory: "PAREDES",
             dbSubcategory: "PAREDES UNIFLEX",
@@ -138,7 +143,7 @@ const productCategories = {
         },
         "POLIFACHADA": {
             page: "/collections/polifachada",
-            icon: LayoutGrid,
+            icon: Grid3X3,
             collection: "EXTERIOR",
             dbCategory: "PAREDES",
             dbSubcategory: "POLIFACHADA",
@@ -161,13 +166,13 @@ const MegaMenu = () => {
 
     return (
         <div
-            className="hidden lg:block absolute top-full pt-2 w-[900px] max-w-[calc(100vw-2rem)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out z-50"
-            style={{ left: 'calc(50vw - 50% - 450px)' }}
+            className="hidden lg:block absolute top-full pt-2 w-[750px] max-w-[calc(100vw-2rem)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out z-50"
+            style={{ left: 'calc(50vw - 50% - 375px)' }}
         >
-            <div className="bg-white/98 backdrop-blur-md shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] rounded-3xl border border-gray-100 overflow-hidden">
+            <div className="bg-white/98 backdrop-blur-md shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] rounded-2xl border border-gray-100 overflow-hidden">
 
                 {/* Minimal Header */}
-                <div className="bg-gray-50/80 px-10 py-4 flex items-center justify-between border-b border-gray-100">
+                <div className="bg-gray-50/80 px-6 py-3 flex items-center justify-between border-b border-gray-100">
                     <div className="flex items-center gap-3">
                         <Sparkles className="w-4 h-4 text-blue-500 animate-pulse" />
                         <span className="text-gray-900 font-black text-[10px] uppercase tracking-[0.2em]">
@@ -176,34 +181,32 @@ const MegaMenu = () => {
                     </div>
                 </div>
 
-                <div className="flex divide-x divide-gray-100 h-full min-h-[400px]">
+                <div className="flex divide-x divide-gray-100 h-full min-h-[320px]">
                     {/* Interior Section */}
-                    <div className="flex-1 p-10 bg-white hover:bg-gray-50/30 transition-colors">
-                        <div className="flex items-center gap-4 mb-8">
-                            <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center shadow-sm">
-                                <Home className="w-6 h-6 text-blue-600" />
+                    <div className="flex-1 p-5 bg-white hover:bg-gray-50/30 transition-colors">
+                        <div className="flex items-center gap-3 mb-5">
+                            <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center shadow-sm">
+                                <Home className="w-5 h-5 text-blue-600" />
                             </div>
                             <div>
-                                <h3 className="text-xl font-black text-gray-900 uppercase tracking-tighter leading-none">{t('nav.interiors')}</h3>
-                                <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">{language === 'es' ? 'Soluciones Internas' : 'Indoor Solutions'}</span>
+                                <h3 className="text-lg font-black text-gray-900 uppercase tracking-tighter leading-none">{t('nav.interiors')}</h3>
+                                <span className="text-[8px] text-gray-400 font-bold uppercase tracking-widest">{language === 'es' ? 'Soluciones Internas' : 'Indoor Solutions'}</span>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-y-7">
+                        <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                             {Object.entries(productCategories.Interior).map(([category, data]) => {
-                                // Simple mapping for category keys to translation keys
-                                // Helper to map category names to translation keys
                                 const getCatKey = (name) => {
                                     if (name === "CIELO RASO PVC") return "cielorasopvc";
                                     if (name === "ILUMINACIÓN") return "iluminacion";
                                     if (name === "JARDINES ARTIFICIALES") return "jardinesArtificiales";
                                     if (name === "LÁMINAS") return "laminas";
-                                    if (name === "LISTONES") return "listones";
-                                    if (name === "PANELES Y ÁNGULOS") return "panelesWpc";
+                                    if (name === "PANELES WPC") return "panelesWpc";
                                     if (name === "PAREDES") return "paredes";
                                     if (name === "CINTAS") return "cintas";
                                     if (name === "PEGANTES") return "pegantes";
-                                    if (name === "PISOS Y ZÓCALOS") return "pisos";
+                                    if (name === "PISOS") return "pisos";
+                                    if (name === "ZÓCALOS") return "zocalos";
                                     return name.toLowerCase().replace(/ /g, '').replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u');
                                 };
                                 const tKey = `nav.${getCatKey(category)}`;
@@ -219,15 +222,14 @@ const MegaMenu = () => {
                                     <div key={category} className="group/item">
                                         <Link
                                             href={href}
-                                            className="flex items-center gap-3 font-bold text-gray-900 group-hover/item:text-blue-600 mb-3 text-xs uppercase tracking-widest transition-all"
+                                            className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-blue-600 mb-1 text-[9px] uppercase tracking-widest transition-all"
                                         >
-                                            <data.icon className="w-4 h-4" />
+                                            <data.icon className="w-3.5 h-3.5" />
                                             {t(tKey) !== tKey ? t(tKey) : category}
                                         </Link>
-                                        <div className="flex flex-wrap gap-x-4 gap-y-2 ml-1 border-l-2 border-gray-100 pl-4 py-1">
+                                        <div className="flex flex-wrap gap-x-3 gap-y-1 ml-0.5 border-l border-gray-100 pl-3 py-0.5">
                                             {data.subcategories.map(sub => {
                                                 const getSubKey = (name) => {
-                                                    // Standardize formatting for translation keys
                                                     return name.toLowerCase().replace(/ /g, '').replace(/\./g, '').replace(/-/g, '');
                                                 };
                                                 const tSubKey = `nav.${getSubKey(sub)}`;
@@ -236,7 +238,7 @@ const MegaMenu = () => {
                                                     <Link
                                                         key={sub}
                                                         href={`${data.page}?subcategory=${sub}&collection=${data.collection}`}
-                                                        className="text-gray-400 hover:text-gray-900 text-[10px] font-black uppercase transition-all whitespace-nowrap hover:scale-105"
+                                                        className="text-gray-400 hover:text-gray-900 text-[8px] font-bold uppercase transition-all whitespace-nowrap hover:scale-105"
                                                     >
                                                         {t(tSubKey) !== tSubKey ? t(tSubKey) : sub}
                                                     </Link>
@@ -250,36 +252,35 @@ const MegaMenu = () => {
 
                         <Link
                             href="/collections/interior"
-                            className="flex items-center justify-center gap-3 bg-blue-600 text-white py-4 mt-12 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200 transition-all shadow-md group/all"
+                            className="flex items-center justify-center gap-2 bg-blue-600 text-white py-3 mt-4 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200 transition-all shadow-md group/all col-span-2"
                         >
                             {language === 'es' ? 'Explorar Todo Interior' : 'Explore All Interior'}
-                            <ArrowRight size={16} className="group-hover/all:translate-x-1 transition-transform" />
+                            <ArrowRight size={14} className="group-hover/all:translate-x-1 transition-transform" />
                         </Link>
                     </div>
 
                     {/* Exterior Section */}
-                    <div className="flex-1 p-10 bg-gray-50/20 hover:bg-white transition-colors">
-                        <div className="flex items-center gap-4 mb-8">
-                            <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center shadow-sm">
-                                <Building2 className="w-6 h-6 text-emerald-600" />
+                    <div className="flex-1 p-5 bg-gray-50/20 hover:bg-white transition-colors">
+                        <div className="flex items-center gap-3 mb-5">
+                            <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shadow-sm">
+                                <Building2 className="w-5 h-5 text-emerald-600" />
                             </div>
                             <div>
-                                <h3 className="text-xl font-black text-gray-900 uppercase tracking-tighter leading-none">{t('nav.exteriors')}</h3>
-                                <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">{language === 'es' ? 'Resistencia Climática' : 'Climate Resistant'}</span>
+                                <h3 className="text-lg font-black text-gray-900 uppercase tracking-tighter leading-none">{t('nav.exteriors')}</h3>
+                                <span className="text-[8px] text-gray-400 font-bold uppercase tracking-widest">{language === 'es' ? 'Resistencia Climática' : 'Climate Resistant'}</span>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-y-7">
+                        <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                             {Object.entries(productCategories.Exterior).map(([category, data]) => {
                                 const getCatKey = (name) => {
                                     if (name === "CUBIERTAS") return "cubiertas";
                                     if (name === "JARDINES EXTERIORES") return "jardinesArtificiales";
-                                    if (name === "REVESTIMIENTOS") return "fachadas";
                                     if (name === "PISOS DECK") return "pisosdeck";
                                     if (name === "FACHADA DECK") return "fachadadeck";
                                     if (name === "FACHADA EXTERIOR PVC") return "fachadaexteriorpvc";
-                                    if (name === "LISTONES WPC EXTERIOR") return "listoneswpcexterior";
-                                    if (name === "PANELES WPC EXTERIOR") return "panelesWpcExterior";
+                                    if (name === "LISTONES WPC") return "listoneswpcexterior";
+                                    if (name === "PANELES WPC") return "panelesWpcExterior";
                                     if (name === "PAREDES UNIFLEX") return "paredesUniflex";
                                     if (name === "POLIFACHADA") return "polifachada";
                                     return name.toLowerCase().replace(/ /g, '').replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u');
@@ -297,12 +298,12 @@ const MegaMenu = () => {
                                     <div key={category} className="group/item">
                                         <Link
                                             href={href}
-                                            className="flex items-center gap-3 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-3 text-xs uppercase tracking-widest transition-all"
+                                            className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[9px] uppercase tracking-widest transition-all"
                                         >
-                                            <data.icon className="w-4 h-4" />
+                                            <data.icon className="w-3.5 h-3.5" />
                                             {t(tKey) !== tKey ? t(tKey) : category}
                                         </Link>
-                                        <div className="flex flex-wrap gap-x-4 gap-y-2 ml-1 border-l-2 border-gray-100 pl-4 py-1">
+                                        <div className="flex flex-wrap gap-x-3 gap-y-1 ml-0.5 border-l border-gray-100 pl-3 py-0.5">
                                             {data.subcategories.map(sub => {
                                                 const getSubKey = (name) => {
                                                     return name.toLowerCase().replace(/ /g, '').replace(/\./g, '').replace(/-/g, '');
@@ -313,7 +314,7 @@ const MegaMenu = () => {
                                                     <Link
                                                         key={sub}
                                                         href={`${data.page}?subcategory=${sub}&collection=${data.collection}`}
-                                                        className="text-gray-400 hover:text-gray-900 text-[10px] font-black uppercase transition-all whitespace-nowrap hover:scale-105"
+                                                        className="text-gray-400 hover:text-gray-900 text-[8px] font-bold uppercase transition-all whitespace-nowrap hover:scale-105"
                                                     >
                                                         {t(tSubKey) !== tSubKey ? t(tSubKey) : sub}
                                                     </Link>
@@ -327,27 +328,27 @@ const MegaMenu = () => {
 
                         <Link
                             href="/collections/exterior"
-                            className="flex items-center justify-center gap-3 bg-emerald-600 text-white py-4 mt-12 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-200 transition-all shadow-md group/all"
+                            className="flex items-center justify-center gap-2 bg-emerald-600 text-white py-3 mt-4 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-200 transition-all shadow-md group/all col-span-2"
                         >
                             {language === 'es' ? 'Explorar Todo Exterior' : 'Explore All Exterior'}
-                            <ArrowRight size={16} className="group-hover/all:translate-x-1 transition-transform" />
+                            <ArrowRight size={14} className="group-hover/all:translate-x-1 transition-transform" />
                         </Link>
                     </div>
                 </div>
 
                 {/* Modern Footer */}
-                <div className="bg-gray-950 py-4 px-10 flex justify-between items-center">
-                    <div className="flex gap-8">
+                <div className="bg-gray-950 py-3 px-6 flex justify-between items-center">
+                    <div className="flex gap-6">
                         <div className="flex items-center gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
-                            <span className="text-white/40 text-[8px] font-black uppercase tracking-widest">Premium Quality</span>
+                            <span className="text-white/40 text-[7px] font-black uppercase tracking-widest">Premium Quality</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-                            <span className="text-white/40 text-[8px] font-black uppercase tracking-widest">Sustainable Materials</span>
+                            <span className="text-white/40 text-[7px] font-black uppercase tracking-widest">Sustainable Materials</span>
                         </div>
                     </div>
-                    <span className="text-white/20 text-[8px] font-black uppercase tracking-widest">Building Innovation © 2026</span>
+                    <span className="text-white/20 text-[7px] font-black uppercase tracking-widest">Building Innovation © 2026</span>
                 </div>
 
             </div>

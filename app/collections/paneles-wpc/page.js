@@ -27,6 +27,7 @@ export default async function PanelesWpcPage({ searchParams }) {
                 lengthRange: [],
                 sort: "name-asc",
             }}
+            currentCollection="Interior"
         />
     );
 }

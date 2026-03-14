@@ -27,6 +27,7 @@ export default async function ParedesPage({ searchParams }) {
                 lengthRange: [],
                 sort: "name-asc",
             }}
+            currentCollection="Interior"
         />
     );
 }

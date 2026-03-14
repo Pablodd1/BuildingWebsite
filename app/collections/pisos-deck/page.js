@@ -27,6 +27,7 @@ export default async function PisosExteriorPage({ searchParams }) {
                 lengthRange: [],
                 sort: "name-asc",
             }}
+            currentCollection="Exterior"
         />
     );
 }

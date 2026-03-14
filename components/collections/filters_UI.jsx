@@ -14,9 +14,17 @@ function toggleRange(current, next) {
         return next;
 }
 
-export default function FilterUI({ filters, products, setFilters }) {
+function getCollectionOptions(currentCollection) {
+    const allOptions = ["All", "Interior", "Exterior"];
+    if (!currentCollection || currentCollection === "All") {
+        return ["Interior", "Exterior"];
+    }
+    return allOptions.filter(opt => opt !== currentCollection);
+}
 
-    // Derived filter options
+export default function FilterUI({ filters, products, setFilters, currentCollection }) {
+    const collectionOptions = getCollectionOptions(filters.collection || currentCollection);
+
     const subCategoriesFromData = Array.from(new Set(products.map(p => p.subcategory).filter(Boolean)));
     const thicknessRanges = buildRanges(products.map(p => p.dimensions?.metric?.thickness || 0).filter(v => v > 0));
     const widthRanges = buildRanges(products.map(p => p.dimensions?.metric?.width || 0).filter(v => v > 0));
@@ -32,9 +40,20 @@ export default function FilterUI({ filters, products, setFilters }) {
             <div className="flex items-center justify-between mb-6">
                 <Stylish_H2 h2="Filters" />
             </div>
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 items-end overflow-visible relative z-10">
-                <CollectionToggle value={filters.collection} onChange={v => setFilters(f => ({ ...f, collection: v }))} />
-                <div className="sm:col-span-2 md:col-span-2 lg:col-span-2 overflow-visible relative z-20">
+
+            {/* Collection Toggle - Separate Row */}
+            <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">Collection</label>
+                <CollectionToggle 
+                    value={filters.collection} 
+                    onChange={v => setFilters(f => ({ ...f, collection: v }))} 
+                    options={collectionOptions}
+                />
+            </div>
+
+            {/* Subcategories and Sort - Same Row */}
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 items-end overflow-visible relative z-10 mb-6">
+                <div className="overflow-visible relative z-20">
                     <label className="block text-sm font-medium mb-2">Subcategories</label>
                     <MultiSelect label="Subcategories" options={subCategoriesFromData} value={filters.subcategories} onChange={v => setFilters(f => ({ ...f, subcategories: v }))} />
                 </div>
@@ -42,7 +61,7 @@ export default function FilterUI({ filters, products, setFilters }) {
             </div>
 
             {/* Dimension filters in a separate row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 pt-6 border-t border-gray-100">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-gray-100">
                 <RangeCheckboxGroup title="Thickness (mm)" options={thicknessRanges} value={filters.thicknessRange} onChange={v => setFilters(f => ({ ...f, thicknessRange: toggleRange(f.thicknessRange, v) }))} />
                 <RangeCheckboxGroup title="Width (cm)" options={widthRanges} value={filters.widthRange} onChange={v => setFilters(f => ({ ...f, widthRange: toggleRange(f.widthRange, v) }))} />
                 <RangeCheckboxGroup title="Length (cm)" options={lengthRanges} value={filters.lengthRange} onChange={v => setFilters(f => ({ ...f, lengthRange: toggleRange(f.lengthRange, v) }))} />

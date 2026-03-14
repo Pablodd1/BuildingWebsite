@@ -58,6 +58,7 @@ export default async function JardinesArtificiales({ searchParams }) {
                 lengthRange: [],
                 sort: "name-asc",
             }}
+            currentCollection="All"
         />
     );
 }

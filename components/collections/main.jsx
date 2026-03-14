@@ -10,7 +10,7 @@ import FilterUI from "My_UI/collections/filters_UI";
 import NoProductsFound from "./noproduct";
 
 
-export default function Collections_UI({ searchParams, h1, description, productURL, cover, prefilters }) {
+export default function Collections_UI({ searchParams, h1, description, productURL, cover, prefilters, currentCollection }) {
 
     const queryCategory = searchParams.category;
     const querySubcategory = searchParams.subcategory;
@@ -74,7 +74,7 @@ export default function Collections_UI({ searchParams, h1, description, productU
                 description={description}
                 cover={cover}
             />
-            <FilterUI filters={filters} products={products} setFilters={setFilters} />
+            <FilterUI filters={filters} products={products} setFilters={setFilters} currentCollection={currentCollection} />
             {
                 loading
                     ? <div className="text-center py-20 text-gray-500">Loading products...</div> :

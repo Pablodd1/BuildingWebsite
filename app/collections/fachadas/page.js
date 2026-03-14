@@ -27,6 +27,7 @@ export default async function FachadasPage({ searchParams }) {
                 lengthRange: [],
                 sort: "name-asc",
             }}
+            currentCollection="Exterior"
         />
     );
 }

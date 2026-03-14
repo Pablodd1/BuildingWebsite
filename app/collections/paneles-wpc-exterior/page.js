@@ -28,6 +28,7 @@ export default async function Page({ searchParams }) {
                 lengthRange: [],
                 sort: "name-asc",
             }}
+            currentCollection="Exterior"
         />
     );
 }

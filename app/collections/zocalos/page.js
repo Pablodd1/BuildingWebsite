@@ -27,6 +27,7 @@ export default async function ZocalosPage({ searchParams }) {
                 lengthRange: [],
                 sort: "name-asc",
             }}
+            currentCollection="Interior"
         />
     );
 }
