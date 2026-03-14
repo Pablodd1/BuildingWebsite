@@ -58,9 +58,15 @@ export default function RenderItemsList({ container }) {
             let alive = true
             setLoading(true)
 
+            const missingItems = items.filter(item => !products[item.ID]);
+            
+            if (missingItems.length === 0) {
+                setLoading(false)
+                return
+            }
+
             Promise.all(
-                items.map(async (item) => {
-                    if (products[item.ID]) return [item.ID, products[item.ID]]
+                missingItems.map(async (item) => {
                     const data = await fetchProduct(item.ID)
                     return { ID: item.ID, ...data }
                 })
@@ -78,7 +84,7 @@ export default function RenderItemsList({ container }) {
             }
         }
         fetchProductDetails()
-    }, [items])
+    }, [items, products])
 
     if (loading)
         return (

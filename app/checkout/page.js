@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Printer, Check, ArrowLeft, Building2, User, Mail, Phone, MapPin, FileText, Package, DollarSign, Send } from "lucide-react"
 import { useLanguage } from "lib/LanguageContext"
@@ -15,8 +15,6 @@ export default function CheckoutPage() {
     const [submitted, setSubmitted] = useState(false)
     const printRef = useRef()
     const [referenceId] = useState(() => `QR-${Date.now().toString(36).toUpperCase()}`)
-    const [shippingCost, setShippingCost] = useState(0)
-    const [shippingTime, setShippingTime] = useState("")
 
     const [formData, setFormData] = useState({
         companyName: "",
@@ -40,11 +38,9 @@ export default function CheckoutPage() {
         initializeCheckout()
     }, [])
 
-    useEffect(() => {
+    const shippingData = useMemo(() => {
         if (cart.length === 0 || !formData.country || !formData.state) {
-            setShippingCost(0)
-            setShippingTime("")
-            return
+            return { cost: 0, time: "" }
         }
 
         let costPerContainer = 0
@@ -67,15 +63,14 @@ export default function CheckoutPage() {
             time = "10-14 Business Days"
         } else if (formData.country === "MX") {
             costPerContainer = 1500
-            time = "9-12 Business Days"
-        } else {
-            costPerContainer = 3000
-            time = "15-25 Business Days"
+            time = "7-10 Business Days"
         }
 
-        setShippingCost(cart.length * costPerContainer)
-        setShippingTime(time)
-    }, [formData.country, formData.state, cart])
+        return { cost: costPerContainer, time }
+    }, [cart.length, formData.country, formData.state])
+
+    const shippingCost = shippingData.cost
+    const shippingTime = shippingData.time
 
     const calculateTotal = () => {
         const itemTotal = cart.reduce((total, container) => {

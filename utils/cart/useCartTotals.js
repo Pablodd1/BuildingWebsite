@@ -51,6 +51,7 @@ export function useContainer(containerId) {
       setContainer(findContainer())
     })
     return unsub
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [containerId])
 
   return container

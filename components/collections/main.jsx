@@ -62,10 +62,10 @@ export default function Collections_UI({ searchParams, h1, description, productU
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const displayedProducts = sortedProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-    // Reset page when filters change
-    useEffect(() => {
+    const handleSetFilters = (newFilters) => {
+        setFilters(newFilters);
         setCurrentPage(1);
-    }, [filters]);
+    };
 
     return (
         <div className="overflow-visible">
@@ -74,7 +74,7 @@ export default function Collections_UI({ searchParams, h1, description, productU
                 description={description}
                 cover={cover}
             />
-            <FilterUI filters={filters} products={products} setFilters={setFilters} currentCollection={currentCollection} />
+            <FilterUI filters={filters} products={products} setFilters={handleSetFilters} currentCollection={currentCollection} />
             {
                 loading
                     ? <div className="text-center py-20 text-gray-500">Loading products...</div> :

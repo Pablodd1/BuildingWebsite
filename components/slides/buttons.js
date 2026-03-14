@@ -20,12 +20,18 @@ export const usePrevNextButtons = (emblaApi) => {
         setNextBtnDisabled(!emblaApi.canScrollNext())
     }, [])
 
+    const initButtons = useCallback((emblaApi) => {
+        if (!emblaApi) return
+        setPrevBtnDisabled(!emblaApi.canScrollPrev())
+        setNextBtnDisabled(!emblaApi.canScrollNext())
+    }, [])
+
     useEffect(() => {
         if (!emblaApi) return
 
-        onSelect(emblaApi)
-        emblaApi.on('reInit', onSelect).on('select', onSelect)
-    }, [emblaApi, onSelect])
+        initButtons(emblaApi)
+        emblaApi.on('reInit', initButtons).on('select', onSelect)
+    }, [emblaApi, onSelect, initButtons])
 
     return {
         prevBtnDisabled,
