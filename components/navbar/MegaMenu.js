@@ -30,7 +30,7 @@ const productCategories = {
         "CIELO RASO PVC": {
             page: "/collections/interior",
             icon: PanelTop,
-            collection: "INTERIOR",
+            collection: "Interior",
             subcategories: ["CIELO RASO PVC"]
         },
         "ILUMINACIÓN": {
@@ -185,7 +185,7 @@ const MegaMenu = () => {
                     {/* Interior Section */}
                     <div className="flex-1 p-5 bg-white hover:bg-gray-50/30 transition-colors">
                         <Link
-                            href="/collections/interior?collection=INTERIOR"
+                            href="/collections/interior?collection=interior"
                             className="flex items-center gap-3 mb-5"
                         >
                             <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center shadow-sm">
@@ -244,7 +244,7 @@ const MegaMenu = () => {
                     {/* Exterior Section */}
                     <div className="flex-1 p-5 bg-gray-50/20 hover:bg-white transition-colors">
                         <Link
-                            href="/collections/exterior?collection=EXTERIOR"
+                            href="/collections/exterior?collection=exterior"
                             className="flex items-center gap-3 mb-5"
                         >
                             <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shadow-sm">
