@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { addOne } from "lib/cart/cart.actions";
 import { Loader, Plus } from "lucide-react";
 import { Suspense, useState } from "react";
-import ContainerSelectionModal from "components/product/ContainerSelectionModal";
+import ContainerSelectionModal from "My_UI/product/ContainerSelectionModal";
 import { useLanguage } from "lib/LanguageContext";
 
 

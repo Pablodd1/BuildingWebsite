@@ -8,8 +8,7 @@ import { getCart, removeContainer, removeOne, addOne, setQty } from "utils/cart/
 import { containerFillPercent } from "utils/cart/cart.utils"
 import Link from "next/link"
 import Image from "next/image"
-import Container3DView from "components/cart/Container3DView"
-
+import Container3DView from "My_UI/cart/Container3DView"
 // Helper function to get color based on item category
 const getContainerItemColor = (category) => {
     const colors = {
@@ -20,6 +19,8 @@ const getContainerItemColor = (category) => {
         'PANELES WPC Y ANGULOS': '#EF4444', // Red
         'default': '#60A5FA'
     }
+    return colors[category] || colors.default
+}
     return colors[category] || colors.default
 }
 
