@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Package, Check, X, Info } from "lucide-react"
-import Container3DView from "components/cart/Container3DView"
+import Container3DView from "My_UI/cart/Container3DView"
 import { addContainer, addOne } from "lib/cart/cart.core"
 import { generateID } from "lib/misc"
 import { useLanguage } from "lib/LanguageContext"
