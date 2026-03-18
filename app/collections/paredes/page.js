@@ -1,4 +1,3 @@
-
 import Collections_UI from "My_UI/collections/main";
 
 export async function generateMetadata(_, parent) {
@@ -21,7 +20,7 @@ export default async function ParedesPage({ searchParams }) {
             productURL="/API/collections?"
             prefilters={{
                 collection: "Interior",
-                subcategories: ["ROLLO MARMOL", "ACOLCHADO", "MARMOL", "ACUSTICO", "PANEL PS", "PU", "MUROFLEX", "UNIFLEX"],
+                subcategories: ["ROLLOS ADHESIVOS DE MARMOL", "PANELES ACOLCHADOS", "PANELES ACRILICOS MARMOL", "PANELES ACUSTICOS", "PANEL PS", "PAREDES MUROFLEX", "PAREDES PU ARQUNITEC", "PAREDES UNIFLEX"],
                 thicknessRange: [],
                 widthRange: [],
                 lengthRange: [],

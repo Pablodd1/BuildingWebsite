@@ -1,4 +1,4 @@
-"use client"
+import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { addContainer, addOne } from 'lib/cart/cart.core';
 import { generateID } from 'lib/misc';
@@ -21,7 +21,7 @@ const CONTAINERS = [
   }
 ];
 
-export default function ContainerSelectionPage() {
+function ContainerSelectionContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const productId = searchParams.get('product');
@@ -35,7 +35,6 @@ export default function ContainerSelectionPage() {
     });
 
     if (productId) {
-      // Need product details here, simplified for now
       addOne(containerId, { id: productId, name: "New Item", price: 0 });
     }
 
@@ -55,7 +54,7 @@ export default function ContainerSelectionPage() {
             <h2 className="text-5xl font-black text-white uppercase tracking-widest mb-6">
               {container.label}
             </h2>
-            <motion.button 
+            <motion.button
                 className="bg-white text-black px-10 py-4 rounded-full font-bold uppercase flex items-center gap-2"
                 whileHover={{ scale: 1.1 }}
             >
@@ -65,5 +64,13 @@ export default function ContainerSelectionPage() {
         </div>
       ))}
     </div>
+  );
+}
+
+export default function ContainerSelectionPage() {
+  return (
+    <Suspense fallback={<div className="w-full h-screen bg-gray-900" />}>
+      <ContainerSelectionContent />
+    </Suspense>
   );
 }

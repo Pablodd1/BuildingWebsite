@@ -1,4 +1,3 @@
-
 import Collections_UI from "My_UI/collections/main";
 
 export async function generateMetadata(_, parent) {
@@ -21,7 +20,7 @@ export default async function LaminasPage({ searchParams }) {
             productURL="/API/collections?"
             prefilters={{
                 collection: "Interior",
-                subcategories: ["FOAM BOARD", "MARMOL", "PAREDES", "PVC BOARD"],
+                subcategories: ["FOAM BOARD", "LAMINAS MARMOL PVC", "LAMINAS PVC BOARD", "LAMINAS SINTETICAS"],
                 thicknessRange: [],
                 widthRange: [],
                 lengthRange: [],

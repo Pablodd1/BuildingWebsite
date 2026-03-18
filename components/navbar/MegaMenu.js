@@ -33,7 +33,7 @@ const productCategories = {
             collection: "Interior",
             subcategories: ["CIELO RASO PVC"]
         },
-        "ILUMINACIÓN": {
+        "ILUMINACION": {
             page: "/collections/interior",
             icon: Zap,
             collection: "INTERIOR",
@@ -45,13 +45,13 @@ const productCategories = {
             collection: "INTERIOR",
             subcategories: ["JARDINES INTERIOR", "JARDINES MOSS"]
         },
-        "LÁMINAS": {
+        "LAMINAS": {
             page: "/collections/laminas",
             icon: Grid3X3,
             collection: "INTERIOR",
             subcategories: ["FOAM BOARD", "LAMINAS MARMOL PVC", "LAMINAS PVC BOARD", "LAMINAS SINTETICAS"]
         },
-        "PANELES WPC": {
+        "PANELES WPC Y ANGULOS": {
             page: "/collections/paneles-wpc",
             icon: Square,
             collection: "INTERIOR",
@@ -61,7 +61,7 @@ const productCategories = {
             page: "/collections/paredes",
             icon: RectangleHorizontal,
             collection: "INTERIOR",
-            subcategories: ["PANEL PS", "PANELES ACUSTICOS", "PANELES ACOLCHADOS", "PAREDES ACOLCHADAS", "PAREDES MUROFLEX", "PAREDES PU ARQUNITEC", "ROLLOS ADHESIVOS DE MARMOL", "PANELES ACRILICOS MARMOL"]
+            subcategories: ["PANEL PS", "PANELES ACUSTICOS", "PANELES ACOLCHADOS", "PAREDES ACOLCHADOS", "PAREDES MUROFLEX", "PAREDES PU ARQUNITEC", "ROLLOS ADHESIVOS DE MARMOL", "PANELES ACRILICOS MARMOL", "PAREDES UNIFLEX"]
         },
         "CINTAS": {
             page: "/collections/cintas",
@@ -81,7 +81,7 @@ const productCategories = {
             collection: "INTERIOR",
             subcategories: ["PISOS SPC"]
         },
-        "ZÓCALOS": {
+        "ZOCALOS": {
             page: "/collections/zocalos",
             icon: Maximize,
             collection: "INTERIOR",
@@ -198,38 +198,38 @@ const MegaMenu = () => {
                         </Link>
 
                         <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                                 {Object.entries(productCategories.Interior).map(([category, data]) => {
-                                 const getCatKey = (name) => {
-                                     if (name === "CIELO RASO PVC") return "cielorasopvc";
-                                     if (name === "ILUMINACIÓN") return "iluminacion";
-                                     if (name === "JARDINES ARTIFICIALES") return "jardinesArtificiales";
-                                     if (name === "LÁMINAS") return "laminas";
-                                     if (name === "PANELES WPC") return "panelesWpc";
-                                     if (name === "PAREDES") return "paredes";
-                                     if (name === "CINTAS") return "cintas";
-                                     if (name === "PEGANTES") return "pegantes";
-                                     if (name === "PISOS") return "pisos";
-                                     if (name === "ZÓCALOS") return "zocalos";
-                                     return name.toLowerCase().replace(/ /g, '').replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u');
-                                 };
-                                 const tKey = `nav.${getCatKey(category)}`;
+                                  {Object.entries(productCategories.Interior).map(([category, data]) => {
+                                  const getCatKey = (name) => {
+                                      if (name === "CIELO RASO PVC") return "cielorasopvc";
+                                      if (name === "ILUMINACION") return "iluminacion";
+                                      if (name === "JARDINES ARTIFICIALES") return "jardinesArtificiales";
+                                      if (name === "LAMINAS") return "laminas";
+                                      if (name === "PANELES WPC Y ANGULOS") return "panelesWpc";
+                                      if (name === "PAREDES") return "paredes";
+                                      if (name === "CINTAS") return "cintas";
+                                      if (name === "PEGANTES") return "pegantes";
+                                      if (name === "PISOS") return "pisos";
+                                      if (name === "ZOCALOS") return "zocalos";
+                                      return name.toLowerCase().replace(/ /g, '').replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u');
+                                  };
+                                  const tKey = `nav.${getCatKey(category)}`;
 
-                                 // Determine DB tags for link
-                                 const catParam = data.dbCategory || category;
-                                 const href = `${data.page}?category=${catParam}&collection=${data.collection}`;
+                                  // Determine DB tags for link
+                                  const catParam = data.dbCategory || category;
+                                  const href = `${data.page}?category=${catParam}&collection=${data.collection}`;
 
-                                 return (
-                                     <div key={category} className="group/item">
-                                         <Link
-                                             href={href}
-                                             className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-blue-600 mb-1 text-[12px] uppercase tracking-widest transition-all"
-                                         >
-                                             <data.icon className="w-4 h-4" />
-                                             {t(tKey) !== tKey ? t(tKey) : category}
-                                         </Link>
-                                     </div>
-                                 );
-                             })}
+                                  return (
+                                      <div key={category} className="group/item">
+                                          <Link
+                                              href={href}
+                                              className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-blue-600 mb-1 text-[12px] uppercase tracking-widest transition-all"
+                                          >
+                                              <data.icon className="w-4 h-4" />
+                                              {t(tKey) !== tKey ? t(tKey) : category}
+                                          </Link>
+                                      </div>
+                                  );
+                              })}
                         </div>
 
                         <Link
@@ -257,37 +257,37 @@ const MegaMenu = () => {
                         </Link>
 
                         <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                                 {Object.entries(productCategories.Exterior).map(([category, data]) => {
-                                 const getCatKey = (name) => {
-                                     if (name === "CUBIERTAS") return "cubiertas";
-                                     if (name === "JARDINES EXTERIORES") return "jardinesArtificiales";
-                                     if (name === "PISOS DECK") return "pisosdeck";
-                                     if (name === "FACHADA DECK") return "fachadadeck";
-                                     if (name === "FACHADA EXTERIOR PVC") return "fachadaexteriorpvc";
-                                     if (name === "LISTONES WPC") return "listoneswpcexterior";
-                                     if (name === "PANELES WPC") return "panelesWpcExterior";
-                                     if (name === "PAREDES UNIFLEX") return "paredesUniflex";
-                                     if (name === "POLIFACHADA") return "polifachada";
-                                     return name.toLowerCase().replace(/ /g, '').replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u');
-                                 };
-                                 const tKey = `nav.${getCatKey(category)}`;
+                                  {Object.entries(productCategories.Exterior).map(([category, data]) => {
+                                  const getCatKey = (name) => {
+                                      if (name === "CUBIERTAS") return "cubiertas";
+                                      if (name === "JARDINES EXTERIORES") return "jardinesArtificiales";
+                                      if (name === "PISOS DECK") return "pisosdeck";
+                                      if (name === "FACHADA DECK") return "fachadadeck";
+                                      if (name === "FACHADA EXTERIOR PVC") return "fachadaexteriorpvc";
+                                      if (name === "LISTONES WPC") return "listoneswpcexterior";
+                                      if (name === "PANELES WPC") return "panelesWpcExterior";
+                                      if (name === "PAREDES UNIFLEX") return "paredesUniflex";
+                                      if (name === "POLIFACHADA") return "polifachada";
+                                      return name.toLowerCase().replace(/ /g, '').replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u');
+                                  };
+                                  const tKey = `nav.${getCatKey(category)}`;
 
-                                 // Determine DB tags for link
-                                 const catParam = data.dbCategory || category;
-                                 const href = `${data.page}?category=${catParam}&collection=${data.collection}`;
+                                  // Determine DB tags for link
+                                  const catParam = data.dbCategory || category;
+                                  const href = `${data.page}?category=${catParam}&collection=${data.collection}`;
 
-                                 return (
-                                     <div key={category} className="group/item">
-                                         <Link
-                                             href={href}
-                                             className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all"
-                                         >
-                                             <data.icon className="w-4 h-4" />
-                                             {t(tKey) !== tKey ? t(tKey) : category}
-                                         </Link>
-                                     </div>
-                                 );
-                             })}
+                                  return (
+                                      <div key={category} className="group/item">
+                                          <Link
+                                              href={href}
+                                              className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all"
+                                          >
+                                              <data.icon className="w-4 h-4" />
+                                              {t(tKey) !== tKey ? t(tKey) : category}
+                                          </Link>
+                                      </div>
+                                  );
+                              })}
                         </div>
 
                         <Link
