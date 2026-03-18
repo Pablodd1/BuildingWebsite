@@ -1,9 +1,7 @@
-"use client"
-
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Package, Check, X, Info } from "lucide-react"
-import Container3DView from "My_UI/cart/Container3DView"
+import { Package, X, ArrowRight } from "lucide-react"
+import Image from "next/image"
 import { addContainer, addOne } from "lib/cart/cart.core"
 import { generateID } from "lib/misc"
 import { useLanguage } from "lib/LanguageContext"
@@ -19,7 +17,7 @@ const CONTAINERS = {
       height: 2.39,
       length: 5.9,
       volume: 33.1,
-      color: "#3B82F6"
+      image: "/assets/small_container.jpg"
     },
     {
       id: "40ft",
@@ -29,7 +27,7 @@ const CONTAINERS = {
       height: 2.69,
       length: 12.03,
       volume: 81.2,
-      color: "#8B5CF6"
+      image: "/assets/big_container.jpg"
     }
   ],
   es: [
@@ -41,7 +39,7 @@ const CONTAINERS = {
       height: 2.39,
       length: 5.9,
       volume: 33.1,
-      color: "#3B82F6"
+      image: "/assets/small_container.jpg"
     },
     {
       id: "40ft",
@@ -51,7 +49,7 @@ const CONTAINERS = {
       height: 2.69,
       length: 12.03,
       volume: 81.2,
-      color: "#8B5CF6"
+      image: "/assets/big_container.jpg"
     }
   ]
 }
@@ -64,23 +62,14 @@ export default function ContainerSelectionModal({ isOpen, onClose, product }) {
   const containers = CONTAINERS[language] || CONTAINERS.en
 
   const t = {
-    title: isSpanish ? "Seleccionar Contenedor" : "Select Container",
-    subtitle: isSpanish ? "Elige el tamaño del contenedor para añadir el producto" : "Choose the container size to add your product",
-    capacity: isSpanish ? "Capacidad" : "Capacity",
+    title: isSpanish ? "Selecciona el Contenedor" : "Select Your Container",
     addToContainer: isSpanish ? "Añadir a Contenedor" : "Add to Container",
-    cancel: isSpanish ? "Cancelar" : "Cancel",
-    selected: isSpanish ? "Seleccionado" : "Selected",
-    volume: isSpanish ? "Volumen" : "Volume"
+    cancel: isSpanish ? "Cancelar" : "Cancel"
   }
 
   const handleSelectContainer = async (containerDef) => {
     setIsAdding(true)
-
     try {
-      // Check if there's already a container of this type
-      const existingContainer = containers.find(c => c.id === containerDef.id)
-
-      // Add new container with unique ID
       const containerId = generateID()
       addContainer({
         id: containerId,
@@ -99,7 +88,6 @@ export default function ContainerSelectionModal({ isOpen, onClose, product }) {
         }
       })
 
-      // Add product to the new container
       if (product) {
         addOne(containerId, {
           id: product.id || product.ID,
@@ -110,7 +98,6 @@ export default function ContainerSelectionModal({ isOpen, onClose, product }) {
         })
       }
 
-      // Close modal after adding
       setTimeout(() => {
         setIsAdding(false)
         onClose()
@@ -125,156 +112,54 @@ export default function ContainerSelectionModal({ isOpen, onClose, product }) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={onClose}
+            className="relative w-full h-full flex flex-col"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-          />
-
-          {/* Modal Content */}
-          <motion.div
-            className="relative bg-white rounded-3xl shadow-2xl w-full max-w-4xl mx-4 overflow-hidden"
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            {/* Header */}
-            <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-8 py-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                    <Package className="text-blue-400" size={28} />
-                    {t.title}
-                  </h2>
-                  <p className="text-gray-400 mt-1">{t.subtitle}</p>
-                </div>
-                <button
-                  onClick={onClose}
-                  className="text-gray-400 hover:text-white transition-colors p-2"
-                >
-                  <X size={24} />
-                </button>
-              </div>
-            </div>
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-8 right-8 z-50 text-white hover:text-gray-300 p-2"
+            >
+              <X size={32} />
+            </button>
 
-            {/* Product Info Bar */}
-            {product && (
-              <div className="bg-gray-50 px-8 py-4 border-b flex items-center gap-4">
-                <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center overflow-hidden border">
-                  {product.image ? (
-                    <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
-                  ) : (
-                    <Package className="text-gray-400" />
-                  )}
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">{t.addToContainer}</p>
-                  <p className="font-semibold text-gray-900">{product.name || product.Name}</p>
-                </div>
-              </div>
-            )}
-
-            {/* Container Selection Grid */}
-            <div className="p-8 grid md:grid-cols-2 gap-8">
-              {containers.map((container, index) => (
-                <motion.div
+            {/* Selection Split */}
+            <div className="flex w-full h-full">
+              {containers.map((container) => (
+                <div
                   key={container.id}
-                  className={`relative group cursor-pointer rounded-2xl p-6 border-2 transition-all ${
-                    selectedContainer?.id === container.id
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
-                  }`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => setSelectedContainer(container)}
+                  className="relative flex-1 group cursor-pointer overflow-hidden border-r last:border-r-0 border-white/20"
+                  onClick={() => handleSelectContainer(container)}
                 >
-                  {/* Selection Indicator */}
-                  {selectedContainer?.id === container.id && (
-                    <motion.div
-                      className="absolute top-4 right-4 bg-blue-500 text-white rounded-full p-1"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
+                  <Image 
+                    src={container.image} 
+                    alt={container.label} 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 flex flex-col items-center justify-center">
+                    <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-widest mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {container.label}
+                    </h2>
+                    <motion.div 
+                      className="bg-white text-black px-8 py-4 rounded-full font-bold uppercase flex items-center gap-2"
+                      whileHover={{ scale: 1.05 }}
                     >
-                      <Check size={16} />
+                      {t.addToContainer}
+                      <ArrowRight size={20} />
                     </motion.div>
-                  )}
-
-                  {/* 3D Container View */}
-                  <div className="flex justify-center items-center py-8">
-                    <Container3DView
-                      size={container.label}
-                      width={container.width}
-                      height={container.height}
-                      length={container.length}
-                      fillPercent={0}
-                      scale={0.8}
-                      className="transform hover:scale-105 transition-transform duration-300"
-                    />
                   </div>
-
-                  {/* Container Info */}
-                  <div className="text-center space-y-2">
-                    <h3 className="font-bold text-lg text-gray-900">{container.label}</h3>
-                    <p className="text-sm text-gray-500">{container.description}</p>
-                    <div className="flex items-center justify-center gap-4 text-sm">
-                      <span className="flex items-center gap-1 text-gray-600">
-                        <Info size={14} />
-                        {t.volume}: {container.volume} m³
-                      </span>
-                      <span className="text-gray-400">|</span>
-                      <span className="text-gray-600">
-                        {container.width}m × {container.length}m × {container.height}m
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Hover Effect */}
-                  <div className="absolute inset-0 rounded-2xl ring-2 ring-blue-500 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                </motion.div>
+                </div>
               ))}
-            </div>
-
-            {/* Footer Actions */}
-            <div className="bg-gray-50 px-8 py-6 border-t flex items-center justify-end gap-4">
-              <button
-                onClick={onClose}
-                className="px-6 py-3 text-gray-600 hover:text-gray-900 font-medium transition-colors"
-              >
-                {t.cancel}
-              </button>
-              <motion.button
-                onClick={() => selectedContainer && handleSelectContainer(selectedContainer)}
-                disabled={!selectedContainer || isAdding}
-                className="px-8 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
-                whileHover={!selectedContainer ? {} : { scale: 1.02 }}
-                whileTap={!selectedContainer ? {} : { scale: 0.98 }}
-              >
-                {isAdding ? (
-                  <>
-                    <motion.div
-                      className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    />
-                    Adding...
-                  </>
-                ) : (
-                  <>
-                    <Package size={18} />
-                    {t.addToContainer}
-                  </>
-                )}
-              </motion.button>
             </div>
           </motion.div>
         </motion.div>
