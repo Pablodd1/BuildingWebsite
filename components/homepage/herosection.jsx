@@ -147,7 +147,6 @@ export default function HeroSec() {
                     ))}
                 </motion.div>
 
-                </div>
             </section>
         </main>
     );
