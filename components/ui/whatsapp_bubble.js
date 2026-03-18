@@ -8,7 +8,7 @@ export default function WhatsAppBubble() {
 
     // Select the phone number based on the active brand
     const phoneNumber = activeBrand === 'unitec' ? "573142332147" : "17869685783";
-    const message = encodeURIComponent("Hello, I am interested in your products.");
+    const message = encodeURIComponent("Hola, estoy interesado/a en sus productos.");
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
     return (

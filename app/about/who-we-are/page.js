@@ -75,7 +75,10 @@ export default function WhoWeArePage() {
                 </div>
                 <div className="rounded-2xl overflow-hidden h-64 md:h-auto min-h-[300px]">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3591.7221458267713!2d-80.32240568497836!3d25.83166598355336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9c2ffffffff%3A0x0!2s6120%20NW%2074th%20Ave%2C%20Doral%2C%20FL%2033166!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                        src={activeBrand === 'unitec'
+                            ? "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.5646!2d-74.0597!3d4.6476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a2e2e2e2e2e%3A0x0!2sCarrera+11+%2384-09%2C+Bogot%C3%A1!5e0!3m2!1sen!2sco!4v1700000000000!5m2!1sen!2sco"
+                            : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3591.7221458267713!2d-80.32240568497836!3d25.83166598355336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9c2ffffffff%3A0x0!2s6120%20NW%2074th%20Ave%2C%20Doral%2C%20FL%2033166!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                        }
                         width="100%"
                         height="100%"
                         style={{ border: 0 }}

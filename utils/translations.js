@@ -944,11 +944,11 @@ const translations = {
                         text: "Nuestra visión es convertirnos en el proveedor líder de soluciones de construcción de PVC y WPC en toda América del Norte — transformando cómo profesionales y propietarios abordan la construcción y el diseño."
                     },
                     headquarters: {
-                        title: "Sede Global",
-                        address: "6120 NW 74th Ave",
-                        city: "Doral, Miami, FL 33166",
-                        country: "Estados Unidos",
-                        phone: "+1 (786) 968-5783"
+                        title: "Sede Colombia",
+                        address: "Carrera 11 #84-09",
+                        city: "Bogotá, Colombia",
+                        country: "Colombia",
+                        phone: "+57 601 235 4321"
                     }
                 },
                 about: {

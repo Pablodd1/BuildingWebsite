@@ -2,9 +2,20 @@
 import { useState } from 'react';
 import { Download, BookOpen, X, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from 'lib/LanguageContext';
 
 export default function CatalogFloatingBtn() {
     const [isOpen, setIsOpen] = useState(false);
+    const { language } = useLanguage();
+    const isSpanish = language === 'es';
+
+    const labels = {
+        selectCatalog: isSpanish ? 'Seleccionar Catálogo' : 'Select Catalog',
+        download: isSpanish ? 'Descargar' : 'Download',
+        catalogs: isSpanish ? 'Catálogos' : 'Catalogs',
+        usaTitle: isSpanish ? 'Catálogo USA' : 'USA Catalog',
+        latamTitle: isSpanish ? 'Catálogo LATAM' : 'LATAM Catalog',
+    };
 
     return (
         <div className="flex flex-col items-start gap-4 z-50">
@@ -26,7 +37,7 @@ export default function CatalogFloatingBtn() {
 
                         <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2 text-xs uppercase tracking-wider">
                             <BookOpen size={14} className="text-primary" />
-                            Select Catalog
+                            {labels.selectCatalog}
                         </h3>
 
                         <div className="space-y-2">
@@ -39,7 +50,7 @@ export default function CatalogFloatingBtn() {
                                     <FileText size={14} />
                                 </div>
                                 <div>
-                                    <span className="block font-bold text-xs">USA Catalog</span>
+                                    <span className="block font-bold text-xs">{labels.usaTitle}</span>
                                     <span className="text-[10px] text-gray-500 group-hover:text-gray-400">English (Imperial)</span>
                                 </div>
                                 <Download size={14} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -54,7 +65,7 @@ export default function CatalogFloatingBtn() {
                                     <FileText size={14} />
                                 </div>
                                 <div>
-                                    <span className="block font-bold text-xs">LATAM Catalog</span>
+                                    <span className="block font-bold text-xs">{labels.latamTitle}</span>
                                     <span className="text-[10px] text-gray-500 group-hover:text-gray-400">Español (Metric)</span>
                                 </div>
                                 <Download size={14} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -76,8 +87,8 @@ export default function CatalogFloatingBtn() {
                     {isOpen ? <X size={16} /> : <BookOpen size={16} />}
                 </div>
                 <div className="flex flex-col items-start text-left">
-                    <span className="font-bold uppercase tracking-widest text-[9px] leading-tight opacity-80">Download</span>
-                    <span className="font-bold text-xs leading-tight">Catalogs</span>
+                    <span className="font-bold uppercase tracking-widest text-[9px] leading-tight opacity-80">{labels.download}</span>
+                    <span className="font-bold text-xs leading-tight">{labels.catalogs}</span>
                 </div>
             </button>
         </div>

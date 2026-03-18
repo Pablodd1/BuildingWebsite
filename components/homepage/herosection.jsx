@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./herosection.module.css";
 import MyButton from "My_UI/btn/main";
-import CatalogFloatingBtn from "My_UI/hero/catalog_btn";
 import { Facebook, Instagram } from "lucide-react";
 import { useLanguage } from "lib/LanguageContext";
 import { useBrand } from "lib/BrandContext";
@@ -148,9 +147,6 @@ export default function HeroSec() {
                     ))}
                 </motion.div>
 
-                {/* Floating Catalog Button */}
-                <div className="absolute left-0 bottom-8 z-40 hidden lg:block">
-                    <CatalogFloatingBtn />
                 </div>
             </section>
         </main>

@@ -47,7 +47,7 @@ const navItems = [
 
 const BrandToggle = () => {
     const { activeBrand, toggleBrand, brand } = useBrand();
-    const otherBrand = activeBrand === 'binw' ? 'UNITEC' : 'BINW';
+    const otherBrand = activeBrand === 'binw' ? 'Unitec USA' : 'Building Innovation';
     return (
         <button
             onClick={toggleBrand}
