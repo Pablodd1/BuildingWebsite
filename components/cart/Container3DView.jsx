@@ -2,6 +2,7 @@
 "use client"
 
 import React from "react"
+import FlameProgress from "./FlameProgress.jsx"
 import { motion } from "framer-motion"
 
 /**
@@ -34,6 +35,14 @@ export default function Container3DView({
   }
 
   const fillColor = getFillColor(fillPercent)
+  const [textureSeed, setTextureSeed] = React.useState(0)
+  const textures = [
+    "/assets/containers/container_texture_01.svg",
+    "/assets/containers/container_texture_02.svg",
+    "/assets/containers/container_texture_03.svg",
+    "/assets/containers/container_texture_04.svg",
+  ]
+  const textureIndex = textureSeed % textures.length
 
   return (
     <motion.div
@@ -60,16 +69,15 @@ export default function Container3DView({
         <motion.div
           className="absolute border-2 border-gray-600"
           style={{
+            backgroundImage: `url(${textures[textureIndex]})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
             width: displayLength,
             height: displayWidth,
             transform: `translateZ(${displayHeight / 2}px)`,
             transformOrigin: "center",
             left: 0,
             top: displayHeight / 4,
-            background: `
-              linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,0,0,0.2)),
-              repeating-linear-gradient(90deg, #5b6970 0px, #5b6970 10px, #4a575e 10px, #4a575e 20px)
-            `,
             boxShadow: "inset 0 0 20px rgba(0,0,0,0.5)"
           }}
         />
@@ -203,8 +211,20 @@ export default function Container3DView({
             {fillPercent.toFixed(0)}%
           </span>
         </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: 6 }}>
+          <FlameProgress percent={fillPercent} />
+        </div>
       </div>
 
+      {/* Regenerate Textures Button */}
+      <div className="absolute -bottom-14 left-1/2 transform -translate-x-1/2">
+        <button
+          onClick={() => setTextureSeed((s) => (s + 1) % textures.length)}
+          className="px-3 py-1 text-xs font-semibold bg-blue-600 text-white rounded hover:bg-blue-700 shadow"
+        >
+          Regenerate Textures
+        </button>
+      </div>
       {/* Size Label */}
       <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg whitespace-nowrap">
         {size} ({width}m × {length}m × {height}m)
