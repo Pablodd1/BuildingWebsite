@@ -49,9 +49,29 @@ const productCategories = {
     }
 };
 
+// Optional: dynamic categories fetched from API for a fully populated MegaMenu
+const dynamicCategoriesEndpoint = '/API/collections?nopaginate=true'
+
 const MegaMenu = () => {
     const { language, t } = useLanguage();
     const { brand } = useBrand();
+    const [dynamicCategories, setDynamicCategories] = React.useState(null);
+
+    // Try to fetch dynamic categories to supplement static data
+    React.useEffect(() => {
+        let cancelled = false;
+        fetch(dynamicCategoriesEndpoint)
+            .then((r) => r.json())
+            .then((data) => {
+                if (!cancelled) setDynamicCategories(data);
+            })
+            .catch(() => {
+                // ignore fetch errors; fall back to static data
+            });
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     return (
         <div
@@ -80,18 +100,40 @@ const MegaMenu = () => {
                             </div>
                         </Link>
                         <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                            {Object.entries(productCategories.Interior).map(([category, data]) => {
-                                const tKey = `nav.${category.toLowerCase().replace(/ /g, '')}`;
-                                const href = `${data.page}?category=${category}&collection=${data.collection}`;
-                                return (
-                                    <div key={category} className="group/item">
-                                        <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-blue-600 mb-1 text-[12px] uppercase tracking-widest transition-all">
-                                            <data.icon className="w-4 h-4" />
-                                            {t(tKey) !== tKey ? t(tKey) : category}
-                                        </Link>
-                                    </div>
-                                );
-                            })}
+                          {(() => {
+                            const interiorEntries = dynamicCategories && dynamicCategories.Interior
+                              ? Object.entries(dynamicCategories.Interior)
+                              : Object.entries(productCategories.Interior)
+                            return interiorEntries.map(([category, data]) => {
+                              const tKey = `nav.${category.toLowerCase().replace(/ /g, '')}`
+                              const href = `${data.page}?category=${category}&collection=${data.collection}`
+                              return (
+                                <div key={category} className="group/item">
+                                  <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-blue-600 mb-1 text-[12px] uppercase tracking-widest transition-all">
+                                    <data.icon className="w-4 h-4" />
+                                    {t(tKey) !== tKey ? t(tKey) : category}
+                                  </Link>
+                                </div>
+                              )
+                            })
+                          })()}
+                          {(() => {
+                            const exteriorEntries = dynamicCategories && dynamicCategories.Exterior
+                              ? Object.entries(dynamicCategories.Exterior)
+                              : Object.entries(productCategories.Exterior)
+                            return exteriorEntries.map(([category, data]) => {
+                              const tKey = `nav.${category.toLowerCase().replace(/ /g, '')}`
+                              const href = `${data.page}?category=${category}&collection=${data.collection}`
+                              return (
+                                <div key={category} className="group/item">
+                                  <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all">
+                                    <data.icon className="w-4 h-4" />
+                                    {t(tKey) !== tKey ? t(tKey) : category}
+                                  </Link>
+                                </div>
+                              )
+                            })
+                          })()}
                         </div>
                     </div>
 

@@ -1,6 +1,8 @@
 import productData from "StaticData/products_full.json";
 import matchesSearchQuery from "./handleSearch";
 import { matchesSubcategoryFilter } from "lib/applyFilters";
+import fs from 'fs';
+import path from 'path';
 
 // fields to return (easy to manage / edit)
 const FIELDS = [
@@ -31,6 +33,15 @@ export async function GET(request) {
 
   const ITEMS_PER_PAGE = 15;
 
+  const normalizeImage = (img) => {
+    if (!img || typeof img !== 'string') return img;
+    const rel = img.startsWith('/') ? img.slice(1) : img;
+    const abs = path.resolve(process.cwd(), 'public', rel);
+    if (fs.existsSync(abs)) return img;
+    // fallback to a generic placeholder image
+    return '/raster/product.jpg';
+  };
+
   // Filter pipeline (order matters)
   const filteredProducts = productData
     .filter((item) =>
@@ -55,7 +66,7 @@ export async function GET(request) {
         acc[field] = item[field];
         return acc;
       }, {})
-    );
+    ).map((it) => ({ ...it, image: normalizeImage(it.image) }))
     return Response.json({
       currentPage: 1,
       totalItems,
@@ -75,9 +86,10 @@ export async function GET(request) {
       }, {})
     );
 
+  const safePaginated = paginatedItems.map((it) => ({ ...it, image: normalizeImage(it.image) }))
   return Response.json({
     currentPage,
     totalItems,
-    items: paginatedItems,
+    items: safePaginated,
   });
 }
