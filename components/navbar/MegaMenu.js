@@ -114,6 +114,19 @@ const MegaMenu = () => {
                                     <data.icon className="w-4 h-4" />
                                     {t(tKey) !== tKey ? t(tKey) : category}
                                   </Link>
+                                  {subcats.length > 0 && (
+                                    <div className="ml-6 grid grid-cols-1 gap-1">
+                                      {subcats.map((sub) => {
+                                        const subHref = `${data.page}?category=${category}&collection=${data.collection}&subcategories=${sub}`
+                                        const subKey = `nav.${(sub || '').toLowerCase().replace(/ /g, '')}`
+                                        return (
+                                          <Link key={sub} href={subHref} className="text-xs text-gray-700 hover:text-blue-600 mb-0.5 ml-2">
+                                            {sub}
+                                          </Link>
+                                        )
+                                      })}
+                                    </div>
+                                  )}
                                 </div>
                               )
                             })
