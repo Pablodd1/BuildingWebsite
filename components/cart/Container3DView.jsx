@@ -203,7 +203,6 @@ export default function Container3DView({
               B.I. LOGISTICS
            </div>
         </motion.div>
-      </div>
 
       {/* Fill Level Indicator */}
       <div

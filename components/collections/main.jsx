@@ -14,6 +14,7 @@ export default function Collections_UI({ searchParams, h1, description, productU
 
     const queryCategory = searchParams.category;
     const querySubcategory = searchParams.subcategory;
+    const querySubcategoriesParam = searchParams.subcategories;
     const queryCollection = searchParams.collection;
 
     const [products, setProducts] = useState([]);
@@ -25,17 +26,17 @@ export default function Collections_UI({ searchParams, h1, description, productU
     // Sync filters with URL params
     useEffect(() => {
         const syncFilters = () => {
-            if (queryCategory || querySubcategory || queryCollection) {
+            if (queryCategory || querySubcategory || queryCollection || querySubcategoriesParam) {
                 setFilters(prev => ({
                     ...prev,
                     category: queryCategory || prev.category,
                     collection: queryCollection || prev.collection,
-                    subcategories: querySubcategory ? [querySubcategory] : prev.subcategories
+                    subcategories: querySubcategory ? [querySubcategory] : (querySubcategoriesParam ? querySubcategoriesParam.split(',').filter(Boolean) : prev.subcategories)
                 }));
             }
         }
         syncFilters()
-    }, [queryCategory, querySubcategory, queryCollection]);
+    }, [queryCategory, querySubcategory, queryCollection, querySubcategoriesParam]);
 
     // Fetch products
     useEffect(() => {
