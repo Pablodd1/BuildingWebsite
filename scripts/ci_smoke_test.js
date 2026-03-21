@@ -37,14 +37,24 @@ async function run() {
   let ok = true;
   for (const url of endpoints) {
     const res = curl(`curl -s -H "Accept: application/json" ${url}`);
-    if (!res || typeof res !== 'string' || res.indexOf('{') === -1) {
-      console.error(`Endpoint failed or returned non-JSON: ${url}`);
-      ok = false;
-    } else {
-      // crude JSON sanity check
-      if (!(res.includes('currentPage') || res.includes('items'))) {
-        console.warn(`Endpoint response for ${url} did not look like a JSON payload`);
+    let isJson = false;
+    try {
+      const parsed = JSON.parse(res);
+      isJson = typeof parsed === 'object' && parsed !== null;
+      if (isJson) {
+        if (!(parsed.currentPage !== undefined || parsed.items !== undefined)) {
+          console.error(`Endpoint JSON missing expected fields: ${url}`);
+          ok = false;
+        }
+      } else {
+        isJson = false;
       }
+    } catch {
+      isJson = false;
+    }
+    if (!isJson) {
+      console.error(`Endpoint failed or did not return valid JSON: ${url}`);
+      ok = false;
     }
   }
 
