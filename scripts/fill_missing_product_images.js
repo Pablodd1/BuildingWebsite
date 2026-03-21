@@ -9,18 +9,25 @@ const missingFiles = [
 ];
 
 const dir = path.resolve(__dirname, '..', 'public', 'raster', 'products');
-const placeholder = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGMAAQAABQABDQottQAAAABJRU5ErkJggg==','base64');
+const placeholderSrc = path.resolve(__dirname, '..', 'public', 'raster', 'product.jpg');
+const placeholder = Buffer.from('','base64');
 
-if (!fs.existsSync(dir)) {
-  console.warn('Product images directory not found:', dir);
-  process.exit(0);
-}
+  if (!fs.existsSync(dir)) {
+    console.warn('Product images directory not found:', dir);
+    process.exit(0);
+  }
 
 missingFiles.forEach((fname) => {
   const p = path.join(dir, fname);
   if (!fs.existsSync(p)) {
-    fs.writeFileSync(p, placeholder);
-    console.log('Created placeholder:', p);
+    try {
+      fs.copyFileSync(placeholderSrc, p);
+      console.log('Copied placeholder from', placeholderSrc, 'to', p);
+    } catch (e) {
+      // Fallback to bare placeholder if copy fails
+      fs.writeFileSync(p, placeholder);
+      console.log('Created fallback placeholder:', p);
+    }
   } else {
     console.log('Already exists:', p);
   }
