@@ -101,39 +101,47 @@ const MegaMenu = () => {
                         </Link>
                         <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                         {(() => {
-                          // Merge dynamic and static interiors to ensure every category shows if there are products
-                          const dynInt = dynamicCategories && dynamicCategories.Interior
-                            ? Object.entries(dynamicCategories.Interior)
-                            : []
+                          // Merger of Interior data: restrict to main titles only
+                          const dynInt = dynamicCategories && dynamicCategories.Interior ? Object.entries(dynamicCategories.Interior) : []
                           const staticInt = Object.entries(productCategories.Interior || {})
-                          const interiorEntriesMerged = Array.from(new Map([
-                            ...dynInt,
-                            ...staticInt
-                          ]))
-                          return interiorEntriesMerged.map(([category, data]) => {
-                            const tKey = `nav.${category.toLowerCase().replace(/ /g, '')}`
-                            const href = `${data.page}?category=${category}&collection=${data.collection}`
-                            const subcats = (data.subcategories || [])
-                            // Deduplicate subcategories
-                            const uniqueSubcats = [...new Set(subcats)]
+                          const interiorEntriesMerged = Array.from(new Map([...dynInt, ...staticInt]))
+                          const allowedInterior = new Set([
+                            "CIELO RASO PVC",
+                            "ILUMINACION",
+                            "JARDINES ARTIFICIALES",
+                            "LAMINAS",
+                            "LISTONES",
+                            "PANELES WPC Y ANGULOS",
+                            "PAREDES",
+                            "CINTAS",
+                            "PEGANTES",
+                            "PISOS",
+                            "ZOCALOS"
+                          ])
+                          const interiorEntriesFiltered = interiorEntriesMerged.filter(([category]) => allowedInterior.has(category))
+                          const labelMap = {
+                            "CIELO RASO PVC": "Cielo raso PVC",
+                            "ILUMINACION": "Iluminación",
+                            "JARDINES ARTIFICIALES": "Jardines Artificiales",
+                            "LAMINAS": "Láminas",
+                            "LISTONES": "Listones",
+                            "PANELES WPC Y ANGULOS": "Paneles Ángulos",
+                            "PAREDES": "Paredes",
+                            "CINTAS": "Cintas",
+                            "PEGANTES": "Pegantes",
+                            "PISOS": "Pisos",
+                            "ZOCALOS": "Zócalos"
+                          }
+                          return interiorEntriesFiltered.map(([category, data]) => {
+                            const subParam = (data.subcategories && data.subcategories.length) ? `&subcategories=${data.subcategories.join(',')}` : ''
+                            const href = `${data.page}?category=${category}&collection=${data.collection}${subParam}`
+                            const label = labelMap[category] || category
                             return (
                               <div key={category} className="group/item mb-2">
                                 <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-blue-600 mb-1 text-[12px] uppercase tracking-widest transition-all">
                                   <data.icon className="w-4 h-4" />
-                                  {t(tKey) !== tKey ? t(tKey) : category}
+                                  {label}
                                 </Link>
-                                {uniqueSubcats.length > 0 && (
-                                  <div className="ml-6 grid grid-cols-1 gap-1">
-                                    {uniqueSubcats.map((sub) => {
-                                      const subHref = `${data.page}?category=${category}&collection=${data.collection}&subcategories=${sub}`
-                                      return (
-                                        <Link key={sub} href={subHref} className="text-xs text-gray-700 hover:text-blue-600 mb-0.5 ml-2">
-                                          {sub}
-                                        </Link>
-                                      )
-                                    })}
-                                  </div>
-                                )}
                               </div>
                             )
                           })
@@ -188,18 +196,34 @@ const MegaMenu = () => {
                             </div>
                         </Link>
                         <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                            {Object.entries(productCategories.Exterior).map(([category, data]) => {
-                                const tKey = `nav.${category.toLowerCase().replace(/ /g, '')}`;
-                                const href = `${data.page}?category=${category}&collection=${data.collection}`;
-                                return (
-                                    <div key={category} className="group/item">
-                                        <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all">
-                                            <data.icon className="w-4 h-4" />
-                                            {t(tKey) !== tKey ? t(tKey) : category}
-                                        </Link>
-                                    </div>
-                                );
-                            })}
+                          {(() => {
+                            const dynExt = dynamicCategories && dynamicCategories.Exterior ? Object.entries(dynamicCategories.Exterior) : []
+                            const staticExt = Object.entries(productCategories.Exterior || {})
+                            const exteriorEntriesMerged = Array.from(new Map([...dynExt, ...staticExt]))
+                            const allowedExterior = new Set(["CUBIERTAS UPVC","JARDINES ARTIFICIALES","PAREDES","LISTONES","PANELES WPC Y ANGULOS","PISOS"])
+                            const exteriorEntriesFiltered = exteriorEntriesMerged.filter(([category]) => allowedExterior.has(category))
+                            const labelMapExt = {
+                              "CUBIERTAS UPVC": "Cubiertas UPVC",
+                              "JARDINES ARTIFICIALES": "Jardines Artificiales",
+                              "PAREDES": "Paredes",
+                              "LISTONES": "Listones",
+                              "PANELES WPC Y ANGULOS": "Paneles Ángulos",
+                              "PISOS": "Pisos"
+                            }
+                            return exteriorEntriesFiltered.map(([category, data]) => {
+                              const subParam = (data.subcategories && data.subcategories.length) ? `&subcategories=${data.subcategories.join(',')}` : ''
+                              const href = `${data.page}?category=${category}&collection=${data.collection}${subParam}`
+                              const label = labelMapExt[category] || category
+                              return (
+                                <div key={category} className="group/item">
+                                  <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all">
+                                    <data.icon className="w-4 h-4" />
+                                    {label}
+                                  </Link>
+                                </div>
+                              )
+                            })
+                          })()}
                         </div>
                     </div>
                 </div>
