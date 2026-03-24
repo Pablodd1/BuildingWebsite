@@ -99,39 +99,39 @@ const MegaMenu = () => {
                                 <span className="text-[8px] text-gray-400 font-bold uppercase tracking-widest">{language === 'es' ? 'Soluciones Internas' : 'Indoor Solutions'}</span>
                             </div>
                         </Link>
-                 <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                 {(() => {
-                   // Merger of Interior data: restrict to main titles only
-                   const dynInt = dynamicCategories && dynamicCategories.Interior ? Object.entries(dynamicCategories.Interior) : []
-                   const staticInt = Object.entries(productCategories.Interior || {})
-                   const interiorEntriesMerged = Array.from(new Map([...dynInt, ...staticInt]))
-                   const allowedInterior = new Set([
-                     "CIELO RASO PVC",
-                     "ILUMINACION",
-                     "JARDINES ARTIFICIALES",
-                     "LAMINAS",
-                     "LISTONES",
-                     "PANELES WPC Y ANGULOS",
-                     "PAREDES",
-                     "CINTAS",
-                     "PEGANTES",
-                     "PISOS",
-                     "ZOCALOS"
-                   ])
-                   const interiorEntriesFiltered = interiorEntriesMerged.filter(([category]) => allowedInterior.has(category))
-                   const labelMap = {
-                     "CIELO RASO PVC": "Cielo raso PVC",
-                     "ILUMINACION": "Iluminación",
-                     "JARDINES ARTIFICIALES": "Jardines Artificiales",
-                     "LAMINAS": "Láminas",
-                     "LISTONES": "Listones",
-                     "PANELES WPC Y ANGULOS": "Paneles Ángulos",
-                     "PAREDES": "Paredes",
-                     "CINTAS": "Cintas",
-                     "PEGANTES": "Pegantes",
-                     "PISOS": "Pisos",
-                     "ZOCALOS": "Zócalos"
-                   }
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                  {(() => {
+                    // Merger of Interior data: restrict to main titles only
+                    const dynInt = dynamicCategories && dynamicCategories.Interior ? Object.entries(dynamicCategories.Interior) : []
+                    const staticInt = Object.entries(productCategories.Interior || {})
+                    const interiorEntriesMerged = Array.from(new Map([...dynInt, ...staticInt]))
+                    const allowedInterior = new Set([
+                      "CIELO RASO PVC",
+                      "ILUMINACION",
+                      "JARDINES ARTIFICIALES",
+                      "LAMINAS",
+                      "LISTONES",
+                      "PANELES WPC Y ANGULOS",
+                      "PAREDES",
+                      "CINTAS",
+                      "PEGANTES",
+                      "PISOS",
+                      "ZOCALOS"
+                    ])
+                    const interiorEntriesFiltered = interiorEntriesMerged.filter(([category]) => allowedInterior.has(category))
+                    const labelMap = {
+                      "CIELO RASO PVC": "Cielo raso PVC",
+                      "ILUMINACION": "Iluminación",
+                      "JARDINES ARTIFICIALES": "Jardines Artificiales",
+                      "LAMINAS": "Láminas",
+                      "LISTONES": "Listones",
+                      "PANELES WPC Y ANGULOS": "Paneles Ángulos",
+                      "PAREDES": "Paredes",
+                      "CINTAS": "Cintas",
+                      "PEGANTES": "Pegantes",
+                      "PISOS": "Pisos",
+                      "ZOCALOS": "Zócalos"
+                    }
                     return interiorEntriesFiltered.map(([category, data]) => {
                       const subParam = (data.subcategories && data.subcategories.length) ? `&subcategories=${data.subcategories.join(',')}` : ''
                       const href = `${data.page}?category=${category}&collection=${data.collection}${subParam}`
@@ -143,6 +143,10 @@ const MegaMenu = () => {
                             {label}
                           </Link>
                         </div>
+                      )
+                    })}
+                  )}
+                </div>
                       )
                     })}
                </div>
@@ -173,19 +177,19 @@ const MegaMenu = () => {
                            "PANELES WPC Y ANGULOS": "Paneles Ángulos",
                            "PISOS": "Pisos"
                          }
-                         return exteriorEntriesFiltered.map(([category, data]) => {
-                           const subParam = (data.subcategories && data.subcategories.length) ? `&subcategories=${data.subcategories.join(',')}` : ''
-                           const href = `${data.page}?category=${category}&collection=${data.collection}${subParam}`
-                           const label = labelMapExt[category] || category
-                          return (
-                              <div key={category} className="group/item">
-                                <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all">
-                                  <data.icon className="w-4 h-4" />
-                                  {label}
-                                </Link>
-                              </div>
-                            )
-                        })}
+                          return exteriorEntriesFiltered.map(([category, data]) => {
+                            const subParam = (data.subcategories && data.subcategories.length) ? `&subcategories=${data.subcategories.join(',')}` : ''
+                            const href = `${data.page}?category=${category}&collection=${data.collection}${subParam}`
+                            const label = labelMapExt[category] || category
+                            return (
+                               <div key={category} className="group/item">
+                                 <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all">
+                                   <data.icon className="w-4 h-4" />
+                                   {label}
+                                 </Link>
+                               </div>
+                             )
+                         })}
                      </div>
                    </div>
                 </div>
