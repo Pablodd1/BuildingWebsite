@@ -99,133 +99,96 @@ const MegaMenu = () => {
                                 <span className="text-[8px] text-gray-400 font-bold uppercase tracking-widest">{language === 'es' ? 'Soluciones Internas' : 'Indoor Solutions'}</span>
                             </div>
                         </Link>
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                        {(() => {
-                          // Merger of Interior data: restrict to main titles only
-                          const dynInt = dynamicCategories && dynamicCategories.Interior ? Object.entries(dynamicCategories.Interior) : []
-                          const staticInt = Object.entries(productCategories.Interior || {})
-                          const interiorEntriesMerged = Array.from(new Map([...dynInt, ...staticInt]))
-                          const allowedInterior = new Set([
-                            "CIELO RASO PVC",
-                            "ILUMINACION",
-                            "JARDINES ARTIFICIALES",
-                            "LAMINAS",
-                            "LISTONES",
-                            "PANELES WPC Y ANGULOS",
-                            "PAREDES",
-                            "CINTAS",
-                            "PEGANTES",
-                            "PISOS",
-                            "ZOCALOS"
-                          ])
-                          const interiorEntriesFiltered = interiorEntriesMerged.filter(([category]) => allowedInterior.has(category))
-                          const labelMap = {
-                            "CIELO RASO PVC": "Cielo raso PVC",
-                            "ILUMINACION": "Iluminación",
-                            "JARDINES ARTIFICIALES": "Jardines Artificiales",
-                            "LAMINAS": "Láminas",
-                            "LISTONES": "Listones",
-                            "PANELES WPC Y ANGULOS": "Paneles Ángulos",
-                            "PAREDES": "Paredes",
-                            "CINTAS": "Cintas",
-                            "PEGANTES": "Pegantes",
-                            "PISOS": "Pisos",
-                            "ZOCALOS": "Zócalos"
-                          }
-                          return interiorEntriesFiltered.map(([category, data]) => {
-                            const subParam = (data.subcategories && data.subcategories.length) ? `&subcategories=${data.subcategories.join(',')}` : ''
-                            const href = `${data.page}?category=${category}&collection=${data.collection}${subParam}`
-                            const label = labelMap[category] || category
-                            return (
-                              <div key={category} className="group/item mb-2">
-                                <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-blue-600 mb-1 text-[12px] uppercase tracking-widest transition-all">
-                                  <data.icon className="w-4 h-4" />
-                                  {label}
-                                </Link>
-                              </div>
-                            )
-                          })
-                        })()}
-                        {(() => {
-                          const dynExt = dynamicCategories && dynamicCategories.Exterior
-                            ? Object.entries(dynamicCategories.Exterior)
-                            : []
-                          const staticExt = Object.entries(productCategories.Exterior || {})
-                          const exteriorEntriesMerged = Array.from(new Map([
-                            ...dynExt,
-                            ...staticExt
-                          ]))
-                          return exteriorEntriesMerged.map(([category, data]) => {
-                            const tKey = `nav.${category.toLowerCase().replace(/ /g, '')}`
-                            const href = `${data.page}?category=${category}&collection=${data.collection}`
-                            const subcats = data.subcategories || []
-                            const uniqueSubcats = [...new Set(subcats)]
-                            return (
-                              <div key={category} className="group/item">
-                                <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all">
-                                  <data.icon className="w-4 h-4" />
-                                  {t(tKey) !== tKey ? t(tKey) : category}
-                                </Link>
-                                {uniqueSubcats.length > 0 && (
-                                  <div className="ml-6 grid grid-cols-1 gap-1">
-                                    {uniqueSubcats.map((sub) => {
-                                      const subHref = `${data.page}?category=${category}&collection=${data.collection}&subcategories=${sub}`
-                                      return (
-                                        <Link key={sub} href={subHref} className="text-xs text-gray-700 hover:text-blue-600 mb-0.5 ml-2">
-                                          {sub}
-                                        </Link>
-                                      )
-                                    })}
-                                  </div>
-                                )}
-                              </div>
-                            )
-                          })
-                        })()}
-                        </div>
+                 <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                 {(() => {
+                   // Merger of Interior data: restrict to main titles only
+                   const dynInt = dynamicCategories && dynamicCategories.Interior ? Object.entries(dynamicCategories.Interior) : []
+                   const staticInt = Object.entries(productCategories.Interior || {})
+                   const interiorEntriesMerged = Array.from(new Map([...dynInt, ...staticInt]))
+                   const allowedInterior = new Set([
+                     "CIELO RASO PVC",
+                     "ILUMINACION",
+                     "JARDINES ARTIFICIALES",
+                     "LAMINAS",
+                     "LISTONES",
+                     "PANELES WPC Y ANGULOS",
+                     "PAREDES",
+                     "CINTAS",
+                     "PEGANTES",
+                     "PISOS",
+                     "ZOCALOS"
+                   ])
+                   const interiorEntriesFiltered = interiorEntriesMerged.filter(([category]) => allowedInterior.has(category))
+                   const labelMap = {
+                     "CIELO RASO PVC": "Cielo raso PVC",
+                     "ILUMINACION": "Iluminación",
+                     "JARDINES ARTIFICIALES": "Jardines Artificiales",
+                     "LAMINAS": "Láminas",
+                     "LISTONES": "Listones",
+                     "PANELES WPC Y ANGULOS": "Paneles Ángulos",
+                     "PAREDES": "Paredes",
+                     "CINTAS": "Cintas",
+                     "PEGANTES": "Pegantes",
+                     "PISOS": "Pisos",
+                     "ZOCALOS": "Zócalos"
+                   }
+                   return interiorEntriesFiltered.map(([category, data]) => {
+                     const subParam = (data.subcategories && data.subcategories.length) ? `&subcategories=${data.subcategories.join(',')}` : ''
+                     const href = `${data.page}?category=${category}&collection=${data.collection}${subParam}`
+                     const label = labelMap[category] || category
+                     return (
+                       <div key={category} className="group/item mb-2">
+                         <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-blue-600 mb-1 text-[12px] uppercase tracking-widest transition-all">
+                           <data.icon className="w-4 h-4" />
+                           {label}
+                         </Link>
+                       </div>
+                     )
+                   })
+                 })()}
+               </div>
                     </div>
 
-                    <div className="flex-1 p-5 bg-gray-50/20 hover:bg-white transition-colors">
-                        <Link href="/collections/exterior?collection=exterior" className="flex items-center gap-3 mb-5">
-                            <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shadow-sm">
-                                <Building2 className="w-5 h-5 text-emerald-600" />
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-black text-gray-900 uppercase tracking-tighter leading-none">{t('nav.exteriors')}</h3>
-                                <span className="text-[8px] text-gray-400 font-bold uppercase tracking-widest">{language === 'es' ? 'Resistencia Climática' : 'Climate Resistant'}</span>
-                            </div>
-                        </Link>
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                          {(() => {
-                            const dynExt = dynamicCategories && dynamicCategories.Exterior ? Object.entries(dynamicCategories.Exterior) : []
-                            const staticExt = Object.entries(productCategories.Exterior || {})
-                            const exteriorEntriesMerged = Array.from(new Map([...dynExt, ...staticExt]))
-                            const allowedExterior = new Set(["CUBIERTAS UPVC","JARDINES ARTIFICIALES","PAREDES","LISTONES","PANELES WPC Y ANGULOS","PISOS"])
-                            const exteriorEntriesFiltered = exteriorEntriesMerged.filter(([category]) => allowedExterior.has(category))
-                            const labelMapExt = {
-                              "CUBIERTAS UPVC": "Cubiertas UPVC",
-                              "JARDINES ARTIFICIALES": "Jardines Artificiales",
-                              "PAREDES": "Paredes",
-                              "LISTONES": "Listones",
-                              "PANELES WPC Y ANGULOS": "Paneles Ángulos",
-                              "PISOS": "Pisos"
-                            }
-                            return exteriorEntriesFiltered.map(([category, data]) => {
-                              const subParam = (data.subcategories && data.subcategories.length) ? `&subcategories=${data.subcategories.join(',')}` : ''
-                              const href = `${data.page}?category=${category}&collection=${data.collection}${subParam}`
-                              const label = labelMapExt[category] || category
-                              return (
-                                <div key={category} className="group/item">
-                                  <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all">
-                                    <data.icon className="w-4 h-4" />
-                                    {label}
-                                  </Link>
-                                </div>
-                              )
-                            })
-                          })()}
-                        </div>
-                    </div>
+                 <div className="flex-1 p-5 bg-gray-50/20 hover:bg-white transition-colors">
+                     <Link href="/collections/exterior?collection=exterior" className="flex items-center gap-3 mb-5">
+                         <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center shadow-sm">
+                             <Building2 className="w-5 h-5 text-emerald-600" />
+                         </div>
+                         <div>
+                             <h3 className="text-lg font-black text-gray-900 uppercase tracking-tighter leading-none">{t('nav.exteriors')}</h3>
+                             <span className="text-[8px] text-gray-400 font-bold uppercase tracking-widest">{language === 'es' ? 'Resistencia Climática' : 'Climate Resistant'}</span>
+                         </div>
+                     </Link>
+                     <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                       {(() => {
+                         const dynExt = dynamicCategories && dynamicCategories.Exterior ? Object.entries(dynamicCategories.Exterior) : []
+                         const staticExt = Object.entries(productCategories.Exterior || {})
+                         const exteriorEntriesMerged = Array.from(new Map([...dynExt, ...staticExt]))
+                         const allowedExterior = new Set(["CUBIERTAS UPVC","JARDINES ARTIFICIALES","PAREDES","LISTONES","PANELES WPC Y ANGULOS","PISOS"])
+                         const exteriorEntriesFiltered = exteriorEntriesMerged.filter(([category]) => allowedExterior.has(category))
+                         const labelMapExt = {
+                           "CUBIERTAS UPVC": "Cubiertas UPVC",
+                           "JARDINES ARTIFICIALES": "Jardines Artificiales",
+                           "PAREDES": "Paredes",
+                           "LISTONES": "Listones",
+                           "PANELES WPC Y ANGULOS": "Paneles Ángulos",
+                           "PISOS": "Pisos"
+                         }
+                         return exteriorEntriesFiltered.map(([category, data]) => {
+                           const subParam = (data.subcategories && data.subcategories.length) ? `&subcategories=${data.subcategories.join(',')}` : ''
+                           const href = `${data.page}?category=${category}&collection=${data.collection}${subParam}`
+                           const label = labelMapExt[category] || category
+                           return (
+                             <div key={category} className="group/item">
+                               <Link href={href} className="flex items-center gap-2 font-bold text-gray-900 group-hover/item:text-emerald-700 mb-1 text-[12px] uppercase tracking-widest transition-all">
+                                 <data.icon className="w-4 h-4" />
+                                 {label}
+                               </Link>
+                             </div>
+                           })
+                       })()}
+                     </div>
+                   </div>
                 </div>
             </div>
         </div>
