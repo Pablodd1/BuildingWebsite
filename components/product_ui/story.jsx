@@ -75,9 +75,9 @@ export default function ProductStory({ product, description }) {
     
     return (
         <section className="mt-20 ">
-            <Stylish_H2 h2={t.materialApplication} />
+            <Stylish_H2 h2={t.materialApplication} className="text-white tracking-widest uppercase text-sm md:text-lg mb-12" />
 
-            <p className="text-sm leading-relaxed text-gray-600 max-w-4/5">
+            <p className="text-sm leading-relaxed text-white max-w-4/5">
                 {isTranslating ? t.loading || 'Translating...' : translatedDesc}
             </p>
 
@@ -138,10 +138,10 @@ function ApplicationItem({ icon, title, text }) {
         <div className="grid relative items-start gap-4 shadow-md border-secondary border min-h-fit bg-primary px-3 py-3 rounded-2xl">
 
             <div className=" border-l-4 border-accent1/75 py-2 pl-2 ml-1">
-                <p className="text-sm font-medium text-secondary tracking-wide">
+                <p className="text-sm font-medium text-white tracking-wide">
                     {title}
                 </p>
-                <p className="mt-1 text-xs text-secondary/75 leading-relaxed">
+                <p className="mt-1 text-xs text-white/80 leading-relaxed">
                     {text}
                 </p>
             </div>

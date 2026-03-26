@@ -5,7 +5,7 @@ export default function Stylish_H2({ h2, className = " tracking-widest uppercase
                 {h2}
                 <span className=" absolute left-0 bottom-0 min-w-2/5 rounded-full bg-current opacity-45 h-px md:h-0.5" ></span>
             </span>
-            <span className=" grow bg-black h-px md:h-0.5" ></span>
+            <span className=" grow bg-current h-px md:h-0.5" ></span>
         </h2>
     )
 }
