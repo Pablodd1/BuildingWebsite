@@ -91,7 +91,7 @@ export default function ContactPage() {
         e.preventDefault();
         const subject = `Meeting Request - ${meetingData.date} at ${meetingData.time}`;
         const body = `I'd like to schedule a meeting.\n\nName: ${meetingData.name}\nEmail: ${meetingData.email}\nPhone: ${meetingData.phone}\nPreferred Date: ${meetingData.date}\nPreferred Time: ${meetingData.time}\n\nNotes:\n${meetingData.notes}`;
-        window.location.href = `mailto:info@building-innovation.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = `mailto:lidermercadeo@espaciosimportados.com.co?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     };
 
     return (

@@ -787,7 +787,7 @@ const translations = {
                     text: "For questions regarding these Terms & Conditions, please contact our Legal Department."
                 }
             },
-            email: "legal@unitecusadesign.com"
+            email: "lidermercadeo@espaciosimportados.com.co"
         },
         policies: {
             title: "Privacy Policy",
@@ -826,7 +826,7 @@ const translations = {
                     text: "For questions about this Privacy Policy or our data practices, please contact our Privacy Department."
                 }
             },
-            email: "privacy@unitecusadesign.com"
+            email: "lidermercadeo@espaciosimportados.com.co"
         },
         whoWeAre: {
             title: "Who We Are",
@@ -1742,7 +1742,7 @@ const translations = {
                     text: "Para preguntas sobre estos Términos y Condiciones, por favor contacte a nuestro Departamento Legal."
                 }
             },
-            email: "legal@unitecusadesign.com"
+            email: "lidermercadeo@espaciosimportados.com.co"
         },
         policies: {
             title: "Política de Privacidad",
@@ -1781,7 +1781,7 @@ const translations = {
                     text: "Para preguntas sobre esta Política de Privacidad o nuestras prácticas de datos, por favor contacte a nuestro Departamento de Privacidad."
                 }
             },
-            email: "privacy@unitecusadesign.com"
+            email: "lidermercadeo@espaciosimportados.com.co"
         }
     }
 };
