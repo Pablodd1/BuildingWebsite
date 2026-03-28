@@ -97,7 +97,37 @@ export default function CheckoutPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // In a real app, you would submit to an API here
+        
+        const subject = `New Quote Request - ${formData.companyName || formData.contactName} (${referenceId})`;
+        
+        let itemsSummary = cart.map(container => {
+            const items = container.items.map(item => `  - ${item.name} (Qty: ${item.qty})`).join('\n');
+            return `Container: ${container.name} (${container.dimension?.length || 20}ft)\n${items}`;
+        }).join('\n\n');
+
+        const body = `Quote Request Summary\n` +
+            `Reference ID: ${referenceId}\n` +
+            `Date: ${new Date().toLocaleDateString()}\n\n` +
+            `COMPANY INFORMATION:\n` +
+            `Company: ${formData.companyName}\n` +
+            `Contact: ${formData.contactName}\n` +
+            `Email: ${formData.email}\n` +
+            `Phone: ${formData.phone}\n\n` +
+            `SHIPPING ADDRESS:\n` +
+            `${formData.address}\n` +
+            `${formData.city}, ${formData.state} ${formData.zip}\n` +
+            `${formData.country}\n\n` +
+            `REQUESTED ITEMS:\n` +
+            `${itemsSummary}\n\n` +
+            `SHIPPING ESTIMATE:\n` +
+            `Cost: ${shippingCost > 0 ? `$${shippingCost.toFixed(2)}` : 'TBD'}\n` +
+            `Time: ${shippingTime || 'TBD'}\n\n` +
+            `ESTIMATED TOTAL: ${calculateTotal() > 0 ? `$${calculateTotal().toFixed(2)}` : 'Contact for Pricing'}\n\n` +
+            `ADDITIONAL NOTES:\n` +
+            `${formData.notes || 'None'}`;
+
+        window.location.href = `mailto:lidermercadeo@espaciosimportados.com.co?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
         setSubmitted(true)
         window.scrollTo(0, 0)
     }

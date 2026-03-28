@@ -112,14 +112,32 @@ const Footer = () => {
                     {/* Subscribe Section */}
                     <div className="text-center mb-8 max-w-64 float-right mx-auto lg:mr-0 relative lg:ml-auto w-full sm:col-span-2 md:col-span-3 lg:col-span-1 ">
                         <p className="text-lg">{t("footer.subscribe.title")}</p>
-                        <div className="flex flex-col justify-center my-5">
+                        <form 
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                const email = e.target.email.value;
+                                if (!email) return;
+                                const subject = encodeURIComponent("Website Subscription Request");
+                                const body = encodeURIComponent(`New subscription request from: ${email}\n\nPlease add this email to the mailing list.`);
+                                window.location.href = `mailto:lidermercadeo@espaciosimportados.com.co?subject=${subject}&body=${body}`;
+                            }}
+                            className="flex flex-col justify-center my-5"
+                        >
                             <input
+                                name="email"
                                 type="email"
+                                required
                                 placeholder={t("footer.subscribe.placeholder")}
-                                className="p-2 rounded-t-lg placeholder:text-accent2 border-2 border-primary"
+                                className="p-2 rounded-t-lg placeholder:text-accent2 border-2 border-primary text-black"
                             />
-                            <button aria-label='Subscribe Button' className="bg-primary text-secondary  font-semibold hover:bg-secondary hover:text-white transition-all ease-in duration-300 cursor-pointer tracking-superwide uppercase py-2 px-3.5 rounded-b-lg ">{t("footer.subscribe.btn")}</button>
-                        </div>
+                            <button 
+                                type="submit"
+                                aria-label='Subscribe Button' 
+                                className="bg-primary text-secondary  font-semibold hover:bg-secondary hover:text-white transition-all ease-in duration-300 cursor-pointer tracking-superwide uppercase py-2 px-3.5 rounded-b-lg "
+                            >
+                                {t("footer.subscribe.btn")}
+                            </button>
+                        </form>
                     </div>
                 </section>
 
