@@ -53,7 +53,7 @@ export default function HeroSec() {
                     poster="/raster/containes.avif"
                     className="w-full h-full object-cover"
                 >
-                    <source src="https://herovideo.my.canva.site/_assets/video/4398a9aa13476ae9ff803cf0f486a13f.mp4" type="video/mp4" />
+                    <source src="/videos/hero-video.mp4" type="video/mp4" />
                     {/* Fallback for browsers that don't support video */}
                     <Image
                         src="/raster/containes.avif"
