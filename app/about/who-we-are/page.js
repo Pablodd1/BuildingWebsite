@@ -11,7 +11,6 @@ export default function WhoWeArePage() {
     
     const companyKey = activeBrand === 'unitec' ? 'unitec' : 'binw';
     const companyName = getCompanyText(companyKey, 'name');
-    const companyTagline = getCompanyText(companyKey, 'tagline');
     
     const intro = t('whoWeAre.intro', activeBrand) || [];
     
@@ -32,7 +31,6 @@ export default function WhoWeArePage() {
             <section className="mb-16">
                 <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100">
                     <h2 className="text-3xl font-bold mb-2">{companyName}</h2>
-                    <p className="text-xl text-gray-500 italic mb-6">{companyTagline}</p>
 
                     <div className="text-lg text-gray-700 leading-relaxed text-justify space-y-4">
                         {intro && Array.isArray(intro) ? intro.map((paragraph, idx) => (

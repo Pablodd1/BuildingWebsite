@@ -24,17 +24,13 @@ const Footer = () => {
     const { t, getCompanyText } = useLanguage();
     const { activeBrand, brand } = useBrand();
 
-    const companyKey = activeBrand === 'unitec' ? 'unitec' : 'binw';
-    const companyTagline = getCompanyText(companyKey, 'tagline');
-
     const brandData = teamData[activeBrand] || teamData.binw;
     const contact = brandData.contact || {};
     const social = teamData.social || {};
 
     const navData = {
         logo: {
-            text: brand.name,
-            tagline: companyTagline
+            text: brand.name
         },
         contact: {
             phone: contact.phone,
@@ -71,7 +67,6 @@ const Footer = () => {
                         <div className="text-center mb-8 w-fit mx-auto ">
                             <Logo size={150} className="mx-auto bg-primary p-1 mb-3 rounded-md" />
                             <h1 className=" text-2xl uppercase tracking-wider text-primary first-line:font-bold">{navData.logo.text}</h1>
-                            <p className="text-lg">{navData.logo.tagline}</p>
                         </div>
 
                         {/* Contact Section */}

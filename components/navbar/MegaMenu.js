@@ -82,9 +82,6 @@ const MegaMenu = () => {
                 <div className="bg-gray-50/80 px-6 py-3 flex items-center justify-between border-b border-gray-100">
                     <div className="flex items-center gap-3">
                         <Sparkles className="w-4 h-4 text-blue-500 animate-pulse" />
-                        <span className="text-gray-900 font-black text-[10px] uppercase tracking-[0.2em]">
-                            {language === 'es' ? brand.heroTagline_es : brand.heroTagline}
-                        </span>
                     </div>
                 </div>
 
