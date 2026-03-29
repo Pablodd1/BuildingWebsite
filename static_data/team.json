@@ -95,12 +95,13 @@
       }
     ],
     "contact": {
-      "phone": "+57 601 235 4321",
-      "whatsapp": "576012354321",
+      "phone": "+57 314 233 7199",
+      "phone2": "+57 310 576 9694",
+      "whatsapp": "573142337199",
       "email": "lidermercadeo@espaciosimportados.com.co",
-      "address": "Carrera 11 #84-09",
-      "address_es": "Carrera 11 #84-09",
-      "city": "Bogotá, Colombia",
+      "address": "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274. Itagüí, Medellín",
+      "address_es": "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274. Itagüí, Medellín",
+      "city": "Medellín, Colombia",
       "country": "Colombia",
       "hours": "Mon-Fri: 7AM - 5PM COL",
       "hours_es": "Lun-Vie: 7AM - 5PM COL"

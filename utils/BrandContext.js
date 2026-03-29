@@ -34,8 +34,8 @@ export const BRAND_CONFIG = {
             accent: '#144552',
         },
         email: "lidermercadeo@espaciosimportados.com.co",
-        heroTagline: "At the reach of what you imagine.",
-        heroTagline_es: "Al alcance de lo que imaginas.",
+        heroTagline: "",
+        heroTagline_es: "",
     }
 };
 

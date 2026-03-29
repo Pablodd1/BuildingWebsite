@@ -4,7 +4,7 @@ const translations = {
             unitec: {
                 name: "UNITEC USA Design",
                 shortName: "UNITEC",
-                tagline: "At the reach of what you imagine.",
+                tagline: "",
                 heroTitle: "Fill Your Container. Ship Your Way.",
                 heroSubtitle: "Choose the products you want, pack them into your container, and we'll handle the shipping — simple, flexible, and built around you.",
                 heroCta: "Explore Products",
@@ -24,10 +24,10 @@ const translations = {
                 },
                 headquarters: {
                     title: "Colombia Headquarters",
-                    address: "Autopista Sur",
+                    address: "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274. Itagüí, Medellín",
                     city: "Medellín, Colombia",
                     country: "Colombia",
-                    phone: "+57 601 235 4321"
+                    phone: "+57 314 233 7199 / +57 310 576 9694"
                 },
                 quality: {
                     title: "Committed to Quality",
@@ -37,7 +37,7 @@ const translations = {
                 },
                 whoWeAre: {
                     title: "Who We Are",
-                    tagline: "At the reach of what you imagine.",
+                    tagline: "",
                     intro: [
                         "Bulk shipping is broken when treated like normal e-commerce. Products are not individual units — they are volumes, dimensions, and constraints within a container.",
                         "We built our platform around a simple belief: containers go first, products go second. This mindset allows businesses to plan realistic shipments, avoid over-booking, and get total visibility of capacity."
@@ -52,10 +52,10 @@ const translations = {
                     },
                     headquarters: {
                         title: "Colombia Headquarters",
-                        address: "Autopista Sur",
+                        address: "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274. Itagüí, Medellín",
                         city: "Medellín, Colombia",
                         country: "Colombia",
-                        phone: "+57 601 235 4321"
+                        phone: "+57 314 233 7199 / +57 310 576 9694"
                     }
                 },
                 about: {
@@ -412,10 +412,13 @@ const translations = {
         footer: {
             logo: {
                 text: "Building Innovation",
-                tagline: "Al alcanze de lo que imaginas.",
+                tagline: "",
             },
             contact: {
-                title: "Contact Us"
+                title: "CONTACT INFORMATION",
+                moreInfo: "More information:",
+                visitShowroom: "Visit our showroom:",
+                whether: "Whether you have questions about our products or are interested in our services, our team is ready to help."
             },
             information: {
                 title: "Information",
@@ -911,7 +914,7 @@ const translations = {
             unitec: {
                 name: "UNITEC USA Design",
                 shortName: "UNITEC",
-                tagline: "Al alcance de lo que imaginas.",
+                tagline: "",
                 heroTitle: "Llene Su Contenedor. Envíe a Su Manera.",
                 heroSubtitle: "Elija los productos que desee, empáquelos en su contenedor y nosotros nos encargamos del envío: simple, flexible y diseñado para usted.",
                 heroCta: "Explorar Productos",
@@ -930,10 +933,10 @@ const translations = {
                     description: "Nos especializamos en manejo de productos a granel, envío basado en contenedores y flujos de trabajo logísticos optimizados. Contáctenos para discutir volúmenes, contenedores y plazos de entrega."
                 },
                 headquarters: {
-                    address: "Autopista Sur",
+                    address: "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274. Itagüí, Medellín",
                     city: "Medellín, Colombia",
                     country: "Colombia",
-                    phone: "+57 601 235 4321"
+                    phone: "+57 314 233 7199 / +57 310 576 9694"
                 },
                 quality: {
                     title: "Comprometidos con la Calidad",
@@ -943,7 +946,7 @@ const translations = {
                 },
                 whoWeAre: {
                     title: "Quiénes Somos",
-                    tagline: "Al alcance de lo que imaginas.",
+                    tagline: "",
                     intro: [
                         "El envío a granel está roto cuando se trata como el comercio electrónico normal. Los productos no son unidades individuales — son volúmenes, dimensiones y restricciones dentro de un contenedor.",
                         "Construimos nuestra plataforma alrededor de una creencia simple: los contenedores van primero, los productos van segundo. Esta mentalidad permite a las empresas planificar envíos realistas, evitar sobre reservas y obtener total visibilidad de la capacidad."
@@ -958,10 +961,10 @@ const translations = {
                     },
                     headquarters: {
                         title: "Sede Colombia",
-                        address: "Autopista Sur",
+                        address: "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274. Itagüí, Medellín",
                         city: "Medellín, Colombia",
                         country: "Colombia",
-                        phone: "+57 601 235 4321"
+                        phone: "+57 314 233 7199 / +57 310 576 9694"
                     }
                 },
                 about: {
@@ -979,7 +982,7 @@ const translations = {
                     },
                     vision: {
                         title: "Nuestra Visión",
-                        p1: "Nuestra visión es convertirse en el proveedor líder de soluciones de construcción de PVC y WPC en toda América del Norte — transformando cómo profesionales y propietarios abordan la construcción y el diseño.",
+                        p1: "Nuestra visión es convertirnos en el proveedor líder de soluciones de construcción de PVC y WPC en toda América del Norte — transformando cómo profesionales y propietarios abordan la construcción y el diseño.",
                         p2: "Estamos construyendo hacia un futuro donde la construcción sostenible, la libertad de diseño y la vida libre de mantenimiento sean el estándar, no la excepción."
                     }
                 }
@@ -1309,6 +1312,12 @@ const translations = {
         },
         recommendations: {
             title: "Productos Más Vendidos",
+            contact: {
+                title: "INFORMACIÓN DE CONTACTO",
+                moreInfo: "Mas información:",
+                visitShowroom: "Visita nuestro showroom:",
+                whether: "Ya sea que tenga preguntas sobre nuestros productos o esté interesado en nuestros servicios, nuestro equipo está listo para ayudar."
+            },
             loading: "Cargando productos..."
         },
         search: {
@@ -1320,7 +1329,9 @@ const translations = {
                 tagline: "¡Diseñamos el futuro!"
             },
             contact: {
-                title: "Contáctanos"
+                title: "INFORMACIÓN DE CONTACTO",
+                moreInfo: "Mas información:",
+                visitShowroom: "Visita nuestro showroom:"
             },
             information: {
                 title: "Información",

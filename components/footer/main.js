@@ -64,18 +64,24 @@ const Footer = () => {
                 <section className=' grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1fr_0.7fr_0.75fr_1fr] gap-y-16 lg:gap-y-2' >
                     <article className='lg:w-2/3 sm:col-span-2 md:col-span-3 lg:col-span-1' >
                         {/* Logo Section */}
-                        <div className="text-center mb-8 w-fit mx-auto ">
+                        <div className="text-center mb-0 w-fit mx-auto ">
                             <Logo size={150} className="mx-auto bg-primary p-1 mb-3 rounded-md" />
-                            <h1 className=" text-2xl uppercase tracking-wider text-primary first-line:font-bold">{navData.logo.text}</h1>
                         </div>
 
                         {/* Contact Section */}
                         <div className="text-center mb-8 flex flex-col gap-1">
                             <p className="text-lg text-accent1 uppercase tracking-widest font-semibold">{t("footer.contact.title")}</p>
-                            <p>{navData.contact.phone}</p>
-                            {navData.contact.phone2 && <p>{navData.contact.phone2}</p>}
+                            
+                            {activeBrand === 'unitec' && (
+                                <p className="text-sm font-bold text-gray-400 mt-2">{t("footer.contact.moreInfo")}</p>
+                            )}
+                            <p className="text-sm font-medium">{navData.contact.phone} {navData.contact.phone2 ? `/ ${navData.contact.phone2}` : ""}</p>
+                            
+                            {activeBrand === 'unitec' && (
+                                <p className="text-sm font-bold text-gray-400 mt-2">{t("footer.contact.visitShowroom")}</p>
+                            )}
                             {navData.contact.address.map((line, i) => (
-                                <p key={i}>{line}</p>
+                                <p key={i} className="text-sm font-medium">{line}</p>
                             ))}
                         </div>
 
