@@ -126,7 +126,7 @@ export default function ContactPage() {
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/raster/Representation.png"
-                        alt="Contact Us"
+                        alt="Unitec USA Design Support Team and Logistics Representation"
                         fill
                         className="object-cover object-center w-full h-full"
                         priority
@@ -180,7 +180,7 @@ export default function ContactPage() {
                         </p>
                     </motion.div>
 
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${team.length <= 4 ? '2 xl:grid-cols-4' : '3 xl:grid-cols-5'} gap-4`}>
+                    <div className="contact-cards-grid min-h-[400px]">
                         {team.map((member, idx) => (
                             <motion.div
                                 key={member.id}
@@ -191,7 +191,10 @@ export default function ContactPage() {
                                 className="bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-shadow"
                             >
                                 <div className="text-center">
-                                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-2xl font-bold mb-3">
+                                    <div 
+                                        aria-label={`Initials of ${member.name}`}
+                                        className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-2xl font-bold mb-3"
+                                    >
                                         {member.name.charAt(0)}
                                     </div>
                                     <h3 className="font-bold text-gray-900">{member.name}</h3>
@@ -276,7 +279,7 @@ export default function ContactPage() {
                         <motion.a
                             href={`mailto:${contact.email}`}
                             whileHover={{ scale: 1.02 }}
-                            className="flex items-center gap-4 p-4 rounded-xl bg-gray-800 text-white shadow-lg hover:shadow-xl transition-shadow"
+                            className="flex items-center gap-4 p-4 rounded-xl bg-gray-800 text-white shadow-lg hover:shadow-xl transition-shadow break-anywhere"
                         >
                             <Mail size={32} />
                             <div>
@@ -571,7 +574,7 @@ function TrustItem({ icon: Icon, label, value }) {
 
 function InfoCard({ icon: Icon, title, value, hint }) {
     return (
-        <div className="flex items-start gap-4 rounded-xl border p-4">
+        <div className="flex items-start gap-4 rounded-xl border p-4 break-anywhere">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100">
                 <Icon size={18} />
             </div>

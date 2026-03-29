@@ -78,3 +78,26 @@ input::placeholder,
 textarea::placeholder {
   font-weight: 500;
 }
+
+/* Global Overflow Fix for Contact Information */
+.contact-info-container, 
+.break-anywhere {
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+/* Responsive Grid for Contact Cards */
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Map Container for CLS Fix */
+.map-container {
+  min-height: 512px;
+  background-color: #f3f4f6; /* gray-100 */
+  position: relative;
+  width: 100%;
+}

@@ -11,14 +11,16 @@ export default function Map() {
     const src = MAP_URLS[activeBrand] || MAP_URLS.binw;
 
     return (
-        <iframe
-            width="100%"
-            height="512"
-            style={{ border: 0 }}
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-            src={src}
-            title="Office Location"
-        />
+        <div className="map-container overflow-hidden">
+            <iframe
+                width="100%"
+                height="512"
+                style={{ border: 0 }}
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                src={src}
+                title="Office Location"
+            />
+        </div>
     );
 }
