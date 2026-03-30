@@ -24,7 +24,7 @@ export default function ContainerHUD() {
   }
 
   return (
-    <div className="bg-gray-900 text-white rounded-lg p-4 space-y-3">
+    <div className="bg-[#1a1a1a] border border-white/10 text-white rounded-lg p-4 space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">
           {ready ? t.ready : t.optimizing}
@@ -50,7 +50,9 @@ export default function ContainerHUD() {
             <motion.div 
               className="h-full rounded-full"
               style={{ 
-                backgroundColor: volStats.percent >= (EFFICIENCY_THRESHOLD * 100) ? '#22c55e' : '#3b82f6'
+                background: volStats.percent >= (EFFICIENCY_THRESHOLD * 100) 
+                  ? 'linear-gradient(90deg, #22c55e, #4ade80)' 
+                  : 'linear-gradient(90deg, #7296A4, #9EBECB)'
               }}
               initial={{ width: 0 }}
               animate={{ width: `${Math.min(volStats.percent, 100)}%` }}

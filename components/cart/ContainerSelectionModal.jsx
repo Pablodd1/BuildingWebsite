@@ -36,16 +36,18 @@ export default function ContainerSelectionModal({ open, onClose }) {
       open={open}
       onClose={onClose}
       noGap
-      wrapperClasses="w-full lg:min-w-xl max-w-2xl bg-white shadow-xl"
+      wrapperClasses="w-full lg:min-w-xl max-w-2xl bg-[#151515] border border-white/10 shadow-2xl shadow-cyan-500/10"
     >
-      <header className="text-center pb-6 pt-8 px-6">
+      <header className="text-center pb-6 pt-8 px-6 border-b border-white/10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <Container className="w-[54px] h-[54px] mx-auto mb-4 text-black" />
-          <h2 className="text-2xl font-bold text-black mb-2">{t.title}</h2>
-          <p className="text-gray-600">{t.subtitle}</p>
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#7296A4] to-[#5A7A85] flex items-center justify-center shadow-lg shadow-cyan-500/20">
+            <Container className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="text-2xl font-bold text-white mb-2">{t.title}</h2>
+          <p className="text-gray-400">{t.subtitle}</p>
         </motion.div>
       </header>
 
@@ -61,9 +63,9 @@ export default function ContainerSelectionModal({ open, onClose }) {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="relative p-4 border-2 border-gray-200 rounded-xl hover:border-black hover:shadow-lg transition-all group text-left"
+                className="relative p-4 border-2 border-white/10 rounded-xl hover:border-[#9EBECB] hover:shadow-lg hover:shadow-cyan-500/20 transition-all group text-left bg-[#1a1a1a]"
               >
-                <div className="absolute inset-x-0 bottom-0 h-1 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[#7296A4] to-[#9EBECB] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                 
                 <div className="flex justify-center mb-3">
                   <svg 
@@ -72,8 +74,8 @@ export default function ContainerSelectionModal({ open, onClose }) {
                   >
                     <defs>
                       <linearGradient id={`grad-${container.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#374151" />
-                        <stop offset="100%" stopColor="#1f2937" />
+                        <stop offset="0%" stopColor="#7296A4" />
+                        <stop offset="100%" stopColor="#5A7A85" />
                       </linearGradient>
                     </defs>
                     <path
@@ -106,18 +108,18 @@ export default function ContainerSelectionModal({ open, onClose }) {
                   </svg>
                 </div>
 
-                <h3 className="text-lg font-bold mb-2 text-center">
+                <h3 className="text-lg font-bold mb-2 text-center text-white">
                   {isSpanish ? container.nameEs : container.name}
                 </h3>
                 
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-500">{t.capacity}</span>
-                    <span className="font-medium">{container.volume} m³</span>
+                    <span className="font-medium text-[#9EBECB]">{container.volume} m³</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">{t.maxWeight}</span>
-                    <span className="font-medium">{container.maxWeight.toLocaleString()} kg</span>
+                    <span className="font-medium text-[#9EBECB]">{(container.maxWeight/1000).toFixed(0)}t</span>
                   </div>
                 </div>
               </motion.button>

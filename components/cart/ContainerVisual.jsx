@@ -32,8 +32,8 @@ export default function ContainerVisual({ fillPercent = 0, containerType = "20ft
                 <stop offset="100%" stopColor="#2563eb" stopOpacity="0.7" />
               </linearGradient>
               <linearGradient id="wireframeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#374151" />
-                <stop offset="100%" stopColor="#1f2937" />
+                <stop offset="0%" stopColor="#7296A4" />
+                <stop offset="100%" stopColor="#5A7A85" />
               </linearGradient>
             </defs>
 
