@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Trash2, Plus, Minus, ShoppingCart, ArrowRight } from "lucide-react"
-import { getCart, removeContainer, removeOne, addOne } from "utils/cart/cart.core"
-import { containerFillPercent } from "utils/cart/cart.utils"
+import { Trash2, Plus, Minus, ShoppingCart, ArrowRight, Volume2, Package } from "lucide-react"
+import { getCart, removeContainer, removeOne, addOne, setQty } from "utils/cart/cart.core"
+import { containerFillPercent, calculateRemainingCapacity } from "utils/cart/cart.utils"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -36,6 +36,13 @@ export default function CartPage() {
 
     const handleAddItem = (containerId, product) => {
         addOne(containerId, product)
+        updateCart()
+    }
+
+    const handleSetQuantity = (containerId, product, qty) => {
+        const val = parseInt(qty)
+        if (isNaN(val) || val < 0) return
+        setQty(containerId, product, val)
         updateCart()
     }
 
@@ -88,6 +95,10 @@ export default function CartPage() {
         )
     }
 
+    const container = cart[0]
+    const fill = containerFillPercent(container)
+    const isFull = fill.filledTotal >= 99.9
+
     return (
         <main className="min-h-screen bg-gray-50 pb-32">
             <header className="bg-white border-b border-gray-200 px-6 py-4">
@@ -108,32 +119,53 @@ export default function CartPage() {
             </header>
 
             <div className="max-w-4xl mx-auto p-6 space-y-4">
-                {cart[0]?.items.map((item) => (
+                {cart[0]?.items.map((item) => {
+                    const remaining = calculateRemainingCapacity(cart[0], item)
+                    return (
                     <motion.div
                         key={item.id}
                         layout
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200"
+                        className="flex flex-col gap-3 p-4 bg-white rounded-xl border border-gray-200"
                     >
-                        <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden relative">
-                            <Image src={item.image || '/raster/product.jpg'} alt={item.name} fill className="object-cover" />
+                        <div className="flex items-center gap-4">
+                            <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden shrink-0 relative">
+                                <Image src={item.image || '/raster/product.jpg'} alt={item.name} fill className="object-cover" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <h3 className="font-medium truncate">{item.name}</h3>
+                                <p className="text-sm text-gray-500">{item.category}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <button onClick={() => handleRemoveItem(cart[0].id, item.id)} className="w-8 h-8 bg-gray-100 rounded-lg hover:bg-red-50 text-red-500">
+                                    <Minus size={14} />
+                                </button>
+                                <input 
+                                    type="number" 
+                                    min="0"
+                                    value={item.qty}
+                                    onChange={(e) => handleSetQuantity(cart[0].id, item, e.target.value)}
+                                    className="w-16 text-center border border-gray-200 rounded-lg py-1 px-2 text-sm font-medium focus:outline-none focus:border-blue-500"
+                                />
+                                <button onClick={() => handleAddItem(cart[0].id, item)} className="w-8 h-8 bg-gray-100 rounded-lg hover:bg-blue-50 text-blue-500">
+                                    <Plus size={14} />
+                                </button>
+                            </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                            <h3 className="font-medium truncate">{item.name}</h3>
-                            <p className="text-sm text-gray-500">{item.category}</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <button onClick={() => handleRemoveItem(cart[0].id, item.id)} className="w-8 h-8 bg-gray-100 rounded-lg hover:bg-red-50">
-                                <Minus size={14} />
-                            </button>
-                            <span className="w-8 text-center font-medium">{item.qty}</span>
-                            <button onClick={() => handleAddItem(cart[0].id, item)} className="w-8 h-8 bg-gray-100 rounded-lg hover:bg-blue-50">
-                                <Plus size={14} />
-                            </button>
+                        
+                        <div className="flex items-center justify-between text-xs bg-gray-50 rounded-lg p-2">
+                            <div className="flex items-center gap-1 text-gray-500">
+                                <Volume2 size={10} />
+                                <span>{item.dimensions?.length}x{item.dimensions?.width}x{item.dimensions?.height}mm</span>
+                            </div>
+                            <div className={`font-medium ${remaining > 0 ? 'text-green-600' : 'text-orange-500'}`}>
+                                {remaining > 0 ? `+${remaining} mas caben` : 'CONTENEDOR LLENO'}
+                            </div>
                         </div>
                     </motion.div>
-                ))}
+                    )
+                })}
                 
                 <Link href="/collections" className="flex items-center justify-center gap-2 p-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-500">
                     <Plus size={20} />
@@ -145,15 +177,29 @@ export default function CartPage() {
                 <div className="max-w-4xl mx-auto">
                     <div className="mb-4">
                         <div className="flex justify-between text-sm mb-2">
-                            <span className="text-gray-600">Capacidad usada</span>
-                            <span className="font-medium">{containerFillPercent(cart[0]).filledTotal.toFixed(1)}%</span>
+                            <span className="text-gray-600">Capacidad usada: {fill.filledTotal.toFixed(1)}%</span>
+                            <span className={`font-bold ${isFull ? 'text-green-600' : 'text-orange-500'}`}>
+                                {isFull ? '✓ CONTENEDOR LLENO' : `${Math.ceil(fill.remainingVolume)}m³ disponible`}
+                            </span>
                         </div>
-                        <div className="h-2 bg-gray-100 rounded-full">
-                            <div className="h-full bg-blue-500 rounded-full" style={{ width: containerFillPercent(cart[0]).filledTotal + '%' }} />
+                        <div className="h-4 bg-gray-100 rounded-full overflow-hidden relative">
+                            <motion.div 
+                                className={`h-full rounded-full ${isFull ? 'bg-green-500' : 'bg-gradient-to-r from-blue-400 to-blue-600'}`}
+                                animate={{ width: `${fill.filledTotal}%` }}
+                                transition={{ duration: 0.5 }}
+                            />
                         </div>
+                        {!isFull && (
+                            <p className="text-xs text-orange-500 mt-2">
+                                Agrega mas productos para llenar el contenedor
+                            </p>
+                        )}
                     </div>
-                    <Link href="/checkout" className="block text-center py-4 bg-black text-white rounded-xl font-semibold hover:bg-gray-800">
-                        Proceder al Checkout - Total: ${calculateTotal().toLocaleString()}
+                    <Link 
+                        href={isFull ? "/checkout" : "#"} 
+                        className={`block text-center py-4 rounded-xl font-semibold transition-colors ${isFull ? 'bg-black text-white hover:bg-gray-800' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                    >
+                        {isFull ? 'Proceder al Checkout' : `Total: $${calculateTotal().toLocaleString()} (${calculateItemCount()} unidades)`}
                     </Link>
                 </div>
             </footer>
