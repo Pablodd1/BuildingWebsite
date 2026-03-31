@@ -102,19 +102,39 @@ export default function CartPage() {
     return (
         <main className="min-h-screen bg-gray-50 pb-32">
             <header className="bg-white border-b border-gray-200 px-6 py-4">
-                <div className="max-w-4xl mx-auto flex items-center justify-between">
+                <div className="max-w-4xl mx-auto">
+                    <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-4">
+                            <Link href="/collections" className="p-2 hover:bg-gray-100 rounded-lg">
+                                <ArrowRight className="w-5 h-5 rotate-180" />
+                            </Link>
+                            <div>
+                                <h1 className="text-xl font-bold">Tu Cotizacion</h1>
+                                <p className="text-sm text-gray-500">{container.name} - {container.dimension?.length}x{container.dimension?.width}x{container.dimension?.height}m</p>
+                            </div>
+                        </div>
+                        <button onClick={() => handleRemoveContainer(cart[0]?.id)} className="p-2 hover:bg-red-50 text-red-500 rounded-lg">
+                            <Trash2 size={18} />
+                        </button>
+                    </div>
+                    
+                    {/* Simple Container Visualization */}
                     <div className="flex items-center gap-4">
-                        <Link href="/collections" className="p-2 hover:bg-gray-100 rounded-lg">
-                            <ArrowRight className="w-5 h-5 rotate-180" />
-                        </Link>
-                        <div>
-                            <h1 className="text-xl font-bold">Tu Cotizacion</h1>
-                            <p className="text-sm text-gray-500">Contenedor #{cart[0]?.id?.split('-')[0]}</p>
+                        <div className="w-24 h-12 border-2 border-gray-300 rounded relative overflow-hidden bg-gray-100">
+                            <div 
+                                className={`absolute bottom-0 left-0 right-0 transition-all duration-500 ${isFull ? 'bg-green-500' : 'bg-blue-500'}`}
+                                style={{ height: `${Math.min(fill.filledTotal, 100)}%` }}
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <span className="text-xs font-bold text-gray-700">{fill.filledTotal.toFixed(0)}%</span>
+                            </div>
+                        </div>
+                        <div className="text-xs text-gray-500">
+                            <div>Usado: {(fill.usableVolume - fill.remainingVolume)?.toFixed(1)}m³</div>
+                            <div>Disponible: {fill.remainingVolume?.toFixed(1)}m³</div>
+                            <div>Total: {fill.usableVolume?.toFixed(1)}m³</div>
                         </div>
                     </div>
-                    <button onClick={() => handleRemoveContainer(cart[0]?.id)} className="p-2 hover:bg-red-50 text-red-500 rounded-lg">
-                        <Trash2 size={18} />
-                    </button>
                 </div>
             </header>
 

@@ -1,7 +1,7 @@
 "use client";
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { addContainer, addOne } from 'utils/cart/cart.core';
+import { addContainer, addOne, getCart } from 'utils/cart/cart.core';
 import { generateID } from 'lib/misc';
 import { ArrowRight, Box as BoxIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -55,6 +55,14 @@ function ContainerSelectionContent() {
   const [loading, setLoading] = useState(false);
   const { language } = useLanguage();
   const t = containerTranslations[language] || containerTranslations.en;
+
+  // Check if container already exists - if so, redirect to cart
+  useEffect(() => {
+    const existingCart = getCart();
+    if (existingCart && existingCart.length > 0) {
+      router.push('/cart');
+    }
+  }, [router]);
 
   const handleSelect = async (container) => {
     setLoading(true);

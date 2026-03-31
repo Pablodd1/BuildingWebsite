@@ -49,25 +49,21 @@ export default function Collections_UI({ searchParams, h1, description, productU
             fetch(url.toString())
                 .then(res => res.json())
                 .then(data => {
-                    // API now returns all items
                     if (data?.items) setProducts(data.items);
                     setLoading(false);
                 }).catch(() => setLoading(false));
         }
-        // Initial fetch
-        fetchProducts();
-        // Fallback: if no items returned, try with explicit category filter if present in URL
-        // This helps when a mega-menu category has no visible items in the first fetch
+        
+        // Get category and collection from URL params
         const searchParams = new URLSearchParams(window?.location?.search || '');
-        const initialCategory = searchParams.get('category') || null;
-        if (initialCategory) {
-            const fallback = () => fetchProducts({ category: initialCategory });
-            // Simple timeout-based fallback after a brief delay if nothing loaded yet
-            const t = setTimeout(() => {
-                if (products.length === 0) fallback();
-            }, 400);
-            return () => clearTimeout(t);
-        }
+        const categoryFromURL = searchParams.get('category');
+        const collectionFromURL = searchParams.get('collection');
+        
+        // Initial fetch with filters from URL and prefilters
+        fetchProducts({
+            category: categoryFromURL || prefilters?.category,
+            collection: collectionFromURL || prefilters?.collection
+        });
     }, [productURL]);
 
     // Apply filters + sorting
