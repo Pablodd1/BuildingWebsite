@@ -39,7 +39,13 @@ export default function RenderItemsList({ container }) {
             const fresh = getCart()
                 ?.find(c => c.id === container.id)
 
-            setItems(fresh?.items || [])
+            // Normalize: support both item.ID and item.id
+            const normalized = (fresh?.items || []).map(i => ({
+                ...i,
+                ID: i.ID || i.id,
+                id: i.id || i.ID,
+            }))
+            setItems(normalized)
         }
 
         sync()
@@ -67,8 +73,13 @@ export default function RenderItemsList({ container }) {
 
             Promise.all(
                 missingItems.map(async (item) => {
-                    const data = await fetchProduct(item.ID)
-                    return { ID: item.ID, ...data }
+                    try {
+                        const data = await fetchProduct(item.ID)
+                        return { ID: item.ID, ...data }
+                    } catch {
+                        // Fallback: use data already stored in the item itself
+                        return { ID: item.ID, id: item.ID, name: item.name, basePrice: item.price, image: item.image }
+                    }
                 })
             ).then(entries => {
                 if (!alive) return
@@ -84,7 +95,7 @@ export default function RenderItemsList({ container }) {
             }
         }
         fetchProductDetails()
-    }, [items, products])
+    }, [items])
 
     if (loading)
         return (

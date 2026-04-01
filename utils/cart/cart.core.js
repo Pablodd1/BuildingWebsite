@@ -24,16 +24,24 @@ __cart__ = [
 const CART_KEY = "__cart__"
 
 let cart = []
+let initialized = false
 
 export function initCart() {
   if (typeof window === "undefined") return
-
   try {
     const stored = sessionStorage.getItem(CART_KEY)
     const parsed = stored ? JSON.parse(stored) : null
     cart = Array.isArray(parsed) ? parsed : []
   } catch {
     cart = []
+  }
+  initialized = true
+}
+
+// Auto-init if not yet initialized (e.g., when called before CartInit mounts)
+function ensureInit() {
+  if (!initialized && typeof window !== "undefined") {
+    initCart()
   }
 }
 
@@ -45,20 +53,28 @@ function persist() {
 }
 
 export function getCart() {
+  ensureInit()
   return cart
 }
 
 // Add a new container
 export function addContainer(container) {
+  ensureInit()
   if (!container.id) throw new Error("Container must have id")
+  // Prevent duplicate containers
+  if (cart.find(c => c.id === container.id)) return
   cart.push({ ...container, items: [] })
   persist()
 }
 
 // Add one product to container
 export function addOne(containerId, product, qty) {
+  ensureInit()
   const container = cart.find(c => c.id === containerId)
-  if (!container) throw new Error("Container not found")
+  if (!container) {
+    console.warn("[cart] addOne: Container not found:", containerId, "Cart state:", cart.map(c=>c.id))
+    return
+  }
 
   const existing = container.items.find(i => i.id === product.id)
   if (existing) {
