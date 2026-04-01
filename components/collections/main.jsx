@@ -64,7 +64,7 @@ export default function Collections_UI({ searchParams, h1, description, productU
             category: categoryFromURL || prefilters?.category,
             collection: collectionFromURL || prefilters?.collection
         });
-    }, [productURL]);
+    }, [productURL, prefilters?.category, prefilters?.collection]);
 
     // Apply filters + sorting
     const filtered = applyFilters(products, filters);
