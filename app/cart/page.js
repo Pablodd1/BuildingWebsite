@@ -11,11 +11,6 @@ import Container3DView from "components/cart/Container3DView"
 import ContainerProgressHUD from "components/cart/ContainerProgressHUD"
 import confetti from "canvas-confetti"
 
-export const metadata = {
-  title: "Carrito – Contenedor 40ft",
-  description: "Visualiza en tiempo real el llenado de tu contenedor con la vista Tetris‑style y avanza al checkout cuando esté completo."
-};
-
 function FlyingProduct({ product }) {
     return (
         <motion.div

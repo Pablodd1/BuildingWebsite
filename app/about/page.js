@@ -28,11 +28,6 @@ import { useBrand } from 'lib/BrandContext';
 
 import SeoHead from "components/SeoHead"
 
-export const metadata = {
-    title: "Sobre Nosotros | BIwebsite",
-    description: "Conoce más sobre nuestra visión, misión y el equipo detrás de BIwebsite."
-};
-
 export default function AboutPage() {
     const { t, getCompanyText } = useLanguage();
     const { activeBrand } = useBrand();
@@ -45,8 +40,8 @@ export default function AboutPage() {
     return (
         <>
             <SeoHead 
-                title={metadata.title} 
-                description={metadata.description}
+                title="Sobre Nosotros | BIwebsite" 
+                description="Conoce más sobre nuestra visión, misión y el equipo detrás de BIwebsite."
                 canonical="https://yourdomain.com/about"
             />
             <main className="w-full">
