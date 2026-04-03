@@ -8,6 +8,7 @@ import { containerFillPercent, calculateRemainingCapacity } from "utils/cart/car
 import Link from "next/link"
 import Image from "next/image"
 import Container3DView from "components/cart/Container3DView"
+import ContainerProgressHUD from "components/cart/ContainerProgressHUD"
 import confetti from "canvas-confetti"
 
 function FlyingProduct({ product }) {
@@ -42,40 +43,7 @@ function CelebrationParticles() {
     )
 }
 
-function TopProgressBar({ fill, itemCount }) {
-    const isFull = fill.filledTotal >= 99
-    return (
-        <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white px-6 py-5">
-            <div className="max-w-4xl mx-auto">
-                <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-6">
-                        <div className="text-center">
-                            <p className="text-xs text-gray-400 uppercase tracking-wide">Volumen</p>
-                            <p className="text-2xl font-bold">{fill.usableVolume?.toFixed(1)}<span className="text-sm text-gray-400">m³</span></p>
-                        </div>
-                        <div className="w-px h-10 bg-gray-700" />
-                        <div className="text-center">
-                            <p className="text-xs text-gray-400 uppercase tracking-wide">Items</p>
-                            <p className="text-2xl font-bold">{itemCount}</p>
-                        </div>
-                        <div className="w-px h-10 bg-gray-700" />
-                        <div className="text-center">
-                            <p className="text-xs text-gray-400 uppercase tracking-wide">Llenado</p>
-                            <p className={`text-2xl font-bold ${isFull ? "text-green-400" : "text-blue-400"}`}>{fill.filledTotal.toFixed(0)}%</p>
-                        </div>
-                    </div>
-                    <div className={`px-4 py-2 rounded-full text-sm font-bold ${isFull ? "bg-green-500" : "bg-blue-600"}`}>
-                        {isFull ? "✓ CONTENEDOR LLENO" : `${fill.remainingVolume?.toFixed(1)}m³ disponible`}
-                    </div>
-                </div>
-                <div className="h-3 bg-gray-700 rounded-full overflow-hidden relative">
-                    <motion.div initial={{ width: 0 }} animate={{ width: `${fill.filledTotal}%` }} transition={{ duration: 0.5, ease: "easeOut" }}
-                        className={`h-full rounded-full ${isFull ? "bg-gradient-to-r from-green-400 via-green-500 to-green-400" : "bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 animate-pulse"}`} />
-                </div>
-            </div>
-        </div>
-    )
-}
+// TopProgressBar replaced by ContainerProgressHUD
 
 export default function CartPage() {
     const [cart, setCart] = useState([])
@@ -197,12 +165,13 @@ export default function CartPage() {
     const isFull = fill.filledTotal >= 99
     const itemCount = calculateItemCount()
 
+    const usedVolume = fill.usableVolume - (fill.remainingVolume ?? 0)
+
     return (
         <main className="min-h-screen bg-gray-50 pb-32">
             <AnimatePresence>
                 {flyingProducts.map((product) => (<FlyingProduct key={product.tempId} product={product} />))}
             </AnimatePresence>
-            <TopProgressBar fill={fill} itemCount={itemCount} />
             <AnimatePresence>
                 {showCelebration && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center">
@@ -232,16 +201,19 @@ export default function CartPage() {
                         </button>
                     </div>
                     
-                    {/* Hyperrealistic Container Visualization */}
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden mb-12 shadow-sm">
-                        <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
-                            <div className="flex items-center gap-3">
-                                <BoxIcon className="w-5 h-5 text-blue-500" />
-                                <span className="font-bold text-gray-800 uppercase tracking-tight">Simulación de Carga Real</span>
-                            </div>
-                            <div className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">
-                                {container.name}
-                            </div>
+                    {/* Cinematic Container Visualization + Live HUD */}
+                    <div className="bg-[#080c14] rounded-2xl overflow-hidden mb-12 shadow-2xl border border-white/5">
+                        {/* Live Progress HUD — sits above the 3D viewport */}
+                        <div className="px-4 pt-4 pb-2">
+                            <ContainerProgressHUD
+                                fillPercent={fill.filledTotal || 0}
+                                usableVolume={fill.usableVolume || 0}
+                                usedVolume={usedVolume || 0}
+                                remainingVolume={fill.remainingVolume || 0}
+                                itemCount={itemCount}
+                                size={container.name && container.name.includes('40') ? '40ft' : '20ft'}
+                                lang="es"
+                            />
                         </div>
                         
                         <div className="aspect-[21/9] md:aspect-[21/7] w-full flex items-center justify-center p-8 bg-[#0a0a0a] overflow-hidden">
