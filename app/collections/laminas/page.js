@@ -2,9 +2,9 @@ import Collections_UI from "My_UI/collections/main";
 
 export async function generateMetadata(_, parent) {
     const parentMeta = await parent;
-        return {
+    return {
         ...parentMeta,
-        title: "PVC Laminates | LAMINAS | Sheet Materials | Building Innovation",
+        title: "PVC Laminates | LAMINAS | Sheet Materials | Unitec USA Design",
         description: "High-quality PVC laminates and sheets for interior applications. Durable, waterproof, and available in various finishes.",
     };
 }

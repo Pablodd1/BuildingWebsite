@@ -1,51 +1,36 @@
-Building Innovation Website (Local Setup)
-Overview
-- This repository is a copy of the previous Unitec USA site, updated to present Building Innovation branding only. UnitecUSA content is removed or deprecated for local testing.
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Prerequisites
-- Node.js (>= 14) and npm
-- Git
+## Getting Started
 
-Quick Start (domain-free, local only)
-1) Install dependencies
-   npm install
-2) Local environment configuration
-   Create a local env file to enable correct base URL behavior:
-   - Create: BIwebsite/.env.local
-   - Add: NEXT_PUBLIC_BASE_URL=http://localhost:3000
-3) Run the site
-   npm run dev
-   Open: http://localhost:3000
+First, run the development server:
 
-Optional: Run a second local instance for side-by-side testing
-- Copy the BIWebsite project to another folder (or run a separate Next app) and expose it on port 3001
-- In the second instance, set NEXT_PUBLIC_BASE_URL=http://localhost:3001
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-Pushing to Building Website (when domain/SSH access is available)
-- Once you have a remote configured, you can push from this repo as a separate Git remote named buildingwebsite
-- Example commands (adjust to your auth method):
-  git -C BIwebsite remote add buildingwebsite git@github.com:Pablodd1/BuildingWebsite.git
-  git -C BIwebsite push -u buildingwebsite master
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- Branding/Verification checklist
-- Ensure all main pages display Building Innovation branding (no UnitecUSA text)
-- Verify terms/policies/about reflect Building Innovation in metadata
-- Quick scan for any remaining UnitecUSA references:
-  - Command: rg -n "Unitec|Unitec USA" BIwebsite -S || true
-- If you see references, patch them to Building Innovation or neutral wording and re-run tests
+You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-Next steps (missing tasks to complete before going live)
-- Remove any remaining direct UnitecUSA references from translation/data files beyond the pages touched (verify all branding strings).
-- Create and configure a remote repository for the Building Website (BuildingWebsite) and verify SSH/HTTPS access works.
-- Set up a push workflow: add remote (buildingwebsite) and push master/main. If using SSH, ensure SSH keys are registered with GitHub.
-- Run a quick local validation: ensure Terms, Privacy Policy, About show Building Innovation branding in title/meta and that no UnitecUSA branding remains.
-- Prepare a minimal PR plan (branch naming, commit messages) to document changes for the handover.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-Local test commands (recap)
-- npm install
-- create .env.local with NEXT_PUBLIC_BASE_URL
-- npm run dev
-- Optionally, run a second instance on port 3001
+## Learn More
 
-Notes
-- This README covers only local/domain-free development. When a domain and remote access are ready, we can finalize the push workflow to BuildingWebsite and set up CI checks.
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ 
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details. 

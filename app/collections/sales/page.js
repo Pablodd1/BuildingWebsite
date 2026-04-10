@@ -4,15 +4,15 @@ export async function generateMetadata(_, parent) {
 
     return {
         ...parentMeta,
-        title: "Sale | Discounted PVC & WPC Building Materials | Building Innovation",
+        title: "Sale | Discounted PVC & WPC Building Materials | Unitec USA Design",
         description:
-            "Shop discounted PVC and WPC building materials from Building Innovation. Limited-time offers on premium, durable, and maintenance-free products.",
+            "Shop discounted PVC and WPC building materials from Unitec USA Design. Limited-time offers on premium, durable, and maintenance-free products.",
         alternates: {
             canonical: `${process.env.BASE_URL}/sale`,
         },
         openGraph: {
             ...parentMeta.openGraph,
-            title: "Discounted Building Materials – Building Innovation",
+            title: "Discounted Building Materials – Unitec USA Design",
             description:
                 "Limited-time deals on premium PVC and WPC building solutions for bulk and project-based orders.",
             url: `${process.env.BASE_URL}/sale`,
@@ -21,13 +21,13 @@ export async function generateMetadata(_, parent) {
                     url: `/raster/sale.webp` || process.env.DEFAULT_IMAGE,
                     width: 1200,
                     height: 630,
-                alt:"Building Innovation – Innovative PVC & WPC Building Materials",
+                    alt:"Unitec USA Design – Innovative PVC & WPC Building Materials",
                 },
             ],
         },
         twitter: {
             ...parentMeta.twitter,
-            title: "Sale – Building Innovation",
+            title: "Sale – Unitec USA Design",
             description:
                 "Save on premium PVC & WPC building materials with limited-time offers.",
             images: [`/raster/sale.webp` || `/raster/exterior.webp` || process.env.DEFAULT_IMAGE],
