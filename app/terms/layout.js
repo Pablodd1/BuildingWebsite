@@ -3,30 +3,29 @@ export async function generateMetadata(_, parent) {
     const parentMeta = await parent;
 
     const defaultData = {
-        // Branding updated: only Building Innovation is shown
-        title: "Building Innovation",
+        title: "Terms & Conditions | Unitec USA Design",
     };
 
     return {
         ...parentMeta,
         title: defaultData.title,
         description:
-            "Official terms and conditions for Building Innovation products and services.",
+            "Review Unitec USA Design’s terms and conditions covering product use, warranties, ordering, intellectual property, and service limitations.",
         alternates: {
             canonical: `${process.env.BASE_URL}/terms`,
         },
         openGraph: {
             ...parentMeta.openGraph,
-            title: "Building Innovation Terms & Conditions",
+            title: "Unitec USA Design Terms & Conditions",
             description:
-                "Official terms and conditions for Building Innovation products and services.",
+                "Understand the terms governing the use of Unitec USA Design products, services, and website.",
             url: `${process.env.BASE_URL}/terms`,
         },
         twitter: {
             ...parentMeta.twitter,
-            title: "Building Innovation Terms & Conditions",
+            title: "Unitec USA Design Terms & Conditions",
             description:
-                "Official terms and conditions for using Building Innovation products and services.",
+                "Official terms and conditions for using Unitec USA Design products and services.",
         },
     };
 }

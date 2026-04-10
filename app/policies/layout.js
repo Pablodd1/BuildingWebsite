@@ -3,30 +3,29 @@ export async function generateMetadata(_, parent) {
     const parentMeta = await parent;
 
     const defaultData = {
-        // Branding updated: only Building Innovation is shown
-        title: "Building Innovation",
+        title: "Privacy Policy | Unitec USA Design",
     };
 
     return {
         ...parentMeta,
         title: defaultData.title,
         description:
-            "Privacy policy for Building Innovation products and services.",
+            "Read Unitec USA Design’s privacy policy to understand how we collect, use, and protect your personal and business information.",
         alternates: {
             canonical: `${process.env.BASE_URL}/policies`,
         },
         openGraph: {
             ...parentMeta.openGraph,
-            title: "Building Innovation Privacy Policy",
+            title: "Unitec USA Design Privacy Policy",
             description:
-                "How Building Innovation collects, uses, and protects your data.",
+                "Learn how Unitec USA Design safeguards your data and respects your privacy.",
             url: `${process.env.BASE_URL}/policies`,
         },
         twitter: {
             ...parentMeta.twitter,
-            title: "Building Innovation Privacy Policy",
+            title: "Unitec USA Design Privacy Policy",
             description:
-                "Official privacy policy for Building Innovation products and services.",
+                "Our commitment to protecting your data and privacy.",
         },
     };
 }

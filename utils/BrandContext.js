@@ -40,28 +40,22 @@ export const BRAND_CONFIG = {
 };
 
 export function BrandProvider({ children }) {
-    // Start with Building Innovation only and disable UnitecUSA toggle
-    const [activeBrand, setActiveBrand] = useState("binw");
+    const [activeBrand, setActiveBrand] = useState("unitec");
 
-    // Persist brand choice, but force Building Innovation (binw) regardless of saved state
+    // Persist brand choice
     useEffect(() => {
         const saved = localStorage.getItem('activeBrand');
-        const preferred = 'binw';
         if (saved && BRAND_CONFIG[saved]) {
-            // Ignore UnitecUSA and always default to Building Innovation
-            setActiveBrand(preferred);
-            localStorage.setItem('activeBrand', preferred);
-        } else {
-            setActiveBrand(preferred);
-            localStorage.setItem('activeBrand', preferred);
+            setActiveBrand(saved);
         }
     }, []);
 
-    // Brand toggle is disabled for UnitecUSA; keep a no-op to avoid errors from existing UI
     const toggleBrand = () => {
-        const preferred = 'binw';
-        setActiveBrand(preferred);
-        localStorage.setItem('activeBrand', preferred);
+        setActiveBrand(prev => {
+            const next = prev === 'binw' ? 'unitec' : 'binw';
+            localStorage.setItem('activeBrand', next);
+            return next;
+        });
     };
 
     const brand = BRAND_CONFIG[activeBrand];
