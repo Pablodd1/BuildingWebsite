@@ -6,7 +6,7 @@ export async function generateMetadata(_, parent) {
 
     return {
         ...parentMeta,
-        title: "Exterior PVC Building Solutions | Weatherproof & UV Resistant | Unitec USA Design",
+        title: "Exterior PVC Building Solutions | Weatherproof & UV Resistant | Building Innovation",
         description:
             "Explore exterior-grade PVC building materials designed for facades, cladding, roofing, and outdoor structures. Waterproof, UV-resistant, fire-rated, and maintenance-free.",
         alternates: {
@@ -14,7 +14,7 @@ export async function generateMetadata(_, parent) {
         },
         openGraph: {
             ...parentMeta.openGraph,
-            title: "Exterior Building Solutions – Unitec USA Design",
+            title: "Exterior Building Solutions – Building Innovation",
             description:
                 "High-performance PVC sheets engineered for exterior durability, weather resistance, and long-term architectural performance.",
             url: `${process.env.BASE_URL}/exteriors`,
@@ -23,13 +23,13 @@ export async function generateMetadata(_, parent) {
                     url: `/raster/exterior.webp` || process.env.DEFAULT_IMAGE,
                     width: 1200,
                     height: 630,
-                    alt:"Unitec USA Design – Innovative PVC & WPC Building Materials",
+                    alt:"Building Innovation – Innovative PVC & WPC Building Materials",
                 },
             ],
         },
         twitter: {
             ...parentMeta.twitter,
-            title: "Exterior Building Solutions – Unitec USA Design",
+            title: "Exterior Building Solutions – Building Innovation",
             description:
                 "Weatherproof, UV-resistant PVC sheets for exterior architectural applications.",
             images: [`/raster/exterior.webp` || process.env.DEFAULT_IMAGE],

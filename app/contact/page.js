@@ -139,7 +139,7 @@ export default function ContactPage() {
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/raster/Representation.png"
-                        alt="Unitec USA Design Support Team and Logistics Representation"
+                        alt="Building Innovation Support Team and Logistics Representation"
                         fill
                         className="object-cover object-center w-full h-full"
                         priority

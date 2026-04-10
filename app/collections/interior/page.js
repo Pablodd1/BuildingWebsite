@@ -5,7 +5,7 @@ export async function generateMetadata(_, parent) {
 
     return {
         ...parentMeta,
-        title: "Interior PVC & WPC Panels | Walls, Ceilings & Decorative Solutions | Unitec USA Design",
+        title: "Interior PVC & WPC Panels | Walls, Ceilings & Decorative Solutions | Building Innovation",
         description:
             "Premium PVC and WPC panels for interior walls, ceilings, and decorative applications. Waterproof, antimicrobial, fire-resistant, and zero maintenance.",
         alternates: {
@@ -13,7 +13,7 @@ export async function generateMetadata(_, parent) {
         },
         openGraph: {
             ...parentMeta.openGraph,
-            title: "Interior Building Solutions – Unitec USA Design",
+            title: "Interior Building Solutions – Building Innovation",
             description:
                 "Elegant, durable PVC and WPC panels designed for modern interior spaces.",
             url: `${process.env.BASE_URL}/interiors`,
@@ -22,7 +22,7 @@ export async function generateMetadata(_, parent) {
                     url: `/raster/interior.webp` || process.env.DEFAULT_IMAGE,
                     width: 1200,
                     height: 630,
-                    alt:"Unitec USA Design – Innovative PVC & WPC Building Materials",
+                    alt:"Building Innovation – Innovative PVC & WPC Building Materials",
                 },
             ],
         },

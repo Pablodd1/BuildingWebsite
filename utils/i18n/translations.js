@@ -273,7 +273,7 @@ export const translations = {
     }
   },
   
-  // SPANISH TRANSLATIONS (Colombian Spanish)
+    // SPANISH TRANSLATIONS (Colombian Spanish)
   es: {
     // Navigation
     nav: {

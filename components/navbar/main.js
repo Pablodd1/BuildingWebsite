@@ -46,19 +46,20 @@ const navItems = [
 ];
 
 const BrandToggle = () => {
-    const { activeBrand, toggleBrand, brand } = useBrand();
-    const otherBrand = activeBrand === 'binw' ? 'Unitec USA' : 'Building Innovation';
+    const { brand } = useBrand();
+    // Branding is fixed to Building Innovation; hide/neutralize toggle label
+    const otherBrand = 'Building Innovation';
     return (
         <button
-            onClick={toggleBrand}
+            onClick={() => {}}
             className="group flex items-center gap-2 px-3 py-1.5 bg-black/80 backdrop-blur rounded-full hover:bg-gray-800 transition-all ml-2 border border-gray-700 hover:border-primary"
-            aria-label={`Switch to ${otherBrand}`}
-            title={`Switch to ${otherBrand}`}
+            aria-label={`Brand: ${otherBrand}`}
+            title={`Brand: ${otherBrand}`}
         >
             <Image
-                key={brand.id}
-                src={brand.logoImage}
-                alt={`${brand.name} Logo`}
+                key={brand?.id ?? 'binw'}
+                src={brand?.logoImage ?? '/logo.png'}
+                alt={`${brand?.name ?? 'Building Innovation'} Logo`}
                 width={36}
                 height={24}
                 className="object-contain"
