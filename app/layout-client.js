@@ -10,6 +10,7 @@ import CartDrawer from "My_UI/cart/CartDrawer.client";
 import VirtualFrontDesk from "My_UI/ui/VirtualFrontDesk";
 import LanguageSwitcher from "My_UI/ui/LanguageSwitcher";
 import Providers from "./providers";
+import CookieConsent from "components/CookieConsent";
 
 const NotifyPortal = dynamic(() => import("lib/notify"), {
   ssr: false,
@@ -31,6 +32,7 @@ export default function RootLayoutClient({ children, lang, dict }) {
       <Suspense fallback={<Loader className="w-6 h-6 animate-spin" />}>
         <NotifyPortal />
       </Suspense>
+      <CookieConsent />
     </Providers>
   );
 }

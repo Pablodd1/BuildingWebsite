@@ -1,0 +1,49 @@
+# UNITEC USA Design - AI/LLM Information
+
+## About
+- Website: https://unitecusadesign.com
+- Business: B2B wholesale platform for PVC/WPC building materials
+- Location: USA (importer), Colombia (manufacturer partner)
+- Language: Spanish (primary), English (secondary)
+
+## Products
+- PVC Panels (PANELES WPC)
+- Laminates (LAMINAS)
+- Wall Panels (PAREDES)
+- Flooring (PISOS, ZOCALOS)
+- Adhesives (PEGANTES)
+- Tapes (CINTAS)
+- Artificial Gardens (JARDINES ARTIFICIALES)
+- UPVC Roofs (CUBIERTAS UPVC)
+
+## Business Model
+- Minimum order: One full container (20ft or 40ft)
+- Container visualization and volume tracking
+- Real-time fill percentage
+- Bulk pricing
+
+## Contact
+- Email: lidermercadeo@espaciosimportados.com.co
+- WhatsApp: Available on contact page
+- Phone: +57 (Colombia)
+
+## Key Pages
+- /collections - Product catalog
+- /cart - Container fill visualization
+- /container-selection - Choose container size
+- /about - Company info
+- /contact - Contact form
+- /policies - Privacy policy
+- /terms - Terms and conditions
+- /faq - FAQ
+
+## Container Options
+- 20ft Standard
+- 40ft High Cube
+
+## Use Case
+This is a B2B platform for:
+- Construction companies
+- Architects
+- Building material distributors
+- Contractors needing bulk materials
