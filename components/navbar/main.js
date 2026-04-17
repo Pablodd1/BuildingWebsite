@@ -174,10 +174,7 @@ const NavBar = ({ searchParams }) => {
                     <div className="flex items-center gap-1">
                         <CartButton />
                         <LanguageToggle />
-                        <BrandToggle />
-                        {/* <div className="px-2 hover:bg-white/5 rounded-full transition-all group">
-                            <User className="w-fit h-full text-inherit" />
-                        </div> */}
+                        {/* BrandToggle removed - only UNITEC USA */}
                     </div>
                 </div>
             </div>
