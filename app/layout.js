@@ -1,4 +1,5 @@
 import { Montserrat } from 'next/font/google'
+import Link from 'next/link'
 import "./globals.css";
 import { getDictionary } from "lib/i18n/getDictionary";
 import RootLayoutClient from "./layout-client";
