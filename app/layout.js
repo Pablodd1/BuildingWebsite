@@ -82,13 +82,10 @@ export async function generateMetadata() {
 
     icons: {
       icon: [
-        { url: "/favicons/favicon.ico" },
-        { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-        { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { url: "/unitec-logo.png" }
       ],
       apple: [
-        { url: "/favicons/apple-icon.png" },
-        { url: "/favicons/apple-icon-180x180.png", sizes: "180x180", type: "image/png" },
+        { url: "/unitec-logo.png" }
       ],
     },
 
@@ -99,20 +96,20 @@ export async function generateMetadata() {
       siteName: defaults.siteName,
       title: defaults.title,
       description: defaults.description,
-      images: [
+images: [
         {
-          url: defaults.image,
+          url: defaults.image = "/unitec-logo.png",
           width: 1200,
           height: 630,
-          alt: lang === 'es' ? "Building Innovation - Materiales Arquitectónicos" : "Building Innovation - Architectural Materials",
+          alt: lang === 'es' ? "UNITEC USA - Materiales de Construcción" : "UNITEC USA - Building Materials"
         }
       ],
     },
 
     twitter: {
       card: "summary_large_image",
-      site: "@building.innovation",
-      creator: "@building.innovation",
+      site: "@unitecusadesign",
+      creator: "@unitecusadesign",
       title: defaults.title,
       description: defaults.description,
       images: [defaults.image],
