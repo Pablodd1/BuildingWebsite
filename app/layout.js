@@ -188,7 +188,22 @@ export default async function RootLayout({ children }) {
           {children}
         </RootLayoutClient>
         <div className="fixed bottom-4 right-4 z-40">
-          <Link href="/contact" className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow">Contact Us</Link>
+          <Link 
+            href="/contact" 
+            onClick={() => {
+              if (typeof window !== 'undefined' && window.dataLayer) {
+                window.dataLayer.push({
+                  event: 'cta_contact_click',
+                  language: lang,
+                  location: 'layout',
+                  timestamp: new Date().toISOString()
+                })
+              }
+            }}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow"
+          >
+            {lang === 'es' ? 'Contáctanos' : 'Contact Us'}
+          </Link>
         </div>
       </body>
     </html>
