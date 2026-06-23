@@ -6,14 +6,12 @@ import { Printer, Check, ArrowLeft, Building2, User, Mail, Phone, MapPin, FileTe
 import { useLanguage } from "lib/LanguageContext"
 import { useBrand } from "lib/BrandContext"
 import { getCart } from "utils/cart/cart.core"
-import { useLanguage } from 'lib/LanguageContext'
 import Link from "next/link"
 import Image from "next/image"
 
 export default function CheckoutPage() {
     const { t } = useLanguage()
-    const languageHook = useLanguage()
-    const lang = 'es' // fallback to Spanish; adjust if you have a per-page locale
+        const lang = 'es' // fallback to Spanish; adjust if you have a per-page locale
     const [cart, setCart] = useState([])
     const [mounted, setMounted] = useState(false)
     const [submitted, setSubmitted] = useState(false)
