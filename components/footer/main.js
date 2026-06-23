@@ -7,6 +7,7 @@ import Logo from 'My_UI/logo';
 import { useLanguage } from 'lib/LanguageContext';
 import { useBrand } from 'lib/BrandContext';
 import teamData from 'StaticData/team.json';
+import { useState } from 'react';
 
 const TikTokIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -21,8 +22,9 @@ const socials = [
 ];
 
 const Footer = () => {
-    const { t, getCompanyText } = useLanguage();
+    const { t, getCompanyText, language: lang } = useLanguage();
     const { activeBrand, brand } = useBrand();
+    const isSpanish = lang === 'es';
 
     const brandData = teamData[activeBrand] || teamData.binw;
     const contact = brandData.contact || {};
@@ -54,14 +56,19 @@ const Footer = () => {
             { title: t("footer.helpful.links.business"), link: "/about/business-models" },
             { title: t("footer.helpful.links.supports"), link: "/contact" },
             { title: t("footer.helpful.links.faqs"), link: "/faq" },
-            { title: t("footer.helpful.links.search"), link: "/collections/search" }
+            { title: t("nav.blog"), link: "/blog" },
+            { title: t("footer.helpful.links.search"), link: "/collections/search" },
+            { title: t("footer.helpful.links.terms") || "Terms & Conditions", link: "/terms" },
+            { title: t("footer.helpful.links.privacy") || "Privacy Policy", link: "/policies" }
         ]
     };
+
+
 
     return (
         <footer className="bg-black text-gray-300 pt-16">
             <div className="container mx-auto px-6">
-                <section className=' grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1fr_0.7fr_0.75fr_1fr] gap-y-16 lg:gap-y-2' >
+                <section className=' grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-16 lg:gap-y-2' >
                     <article className='lg:w-2/3 sm:col-span-2 md:col-span-3 lg:col-span-1' >
                         {/* Logo Section */}
                         <div className="text-center mb-0 w-fit mx-auto ">
@@ -70,15 +77,15 @@ const Footer = () => {
 
                         {/* Contact Section */}
                         <div className="text-center mb-8 flex flex-col gap-1">
-                            <p className="text-lg text-accent1 uppercase tracking-widest font-semibold">{t("footer.contact.title")}</p>
+                            <p className="text-lg text-orange-400 uppercase tracking-widest font-semibold">{t("footer.contact.title")}</p>
                             
                             {activeBrand === 'unitec' && (
-                                <p className="text-sm font-bold text-gray-400 mt-2">{t("footer.contact.moreInfo")}</p>
+                                <p className="text-sm font-bold text-gray-300 mt-2">{t("footer.contact.moreInfo")}</p>
                             )}
                             <p className="text-sm font-medium">{navData.contact.phone} {navData.contact.phone2 ? `/ ${navData.contact.phone2}` : ""}</p>
                             
                             {activeBrand === 'unitec' && (
-                                <p className="text-sm font-bold text-gray-400 mt-2">{t("footer.contact.visitShowroom")}</p>
+                                <p className="text-sm font-bold text-gray-300 mt-2">{t("footer.contact.visitShowroom")}</p>
                             )}
                             {navData.contact.address.map((line, i) => (
                                 <p key={i} className="text-sm font-medium">{line}</p>
@@ -89,7 +96,7 @@ const Footer = () => {
 
                     {/* Information Section */}
                     <div className="mb-8">
-                        <h3 className="text-xl mb-4 text-accent1 ">{t("footer.information.title")}</h3>
+                        <h3 className="text-xl mb-4 text-orange-400 ">{t("footer.information.title")}</h3>
                         <ul className="space-y-2 px-2" >
                             {navData.information.map((item, index) => (
                                 <li key={index}>
@@ -101,7 +108,7 @@ const Footer = () => {
 
                     {/* Helpful Links Section */}
                     <div className="mb-8 ">
-                        <h3 className="text-xl mb-4 text-accent1">{t("footer.helpful.title")}</h3>
+                        <h3 className="text-xl mb-4 text-orange-400">{t("footer.helpful.title")}</h3>
                         <ul className="space-y-2 px-2">
                             {navData.helpfulLinks.map((item, index) => (
                                 <li key={index}>
@@ -110,36 +117,30 @@ const Footer = () => {
                             ))}
                         </ul>
                     </div>
-                    {/* Subscribe Section */}
-                    <div className="text-center mb-8 max-w-64 float-right mx-auto lg:mr-0 relative lg:ml-auto w-full sm:col-span-2 md:col-span-3 lg:col-span-1 ">
-                        <p className="text-lg">{t("footer.subscribe.title")}</p>
-                        <form 
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                const email = e.target.email.value;
-                                if (!email) return;
-                                const subject = encodeURIComponent("Website Subscription Request");
-                                const body = encodeURIComponent(`New subscription request from: ${email}\n\nPlease add this email to the mailing list.`);
-                                window.location.href = `mailto:${brand.email}?subject=${subject}&body=${body}`;
-                            }}
-                            className="flex flex-col justify-center my-5"
+                    {/* Brand Presence Section */}
+                    <div className="text-center md:text-left mb-8 flex flex-col items-center md:items-start">
+                        <h3 className="text-lg font-bold text-orange-400 mb-4 uppercase tracking-widest">
+                            {isSpanish ? "Sede Miami" : "Miami Headquarters"}
+                        </h3>
+                        <div 
+                            className="group flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10"
                         >
-                            <input
-                                name="email"
-                                type="email"
-                                required
-                                placeholder={t("footer.subscribe.placeholder")}
-                                className="p-2 rounded-t-lg placeholder:text-accent2 border-2 border-primary text-black"
-                            />
-                            <button 
-                                type="submit"
-                                aria-label='Subscribe Button' 
-                                className="bg-primary text-secondary  font-semibold hover:bg-secondary hover:text-white transition-all ease-in duration-300 cursor-pointer tracking-superwide uppercase py-2 px-3.5 rounded-b-lg "
-                            >
-                                {t("footer.subscribe.btn")}
-                            </button>
-                        </form>
+                            <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-1">
+                                <img src={brand.logoImage} alt={`${brand.name} Logo`} className="object-contain" />
+                            </div>
+                            <div className="text-left">
+                                <p className="text-sm font-bold text-white transition-colors">{brand.name}</p>
+                                <p className="text-[10px] text-gray-300 uppercase tracking-tighter leading-tight">
+                                    {isSpanish 
+                                        ? "Doral, Miami, FL 33166" 
+                                        : "Doral, Miami, FL 33166"}
+                                </p>
+                            </div>
+                        </div>
                     </div>
+
+
+
                 </section>
 
                 {/* Social Icons */}
@@ -182,3 +183,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

@@ -5,6 +5,7 @@ import HowShippingWorks from "My_UI/product_ui/steps";
 import ProductDimensions from "My_UI/product_ui/dimension";
 import ProductUseCases from "My_UI/product_ui/technical";
 import ProductStory from "My_UI/product_ui/story";
+import ProductSpecsTable from "My_UI/product_ui/ProductSpecsTable";
 import NotFoundPage from "../../not-found";
 
 // app/products/[ID]/page.jsx (or equivalent)
@@ -100,6 +101,7 @@ export default async function ProductPage({ params }) {
         <ProductStory product={product} description={product.description} />
         <ProductDimensions dimension={product.dimensions} />
         <ProductUseCases description={product.description} />
+        <ProductSpecsTable product={product} />
       </div>
       <HowShippingWorks />
       <div className="max-w-11/12 mx-auto bg-white px-12 py-16">
