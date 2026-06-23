@@ -42,11 +42,32 @@ export const BRAND_CONFIG = {
 export function BrandProvider({ children }) {
     const [activeBrand, setActiveBrand] = useState("unitec");
 
-    // Persist brand choice
+        // Detect brand based on hostname or local storage
     useEffect(() => {
+        const hostname = typeof window !== 'undefined' ? window.location.hostname.toLowerCase() : '';
+        let detectedBrand = 'unitec'; // default
+        
+        // Hostinger domains auto-detection
+        if (hostname.includes('building-innovation') || hostname.includes('binnovation')) {
+            detectedBrand = 'binw';
+        } else if (hostname.includes('unitec')) {
+            detectedBrand = 'unitec';
+        }
+        
         const saved = localStorage.getItem('activeBrand');
-        if (saved && BRAND_CONFIG[saved]) {
-            setActiveBrand(saved);
+        
+        // If we are on a custom domain, force it to match the domain.
+        // If we are on localhost, allow toggling with localStorage.
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            if (saved && BRAND_CONFIG[saved]) {
+                setActiveBrand(saved);
+            } else {
+                setActiveBrand(detectedBrand);
+            }
+        } else {
+            setActiveBrand(detectedBrand);
+            // also set it to local storage to keep it consistent
+            localStorage.setItem('activeBrand', detectedBrand);
         }
     }, []);
 
