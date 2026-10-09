@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function CartButton({ count }) {
     return (
         <Link 
-            href="/cart"
+            href="/carrito"
             className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Shopping Cart"
         >

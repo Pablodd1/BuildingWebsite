@@ -99,15 +99,87 @@ const nextConfig = {
       },
       {
         source: '/product',
-        destination: '/products',
+        destination: '/productos',
         permanent: true
       },
       {
         source: '/collection',
-        destination: '/collections',
+        destination: '/colecciones',
+        permanent: true
+      }
+,
+      {
+        source: '/about/:path*',
+        destination: '/nosotros/:path*',
+        permanent: true
+      },
+      {
+        source: '/historia',
+        destination: '/nosotros/historia',
+        permanent: true
+      },
+      {
+        source: '/contact',
+        destination: '/contacto',
+        permanent: true
+      },
+      {
+        source: '/collections/:path*',
+        destination: '/colecciones/:path*',
+        permanent: true
+      },
+      {
+        source: '/products/:path*',
+        destination: '/productos/:path*',
+        permanent: true
+      },
+      {
+        source: '/cart',
+        destination: '/carrito',
+        permanent: true
+      },
+      {
+        source: '/checkout',
+        destination: '/pagar',
+        permanent: true
+      },
+      {
+        source: '/terms',
+        destination: '/terminos',
+        permanent: true
+      },
+      {
+        source: '/policies/:path*',
+        destination: '/politicas/:path*',
+        permanent: true
+      },
+      {
+        source: '/faq',
+        destination: '/preguntas-frecuentes',
+        permanent: true
+      },
+      {
+        source: '/logistics-lab',
+        destination: '/laboratorio-logistico',
+        permanent: true
+      },
+      {
+        source: '/container-selection',
+        destination: '/seleccion-de-contenedores',
         permanent: true
       }
     ];
+  },
+
+  // Output file tracing excludes
+  outputFileTracingExcludes: {
+    '*': [
+      'public/fichas/**/*',
+      'public/videos/**/*',
+      'public/media/**/*',
+      'public/video/**/*',
+      'public/raster/**/*'
+    ],
   },
 
   // Experimental features

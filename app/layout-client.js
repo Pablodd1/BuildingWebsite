@@ -8,9 +8,7 @@ import NavBar from "My_UI/navbar/main";
 import CartInit from "lib/cart/initCart";
 import CartDrawer from "My_UI/cart/CartDrawer.client";
 import VirtualFrontDesk from "My_UI/ui/VirtualFrontDesk";
-import LanguageSwitcher from "My_UI/ui/LanguageSwitcher";
 import Providers from "./providers";
-import CookieConsent from "components/CookieConsent";
 
 const NotifyPortal = dynamic(() => import("lib/notify"), {
   ssr: false,
@@ -20,19 +18,17 @@ const NotifyPortal = dynamic(() => import("lib/notify"), {
 export default function RootLayoutClient({ children, lang, dict }) {
   return (
     <Providers lang={lang}>
-      <NavBar lang={lang} dict={dict} />
+            <NavBar lang={lang} dict={dict} />
       {children}
       <Footer lang={lang} dict={dict} />
       <CartInit />
       <CartDrawer />
       <VirtualFrontDesk />
-      <LanguageSwitcher currentLang={lang} />
       <div id="modal-root" />
       <div id="notify-container" />
       <Suspense fallback={<Loader className="w-6 h-6 animate-spin" />}>
         <NotifyPortal />
       </Suspense>
-      <CookieConsent />
     </Providers>
   );
 }

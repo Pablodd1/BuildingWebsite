@@ -16,7 +16,7 @@
       },
       {
         "id": 2,
-        "name": "Yuldor Steven Avendaño",
+        "name": "Yuldor Stiven Avendaño",
         "role": "Commercial Marketing Advisor",
         "role_es": "Asesor Comercial Marketing",
         "phone": "+57 310 5769694",
@@ -42,7 +42,7 @@
       },
       {
         "id": 4,
-        "name": "Yury Marcela Moreno",
+        "name": "Camilo Andres Torres",
         "role": "Commercial Marketing Advisor",
         "role_es": "Asesor Comercial Marketing",
         "phone": "+57 310 4578337",
@@ -55,8 +55,8 @@
       }
     ],
     "contact": {
-      "phone": "+1 (786) 968-5783",
-      "whatsapp": "17869685783",
+      "phone": "+57 314 233 2147",
+      "whatsapp": "573142332147",
       "email": "lidermercadeo@espaciosimportados.com.co",
       "address": "6120 NW 74th Ave, Doral, Miami, FL 33166",
       "address_es": "6120 NW 74th Ave, Doral, Miami, FL 33166",
@@ -69,11 +69,11 @@
     "team": [
       {
         "id": 103,
-        "name": "Yuldor",
+        "name": "Yuldor Stiven Avendaño",
         "role": "Commercial Marketing Advisor",
         "role_es": "Asesor Comercial Marketing",
-        "phone": "+57 314 2337199",
-        "whatsapp": "573142337199",
+        "phone": "+57 310 5769694",
+        "whatsapp": "573105769694",
         "email": "lidermercadeo@espaciosimportados.com.co",
         "specialty": "Marketing & Sales",
         "specialty_es": "Marketing y Ventas",
@@ -82,7 +82,7 @@
       },
       {
         "id": 104,
-        "name": "Yury Marcela Moreno",
+        "name": "Camilo Andres Torres",
         "role": "Commercial Marketing Advisor",
         "role_es": "Asesor Comercial Marketing",
         "phone": "+57 310 4578337",
@@ -92,12 +92,24 @@
         "specialty_es": "Marketing y Ventas",
         "photo": "",
         "availability": "Lun-Vie 7AM-5PM COL"
+      },
+      {
+        "id": 105,
+        "name": "Henderson Patrick Arroyave",
+        "role": "Online Marketing Executive",
+        "role_es": "Ejecutivo Marketing Online",
+        "phone": "+57 320 2174854",
+        "whatsapp": "573202174854",
+        "email": "lidermercadeo@espaciosimportados.com.co",
+        "specialty": "Marketing & Sales",
+        "specialty_es": "Marketing y Ventas",
+        "photo": "",
+        "availability": "Lun-Vie 7AM-5PM COL"
       }
     ],
     "contact": {
-      "phone": "+57 314 233 7199",
-      "phone2": "+57 310 576 9694",
-      "whatsapp": "573142337199",
+      "phone": "+57 314 233 2147",
+      "whatsapp": "573142332147",
       "email": "lidermercadeo@espaciosimportados.com.co",
       "address": "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274. Itagüí, Medellín",
       "address_es": "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274. Itagüí, Medellín",

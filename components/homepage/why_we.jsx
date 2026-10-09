@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Stylish_H2 from "My_UI/stylish_h2";
 import { useLanguage } from "lib/LanguageContext";
 import { useBrand } from "lib/BrandContext";
+import { Lightbulb, BadgeCheck, Recycle } from "lucide-react";
 
 export default function WhyWeSection() {
     const { t, getCompanyText } = useLanguage();
@@ -16,16 +16,19 @@ export default function WhyWeSection() {
     const features = [
         {
             id: "01",
+            Icon: Lightbulb,
             title: t("why.features.innovation.title"),
             text: t("why.features.innovation.text"),
         },
         {
             id: "02",
+            Icon: BadgeCheck,
             title: t("why.features.quality.title"),
             text: t("why.features.quality.text"),
         },
         {
             id: "03",
+            Icon: Recycle,
             title: t("why.features.sustainability.title"),
             text: t("why.features.sustainability.text"),
         },
@@ -53,8 +56,44 @@ export default function WhyWeSection() {
         },
     };
 
+    // Helper to parse markdown bold (**) and newlines (\n) to render HTML beautifully
+    const renderFormattedText = (text) => {
+        if (!text) return "";
+        
+        const paragraphs = text.split('\n\n');
+        
+        return paragraphs.map((paragraph, pIdx) => {
+            const parts = [];
+            const regex = /\*\*(.*?)\*\*/g;
+            let lastIndex = 0;
+            let match;
+            
+            while ((match = regex.exec(paragraph)) !== null) {
+                if (match.index > lastIndex) {
+                    parts.push(paragraph.substring(lastIndex, match.index));
+                }
+                parts.push(
+                    <strong key={match.index} className="font-extrabold text-gray-900">
+                        {match[1]}
+                    </strong>
+                );
+                lastIndex = regex.lastIndex;
+            }
+            
+            if (lastIndex < paragraph.length) {
+                parts.push(paragraph.substring(lastIndex));
+            }
+            
+            return (
+                <p key={pIdx} className={pIdx > 0 ? "mt-4 text-gray-600 text-sm leading-relaxed" : "text-gray-600 text-sm leading-relaxed"}>
+                    {parts}
+                </p>
+            );
+        });
+    };
+
     return (
-        <section className="w-full bg-white px-6 md:px-16 lg:px-24 py-16 my-20 relative overflow-hidden">
+        <section className="w-full bg-white px-6 md:px-16 lg:px-24 py-16 my-10 relative overflow-hidden">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <motion.div
@@ -62,8 +101,13 @@ export default function WhyWeSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
+                    className="flex items-center justify-center gap-6 mb-8 w-full"
                 >
-                    <Stylish_H2 h2={whyTitle} />
+                    <div className="h-px bg-gray-300 flex-grow max-w-[200px] hidden sm:block"></div>
+                    <h2 className="text-2xl md:text-3xl font-extrabold tracking-widest uppercase text-gray-900 text-center">
+                        {whyTitle}
+                    </h2>
+                    <div className="h-px bg-gray-300 flex-grow max-w-[200px] hidden sm:block"></div>
                 </motion.div>
 
                 {/* Description */}
@@ -72,7 +116,7 @@ export default function WhyWeSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="max-w-3xl text-md text-accent2 mx-auto text-center mb-14"
+                    className="max-w-4xl text-base text-gray-700 mx-auto text-center mb-16 leading-relaxed"
                 >
                     {whyDescription}
                 </motion.p>
@@ -83,44 +127,31 @@ export default function WhyWeSection() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-center relative"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 relative"
                 >
                     {features.map((item, index) => (
                         <motion.div
                             key={item.id}
                             variants={itemVariants}
-                            whileHover={{ scale: 1.02, y: -5 }}
+                            whileHover={{ scale: 1.01, y: -2 }}
                             transition={{ duration: 0.3 }}
-                            className="flex flex-col border-b-2 md:border-r-2 border-accent2/75 py-5 last-of-type:border-0 md:border-b-0 hover:border-primary transition-colors duration-300 cursor-default"
+                            className="flex flex-col items-center py-6 px-6 md:px-8 border-b md:border-r border-gray-200 last:border-b-0 md:last:border-r-0 hover:bg-slate-50/50 transition-all duration-300 cursor-default"
                         >
-                            <motion.span
-                                initial={{ opacity: 0, scale: 0 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                                className="text-sm tracking-widest text-secondary font-extrabold mb-2"
-                            >
-                                {item.id}
-                            </motion.span>
+                            <div className="flex items-center gap-3 mb-6 justify-center w-full">
+                                <item.Icon className="w-7 h-7 text-[#F37B24] flex-shrink-0" />
+                                <h3 className="text-md font-bold tracking-widest uppercase text-gray-900 hover:text-primary transition-colors duration-300">
+                                    {item.title}
+                                </h3>
+                            </div>
 
-                            <h3 className="text-md tracking-widest uppercase text-gray-900 mb-4 hover:text-primary transition-colors duration-300">
-                                {item.title}
-                            </h3>
-
-                            <p className="text-sm max-w-xs mx-auto text-accent2">
-                                {item.text}
-                            </p>
-
-                            {/* Divider (desktop only, not after last item) */}
-                            {index < features.length - 1 && (
-                                <div
-                                    className={`hidden md:block absolute top-[60%] h-28 w-px bg-gray-200
-                                    ${index === 0 ? "left-1/3" : "left-2/3"}`}
-                                />
-                            )}
+                            <div className="text-center w-full text-gray-600">
+                                {renderFormattedText(item.text)}
+                            </div>
                         </motion.div>
                     ))}
                 </motion.div>
+                {/* Bottom horizontal line to complete section boundary */}
+                <div className="w-full h-px bg-gray-200 mt-14"></div>
             </div>
         </section>
     );

@@ -1,449 +1,302 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-    MessageCircle,
-    Phone,
-    Mail,
-    Calendar,
-    HelpCircle,
-    Package,
-    X,
-    Send,
-    User,
-    ChevronDown,
-    MapPin,
-    Clock,
-    Facebook,
-    Instagram
-} from 'lucide-react';
-import Link from 'next/link';
-import { useLanguage } from 'lib/LanguageContext';
-import { useBrand } from 'lib/BrandContext';
-import teamData from 'StaticData/team.json';
+import { useState, useEffect, useRef } from 'react';
+import { MessageCircle, PhoneCall, Sparkles, X, Bot, ChevronRight, Mic } from 'lucide-react';
 
-const TikTokIcon = ({ className }) => (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
-    </svg>
-);
-
-const inquiryTypes = [
-    { id: 'general', icon: MessageCircle, label: 'General Inquiry', label_es: 'Consulta General' },
-    { id: 'product', icon: Package, label: 'Product Info', label_es: 'Info de Producto' },
-    { id: 'quote', icon: Calendar, label: 'Request Quote', label_es: 'Solicitar Cotización' },
-    { id: 'support', icon: HelpCircle, label: 'Support', label_es: 'Soporte' },
-];
+const BASE_CHATBOT_URL = 'https://unitec-front-desk.vercel.app';
 
 export default function VirtualFrontDesk() {
-    const { t, language: lang } = useLanguage();
-    const { activeBrand, brand } = useBrand();
     const [isOpen, setIsOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState('menu');
-    const [showTeam, setShowTeam] = useState(false);
-    const [showFAQ, setShowFAQ] = useState(false);
+    const [showBubble, setShowBubble] = useState(false);
+    const [bubbleDismissed, setBubbleDismissed] = useState(false);
+    const [activeIcon, setActiveIcon] = useState('chat'); // alternates 'chat' | 'call'
 
-    const isSpanish = lang === 'es';
+    // Motion states
+    const [motionOffset, setMotionOffset] = useState({ x: 0, y: 0, rot: 0 });
+    const mouseTarget = useRef({ x: 0, y: 0 });
+    const currentMouse = useRef({ x: 0, y: 0 });
+    const scrollVelocity = useRef(0);
+    const lastScrollY = useRef(0);
+    const animFrameId = useRef(null);
+    const buttonRef = useRef(null);
 
-    // Brand-specific data
-    const brandData = teamData[activeBrand] || teamData.binw;
-    const team = brandData.team || [];
-    const contact = brandData.contact || {};
-    const social = teamData.social || {};
+    const brandId = 'unitec';
 
-    const faqs = [
-        {
-            q: 'What are your shipping times?',
-            q_es: '¿Cuáles son los tiempos de envío?',
-            a: 'Standard shipping takes 15-25 business days for international orders. Express options available.',
-            a_es: 'El envío estándar toma 15-25 días hábiles para pedidos internacionales. Opciones exprés disponibles.'
-        },
-        {
-            q: 'Do you offer samples?',
-            q_es: '¿Ofrecen muestras?',
-            a: 'Yes! Contact our team to request product samples for your project evaluation.',
-            a_es: '¡Sí! Contacta a nuestro equipo para solicitar muestras de productos.'
-        },
-        {
-            q: 'What is the minimum order?',
-            q_es: '¿Cuál es el pedido mínimo?',
-            a: 'Our minimum order is one full container (20ft or 40ft). We offer volume discounts.',
-            a_es: 'Nuestro pedido mínimo es un contenedor completo (20ft o 40ft). Ofrecemos descuentos por volumen.'
-        },
-        {
-            q: 'Do you install products?',
-            q_es: '¿Instalan los productos?',
-            a: 'We work with certified installers. Contact us for recommendations.',
-            a_es: 'Trabajamos con instaladores certificados. Contáctanos para recomendaciones.'
+    // 1. Auto-show greeting bubble after 1.8s
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (!bubbleDismissed) {
+                setShowBubble(true);
+            }
+        }, 1800);
+
+        return () => clearTimeout(timer);
+    }, [bubbleDismissed]);
+
+    // 2. Icon cycle: alternating chat and phone call
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIcon((prev) => (prev === 'chat' ? 'call' : 'chat'));
+        }, 3200);
+        return () => clearInterval(interval);
+    }, []);
+
+    // 3. Smooth continuous wave float + mouse attraction + scroll reaction
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            if (isOpen || !buttonRef.current) return;
+            const rect = buttonRef.current.getBoundingClientRect();
+            const btnX = rect.left + rect.width / 2;
+            const btnY = rect.top + rect.height / 2;
+
+            const deltaX = e.clientX - btnX;
+            const deltaY = e.clientY - btnY;
+            const distance = Math.hypot(deltaX, deltaY);
+
+            // Magnetic radius
+            const radius = 420;
+            if (distance < radius) {
+                const pull = (1 - distance / radius) * 22; // up to 22px wave displacement
+                const angle = Math.atan2(deltaY, deltaX);
+                mouseTarget.current = {
+                    x: Math.cos(angle) * pull,
+                    y: Math.sin(angle) * pull,
+                };
+            } else {
+                mouseTarget.current = { x: 0, y: 0 };
+            }
+        };
+
+        const handleScroll = () => {
+            if (isOpen) return;
+            const currentScrollY = window.scrollY;
+            const delta = currentScrollY - lastScrollY.current;
+            lastScrollY.current = currentScrollY;
+            scrollVelocity.current = Math.max(-15, Math.min(15, delta * 0.35));
+        };
+
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // Physics animation loop: Sinusoidal wave + mouse lerp + scroll dampening
+        let startTime = performance.now();
+        const animate = () => {
+            const now = performance.now();
+            const elapsed = (now - startTime) / 1000;
+
+            // Sine wave calculation
+            const waveY = Math.sin(elapsed * 2.2) * 5; // vertical gentle bob
+            const waveX = Math.cos(elapsed * 1.6) * 4; // horizontal subtle sway
+            const waveRot = Math.sin(elapsed * 1.8) * 1.8; // subtle playful tilt
+
+            // Smooth interpolation for mouse pull
+            currentMouse.current.x += (mouseTarget.current.x - currentMouse.current.x) * 0.08;
+            currentMouse.current.y += (mouseTarget.current.y - currentMouse.current.y) * 0.08;
+
+            // Dampen scroll velocity
+            scrollVelocity.current *= 0.88;
+
+            setMotionOffset({
+                x: waveX + currentMouse.current.x,
+                y: waveY + currentMouse.current.y + scrollVelocity.current,
+                rot: waveRot + scrollVelocity.current * 0.3,
+            });
+
+            animFrameId.current = requestAnimationFrame(animate);
+        };
+
+        animFrameId.current = requestAnimationFrame(animate);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('scroll', handleScroll);
+            if (animFrameId.current) cancelAnimationFrame(animFrameId.current);
+        };
+    }, [isOpen]);
+
+    const handleOpen = () => {
+        setIsOpen(true);
+        setShowBubble(false);
+    };
+
+    const handleToggle = () => {
+        setIsOpen((prev) => !prev);
+        if (!isOpen) {
+            setShowBubble(false);
         }
-    ];
+    };
 
-    // Build contact options dynamically from brand data
-    const contactOptions = [
-        {
-            id: 'whatsapp-main',
-            icon: MessageCircle,
-            label: 'WhatsApp',
-            value: contact.phone,
-            url: `https://wa.me/${contact.whatsapp}`
-        },
-        {
-            id: 'phone',
-            icon: Phone,
-            label: isSpanish ? 'Llamar' : 'Call Us',
-            value: contact.phone,
-            url: `tel:${contact.phone?.replace(/[^+\d]/g, '')}`
-        },
-        ...(contact.phone2 ? [{
-            id: 'phone2',
-            icon: Phone,
-            label: isSpanish ? 'Línea 2' : 'Line 2',
-            value: contact.phone2,
-            url: `tel:${contact.phone2?.replace(/[^+\d]/g, '')}`
-        }] : []),
-        {
-            id: 'email',
-            icon: Mail,
-            label: isSpanish ? 'Correo' : 'Email',
-            value: contact.email,
-            url: `mailto:${contact.email}`
-        },
-    ];
+    const handleDismissBubble = (e) => {
+        e.stopPropagation();
+        setShowBubble(false);
+        setBubbleDismissed(true);
+    };
 
-    const tabs = [
-        { id: 'menu', label: isSpanish ? 'Menú' : 'Menu', icon: MessageCircle },
-        { id: 'team', label: isSpanish ? 'Equipo' : 'Team', icon: User },
-        { id: 'contact', label: isSpanish ? 'Contacto' : 'Contact', icon: Phone },
-    ];
+    const motionTransform = isOpen
+        ? 'none'
+        : `translate3d(${motionOffset.x.toFixed(2)}px, ${motionOffset.y.toFixed(2)}px, 0) rotate(${motionOffset.rot.toFixed(2)}deg)`;
 
     return (
-        <>
-            {/* Floating Button */}
-            <motion.button
-                onClick={() => setIsOpen(!isOpen)}
-                className="fixed bottom-6 right-6 z-[9998] flex items-center justify-center w-16 h-16 bg-gradient-to-r from-primary to-secondary text-white rounded-full shadow-2xl hover:scale-110 transition-all duration-300"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Open Virtual Front Desk"
-            >
-                <AnimatePresence mode="wait">
-                    {isOpen ? (
-                        <motion.div
-                            key="close"
-                            initial={{ rotate: -90, opacity: 0 }}
-                            animate={{ rotate: 0, opacity: 1 }}
-                            exit={{ rotate: 90, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            <X size={28} />
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="open"
-                            initial={{ rotate: 90, opacity: 0 }}
-                            animate={{ rotate: 0, opacity: 1 }}
-                            exit={{ rotate: -90, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="relative"
-                        >
-                            <MessageCircle size={28} fill="white" />
-                            <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                            </span>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.button>
-
-            {/* Main Panel */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                        transition={{ duration: 0.3, type: 'spring', damping: 25 }}
-                        className="fixed bottom-24 right-6 z-[9999] w-[380px] max-w-[calc(100vw-3rem)] bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200"
-                    >
-                        {/* Header */}
-                        <div className="bg-gradient-to-r from-gray-900 to-gray-800 p-4 text-white">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <h3 className="font-bold text-lg">{brand.name}</h3>
-                                    <p className="text-sm text-gray-300">
-                                        {isSpanish ? '¡Hola! ¿Cómo podemos ayudarte?' : 'Hi! How can we help you?'}
-                                    </p>
-                                </div>
-                                <div className="flex gap-2">
-                                    {tabs.map(tab => (
-                                        <button
-                                            key={tab.id}
-                                            onClick={() => {
-                                                setActiveTab(tab.id);
-                                                setShowTeam(false);
-                                                setShowFAQ(false);
-                                            }}
-                                            className={`p-2 rounded-lg transition-colors ${activeTab === tab.id ? 'bg-white/20' : 'hover:bg-white/10'}`}
-                                        >
-                                            <tab.icon size={20} />
-                                        </button>
-                                    ))}
+        <aside
+            aria-label="Asistente Virtual"
+            className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-[999999]"
+        >
+            {/* Modal Iframe when opened */}
+            {isOpen && (
+                <div className="fixed bottom-[88px] right-4 sm:right-6 w-[420px] h-[700px] max-w-[calc(100vw-32px)] max-h-[calc(100vh-115px)] rounded-[28px] overflow-hidden bg-white shadow-[0_25px_70px_-15px_rgba(0,0,0,0.35)] border border-slate-200/90 animate-in fade-in zoom-in-95 duration-200 z-[999999] flex flex-col">
+                    {/* Header bar */}
+                    <div className="bg-[#132c3f] text-white px-4 py-3 flex items-center justify-between border-b border-sky-900/40">
+                        <div className="flex items-center gap-2.5">
+                            <div className="w-8 h-8 rounded-full bg-sky-500/25 flex items-center justify-center border border-sky-400/30">
+                                <Bot className="w-4 h-4 text-sky-400" />
+                            </div>
+                            <div>
+                                <p className="text-sm font-bold text-white leading-none">Asistente Virtual Unitec</p>
+                                <div className="flex items-center gap-1.5 mt-1">
+                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                    <span className="text-[11px] text-sky-300 font-medium leading-none">En línea • Chat & Llamada</span>
                                 </div>
                             </div>
                         </div>
+                        <button
+                            onClick={() => setIsOpen(false)}
+                            className="p-1.5 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
+                            aria-label="Cerrar asistente"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    </div>
 
-                        {/* Content */}
-                        <div className="max-h-[450px] overflow-y-auto">
-                            {/* Menu Tab */}
-                            {activeTab === 'menu' && !showTeam && !showFAQ && (
-                                <div className="p-4 space-y-3">
-                                    {inquiryTypes.map(type => (
-                                        <Link
-                                            key={type.id}
-                                            href="/contact"
-                                            className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
-                                        >
-                                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                                                <type.icon size={20} className="text-primary" />
-                                            </div>
-                                            <div>
-                                                <p className="font-semibold text-gray-800">
-                                                    {isSpanish ? type.label_es : type.label}
-                                                </p>
-                                                <p className="text-xs text-gray-500">
-                                                    {isSpanish ? 'Haz clic para más información' : 'Click for more info'}
-                                                </p>
-                                            </div>
-                                        </Link>
-                                    ))}
+                    <iframe
+                        src={`${BASE_CHATBOT_URL}?embed=true&brandId=${brandId}`}
+                        title="AI Front Desk Assistant"
+                        allow="clipboard-read; clipboard-write; microphone; autoplay"
+                        className="w-full flex-1 border-none bg-slate-50"
+                    />
+                </div>
+            )}
 
-                                    <button
-                                        onClick={() => setShowTeam(true)}
-                                        className="w-full flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-primary/10 to-secondary/10 hover:from-primary/20 hover:to-secondary/20 transition-colors"
-                                    >
-                                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                                            <User size={20} className="text-primary" />
-                                        </div>
-                                        <div className="text-left">
-                                            <p className="font-semibold text-gray-800">
-                                                {isSpanish ? 'Nuestro Equipo' : 'Our Team'}
-                                            </p>
-                                            <p className="text-xs text-gray-500">
-                                                {isSpanish ? 'Conoce a nuestro equipo' : 'Meet our team'}
-                                            </p>
-                                        </div>
-                                    </button>
+            {/* Auto Greeting Speech Bubble */}
+            {!isOpen && showBubble && (
+                <div
+                    onClick={handleOpen}
+                    style={{ transform: motionTransform }}
+                    className="absolute bottom-20 right-0 w-[310px] sm:w-[340px] p-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_16px_40px_-10px_rgba(19,44,63,0.3)] border border-sky-200/90 cursor-pointer animate-in fade-in slide-in-from-bottom-3 duration-300 group hover:shadow-2xl transition-all"
+                >
+                    <button
+                        onClick={handleDismissBubble}
+                        className="absolute top-2.5 right-2.5 w-6 h-6 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 transition-colors"
+                        aria-label="Cerrar saludo"
+                    >
+                        <X className="w-3.5 h-3.5" />
+                    </button>
 
-                                    <button
-                                        onClick={() => setShowFAQ(true)}
-                                        className="w-full flex items-center gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
-                                    >
-                                        <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                                            <HelpCircle size={20} className="text-green-600" />
-                                        </div>
-                                        <div className="text-left">
-                                            <p className="font-semibold text-gray-800">FAQ</p>
-                                            <p className="text-xs text-gray-500">
-                                                {isSpanish ? 'Preguntas frecuentes' : 'Frequently asked questions'}
-                                            </p>
-                                        </div>
-                                    </button>
-
-                                    {/* Quick Contact */}
-                                    <div className="pt-3 border-t">
-                                        <p className="text-xs font-semibold text-gray-500 mb-2 uppercase">
-                                            {isSpanish ? 'Contacto Rápido' : 'Quick Contact'}
-                                        </p>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <a
-                                                href={`https://wa.me/${contact.whatsapp}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center justify-center gap-2 p-2 rounded-lg bg-green-500 text-white text-sm font-medium hover:bg-green-600 transition-colors"
-                                            >
-                                                <MessageCircle size={16} fill="white" />
-                                                WhatsApp
-                                            </a>
-                                            <a
-                                                href={`tel:${contact.phone?.replace(/[^+\d]/g, '')}`}
-                                                className="flex items-center justify-center gap-2 p-2 rounded-lg bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 transition-colors"
-                                            >
-                                                <Phone size={16} />
-                                                {isSpanish ? 'Llamar' : 'Call'}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Team Tab */}
-                            {(activeTab === 'team' || showTeam) && !showFAQ && (
-                                <div className="p-4">
-                                    <button
-                                        onClick={() => { setShowTeam(false); setActiveTab('menu'); }}
-                                        className="text-sm text-primary hover:underline mb-3 flex items-center gap-1"
-                                    >
-                                        ← {isSpanish ? 'Volver' : 'Back'}
-                                    </button>
-                                    <div className="space-y-3">
-                                        {team.map(member => (
-                                            <motion.div
-                                                key={member.id}
-                                                whileHover={{ scale: 1.02 }}
-                                                className="p-3 rounded-xl border border-gray-200 hover:border-primary transition-colors"
-                                            >
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-xl font-bold text-gray-600">
-                                                        {member.name.charAt(0)}
-                                                    </div>
-                                                    <div className="flex-1">
-                                                        <p className="font-bold text-gray-800">{member.name}</p>
-                                                        <p className="text-xs text-gray-500">
-                                                            {isSpanish ? member.role_es : member.role}
-                                                        </p>
-                                                        <p className="text-xs text-primary">
-                                                            {isSpanish ? member.specialty_es : member.specialty}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex gap-2 mt-2">
-                                                    <a
-                                                        href={`https://wa.me/${member.whatsapp}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex-1 flex items-center justify-center gap-1 p-1.5 rounded-lg bg-green-500 text-white text-xs hover:bg-green-600"
-                                                    >
-                                                        <MessageCircle size={12} fill="white" />
-                                                        WhatsApp
-                                                    </a>
-                                                    <a
-                                                        href={`tel:${member.phone?.replace(/[^+\d]/g, '')}`}
-                                                        className="flex-1 flex items-center justify-center gap-1 p-1.5 rounded-lg bg-blue-500 text-white text-xs hover:bg-blue-600"
-                                                    >
-                                                        <Phone size={12} />
-                                                        {isSpanish ? 'Llamar' : 'Call'}
-                                                    </a>
-                                                </div>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* FAQ Tab */}
-                            {showFAQ && (
-                                <div className="p-4">
-                                    <button
-                                        onClick={() => setShowFAQ(false)}
-                                        className="text-sm text-primary hover:underline mb-3 flex items-center gap-1"
-                                    >
-                                        ← {isSpanish ? 'Volver' : 'Back'}
-                                    </button>
-                                    <div className="space-y-2">
-                                        {faqs.map((faq, idx) => (
-                                            <details key={idx} className="group rounded-lg border border-gray-200 overflow-hidden">
-                                                <summary className="flex items-center justify-between p-3 cursor-pointer bg-gray-50 hover:bg-gray-100">
-                                                    <span className="font-medium text-sm text-gray-800">
-                                                        {isSpanish ? faq.q_es : faq.q}
-                                                    </span>
-                                                    <ChevronDown size={16} className="group-open:rotate-180 transition-transform" />
-                                                </summary>
-                                                <div className="p-3 text-sm text-gray-600 bg-white">
-                                                    {isSpanish ? faq.a_es : faq.a}
-                                                </div>
-                                            </details>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Contact Tab */}
-                            {activeTab === 'contact' && (
-                                <div className="p-4 space-y-4">
-                                    {/* Office Info */}
-                                    <div className="p-3 rounded-xl bg-gray-50">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <MapPin size={16} className="text-primary" />
-                                            <span className="font-semibold text-sm">
-                                                {activeBrand === 'unitec'
-                                                    ? (isSpanish ? 'Showroom' : 'Showroom')
-                                                    : (isSpanish ? 'Oficina Principal' : 'Main Office')
-                                                }
-                                            </span>
-                                        </div>
-                                        <p className="text-sm text-gray-600">{contact.address}</p>
-                                        {contact.city && (
-                                            <p className="text-sm text-gray-600">{contact.city}</p>
-                                        )}
-                                        <p className="text-sm text-gray-500">{contact.country}</p>
-                                        <div className="flex items-center gap-2 mt-2">
-                                            <Clock size={14} className="text-gray-400" />
-                                            <span className="text-xs text-gray-500">
-                                                {isSpanish ? contact.hours_es : contact.hours}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Contact Options */}
-                                    {contactOptions.map(option => (
-                                        <a
-                                            key={option.id}
-                                            href={option.url}
-                                            target={option.url.startsWith('http') ? '_blank' : undefined}
-                                            rel={option.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                                            className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-primary hover:bg-primary/5 transition-colors"
-                                        >
-                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${option.id.includes('whatsapp') ? 'bg-green-500' : option.id.includes('phone') ? 'bg-blue-500' : 'bg-gray-700'}`}>
-                                                <option.icon size={20} className="text-white" />
-                                            </div>
-                                            <div>
-                                                <p className="font-semibold text-sm text-gray-800">{option.label}</p>
-                                                <p className="text-xs text-gray-500">{option.value}</p>
-                                            </div>
-                                        </a>
-                                    ))}
-
-                                    {/* Social Media */}
-                                    <div className="pt-3 border-t">
-                                        <p className="text-xs font-semibold text-gray-500 mb-2 uppercase">
-                                            {isSpanish ? 'Síguenos' : 'Follow Us'}
-                                        </p>
-                                        <div className="flex gap-2">
-                                            {social.facebook && (
-                                                <a href={social.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700">
-                                                    <Facebook size={18} />
-                                                </a>
-                                            )}
-                                            {social.instagram && (
-                                                <a href={social.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 flex items-center justify-center text-white hover:opacity-90">
-                                                    <Instagram size={18} />
-                                                </a>
-                                            )}
-                                            {social.tiktok && (
-                                                <a href={social.tiktok} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white hover:bg-gray-800">
-                                                    <TikTokIcon className="w-5 h-5" />
-                                                </a>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
+                    <div className="flex items-start gap-3">
+                        <div className="relative shrink-0">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#132c3f] to-sky-500 flex items-center justify-center text-white shadow-md">
+                                <Bot className="w-5 h-5 text-white" />
+                            </div>
+                            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white ring-1 ring-emerald-400/50" />
                         </div>
 
-                        {/* Footer */}
-                        <div className="p-3 bg-gray-50 border-t text-center">
-                            <p className="text-xs text-gray-500">
-                                {isSpanish ? 'Respondemos en menos de 24 horas' : 'We respond within 24 hours'}
+                        <div className="flex-1 pr-3">
+                            <div className="flex items-center gap-1.5">
+                                <span className="text-xs font-black uppercase tracking-wider text-sky-600">Asistente IA</span>
+                                <Sparkles className="w-3 h-3 text-amber-500" />
+                            </div>
+                            <p className="text-sm font-bold text-slate-900 leading-snug mt-0.5">
+                                ¿En qué podemos ayudarte?
                             </p>
-                            <Link href="/contact" className="text-xs text-primary font-semibold hover:underline">
-                                {isSpanish ? 'Página de contacto' : 'Full Contact Page'} →
-                            </Link>
+                            <p className="text-xs text-slate-600 mt-1 leading-normal">
+                                Asesoría en catálogos, cotizaciones por contenedor y dudas en tiempo real.
+                            </p>
+
+                            {/* Dual action buttons inside greeting */}
+                            <div className="flex items-center gap-2 mt-3">
+                                <button
+                                    onClick={handleOpen}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold shadow-xs transition-colors"
+                                >
+                                    <MessageCircle className="w-3.5 h-3.5" />
+                                    <span>Chatear</span>
+                                </button>
+                                <button
+                                    onClick={handleOpen}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#132c3f] hover:bg-[#1a4260] text-white text-xs font-bold shadow-xs transition-colors"
+                                >
+                                    <PhoneCall className="w-3.5 h-3.5 text-sky-300" />
+                                    <span>Llamar</span>
+                                </button>
+                            </div>
                         </div>
-                    </motion.div>
+                    </div>
+
+                    {/* Speech bubble pointer tip */}
+                    <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white rotate-45 border-r border-b border-sky-200/90" />
+                </div>
+            )}
+
+            {/* Interactive Showcase Widget with Floating Trigger */}
+            <div
+                ref={buttonRef}
+                style={{ transform: motionTransform }}
+                className="relative flex items-center justify-end gap-2.5"
+            >
+                {/* Showcase Pill Banner (Inviting User to Chat or Call) */}
+                {!isOpen && !showBubble && (
+                    <div
+                        onClick={handleOpen}
+                        className="cursor-pointer group/pill hidden sm:flex items-center gap-2.5 py-2 px-3.5 bg-white/90 hover:bg-white backdrop-blur-md border border-sky-200/80 rounded-full shadow-[0_8px_25px_-5px_rgba(2,132,199,0.25)] hover:shadow-[0_12px_32px_-5px_rgba(2,132,199,0.4)] transition-all duration-300"
+                    >
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-xs font-bold text-slate-800">
+                            ¿Preguntas?{' '}
+                            <span className="text-sky-600 font-extrabold group-hover/pill:underline">
+                                Chatea o Llama
+                            </span>
+                        </span>
+                        <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover/pill:translate-x-0.5 transition-transform" />
+                    </div>
                 )}
-            </AnimatePresence>
-        </>
+
+                {/* Radar/Sonar Pulsing Wave Rings */}
+                {!isOpen && (
+                    <>
+                        <span className="absolute -inset-2.5 rounded-full bg-sky-400/25 animate-ping pointer-events-none" />
+                        <span className="absolute -inset-5 rounded-full border border-sky-400/20 animate-pulse pointer-events-none" />
+                    </>
+                )}
+
+                {/* Main Circular Trigger Button */}
+                <button
+                    onClick={handleToggle}
+                    className="relative group flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-[#132c3f] via-[#1a4260] to-sky-500 text-white shadow-[0_10px_35px_rgba(2,132,199,0.4)] hover:shadow-[0_14px_42px_rgba(2,132,199,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-hidden"
+                    aria-label={isOpen ? 'Cerrar asistente' : 'Abrir asistente virtual para chatear o llamar'}
+                >
+                    {/* Inner highlight */}
+                    <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                    {isOpen ? (
+                        <X className="w-7 h-7 text-white transition-transform duration-200 rotate-90 group-hover:rotate-0" />
+                    ) : (
+                        <div className="relative flex items-center justify-center w-full h-full">
+                            {/* Alternating Icon (Chat <-> Call) */}
+                            <div className="transition-all duration-500 transform">
+                                {activeIcon === 'chat' ? (
+                                    <MessageCircle className="w-7 h-7 text-white drop-shadow-sm animate-in zoom-in-75 duration-300" />
+                                ) : (
+                                    <PhoneCall className="w-7 h-7 text-white drop-shadow-sm animate-in zoom-in-75 duration-300" />
+                                )}
+                            </div>
+
+                            {/* Active online green badge */}
+                            <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center shadow-xs">
+                                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                            </span>
+                        </div>
+                    )}
+                </button>
+            </div>
+        </aside>
     );
 }

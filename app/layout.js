@@ -1,6 +1,6 @@
 import { Montserrat } from 'next/font/google'
-import Link from 'next/link'
 import "./globals.css";
+import Script from "next/script";
 import { getDictionary } from "lib/i18n/getDictionary";
 import RootLayoutClient from "./layout-client";
 
@@ -15,24 +15,11 @@ export async function generateMetadata() {
   const lang = 'es';
   const dict = getDictionary(lang);
 
-  const rawBaseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL || "";
-  const resolveBaseUrl = (value) => {
-    if (!value) return "http://localhost:3000";
-    const trimmed = value.trim();
-    if (!trimmed) return "http://localhost:3000";
-    const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
-    try {
-      return new URL(withProtocol).toString();
-    } catch {
-      return "http://localhost:3000";
-    }
-  };
-
-  const BASE_URL = resolveBaseUrl(rawBaseUrl);
-  const canonicalUrl = `${BASE_URL}/${lang}`;
+  const BASE_URL = "https://unitecusadesign.com";
+  const canonicalUrl = `${BASE_URL}/`;
 
   const defaults = {
-    title: dict.meta.siteName + " | " + (lang === 'es' ? "Diseñamos el Futuro" : "We Design the Future"),
+    title: dict.meta.siteTitle,
     description: dict.meta.siteDescription,
     keywords: dict.meta.keywords,
     image: `${BASE_URL}/og-image.jpg`,
@@ -48,19 +35,18 @@ export async function generateMetadata() {
     },
     description: defaults.description,
     keywords: defaults.keywords,
-    authors: [{ name: "Building Innovation Team" }],
-    creator: "Building Innovation",
-    publisher: "Building Innovation",
+    authors: [{ name: "UNITEC USA Design Team" }],
+    creator: "UNITEC USA Design",
+    publisher: "UNITEC USA Design",
     applicationName: dict.meta.siteName,
     generator: "Next.js",
     manifest: "/favicons/manifest.json",
 
     alternates: {
-      canonical: defaults.canonical,
+      canonical: "/",
       languages: {
-        'en': `${BASE_URL}`,
-        'es': `${BASE_URL}/es`,
-        'x-default': `${BASE_URL}`
+        'es': `${BASE_URL}/`,
+        'x-default': `${BASE_URL}/`
       }
     },
 
@@ -82,10 +68,13 @@ export async function generateMetadata() {
 
     icons: {
       icon: [
-        { url: "/unitec-logo.png" }
+        { url: "/favicons/unitec-favicon.png" },
+        { url: "/favicons/unitec-favicon.png", sizes: "16x16", type: "image/png" },
+        { url: "/favicons/unitec-favicon.png", sizes: "32x32", type: "image/png" },
       ],
       apple: [
-        { url: "/unitec-logo.png" }
+        { url: "/favicons/apple-icon.png" },
+        { url: "/favicons/apple-icon-180x180.png", sizes: "180x180", type: "image/png" },
       ],
     },
 
@@ -96,12 +85,12 @@ export async function generateMetadata() {
       siteName: defaults.siteName,
       title: defaults.title,
       description: defaults.description,
-images: [
+      images: [
         {
-          url: defaults.image = "/unitec-logo.png",
+          url: defaults.image,
           width: 1200,
           height: 630,
-          alt: lang === 'es' ? "UNITEC USA - Materiales de Construcción" : "UNITEC USA - Building Materials"
+          alt: lang === 'es' ? "UNITEC USA Design - Materiales Arquitectónicos" : "UNITEC USA Design - Architectural Materials",
         }
       ],
     },
@@ -134,64 +123,156 @@ images: [
 export default async function RootLayout({ children }) {
   const lang = 'es';
   const dict = getDictionary(lang);
+  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
+        {/* Google Tag Manager */}
+        <Script id="inline-script-1" strategy="afterInteractive" dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-K6KPJCJ6');`,
+          }}
+        />
+        {/* Google tag (gtag.js) */}
+        <Script strategy="lazyOnload" src="https://www.googletagmanager.com/gtag/js?id=AW-18156507743" />
+        <Script id="inline-script-2" strategy="afterInteractive" dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-18156507743');
+            `,
+          }}
+        />
+        {/* Google tag (gtag.js) - G-NN981YWDYK */}
+        <Script strategy="lazyOnload" src="https://www.googletagmanager.com/gtag/js?id=G-NN981YWDYK" />
+        <Script id="inline-script-3" strategy="afterInteractive" dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-NN981YWDYK');
+            `,
+          }}
+        />
+        {/* Google Analytics */}
+        {GA_ID && (
+          <>
+            <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+            <Script id="inline-script-4" strategy="afterInteractive" dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA_ID}', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
         {/* Structured Data / JSON-LD */}
-        <script
-          type="application/ld+json"
+
+        <Script id="schema-script" type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@graph": [
                 {
                   "@type": "Organization",
-                  "@id": `${process.env.NEXT_PUBLIC_BASE_URL}/#organization`,
-                  "name": "Building Innovation",
-                  "url": process.env.NEXT_PUBLIC_BASE_URL,
+                  "@id": "https://unitecusadesign.com/#organization",
+                  "name": "Unitec USA Design",
+                  "alternateName": "Unitec USA",
+                  "url": "https://unitecusadesign.com",
                   "logo": {
                     "@type": "ImageObject",
-                    "url": `${process.env.NEXT_PUBLIC_BASE_URL}/logo.png`
+                    "@id": "https://unitecusadesign.com/#logo",
+                    "url": "https://unitecusadesign.com/unitec-logo.png",
+                    "contentUrl": "https://unitecusadesign.com/unitec-logo.png",
+                    "caption": "Unitec USA Design"
                   },
-                  "description": dict.meta.siteDescription,
+                  "image": { "@id": "https://unitecusadesign.com/#logo" },
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274",
+                    "addressLocality": "Itagüí",
+                    "addressRegion": "Antioquia",
+                    "postalCode": "055413",
+                    "addressCountry": "CO"
+                  },
                   "contactPoint": {
                     "@type": "ContactPoint",
-                    "contactType": lang === 'es' ? "Ventas" : "Sales",
+                    "telephone": "+57 314 233 2147",
+                    "contactType": "sales",
+                    "areaServed": ["US", "LATAM", "Caribbean"],
                     "availableLanguage": ["English", "Spanish"]
                   },
                   "sameAs": [
-                    "https://instagram.com/building.innovation",
-                    "https://facebook.com/buildinginnovation"
+                    "https://instagram.com/unitecusadesign",
+                    "https://facebook.com/unitecusadesign",
+                    "https://www.tiktok.com/@unitecusadesign"
                   ]
                 },
                 {
                   "@type": "WebSite",
-                  "@id": `${process.env.NEXT_PUBLIC_BASE_URL}/#website`,
-                  "url": process.env.NEXT_PUBLIC_BASE_URL,
-                  "name": "Building Innovation",
-                  "publisher": {
-                    "@id": `${process.env.NEXT_PUBLIC_BASE_URL}/#organization`
-                  },
-                  "inLanguage": ["en", "es"]
+                  "@id": "https://unitecusadesign.com/#website",
+                  "url": "https://unitecusadesign.com",
+                  "name": dict.meta.siteName,
+                  "description": dict.meta.siteDescription,
+                  "publisher": { "@id": "https://unitecusadesign.com/#organization" },
+                  "inLanguage": ["es", "en"],
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://unitecusadesign.com/colecciones/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                  }
                 }
               ]
             })
           }}
         />
+        {/* Cookiehub */}
+        <Script strategy="lazyOnload" src="https://cdn.cookiehub.eu/c2/c2fa7641.js" />
+        <Script id="inline-script-5" strategy="afterInteractive" dangerouslySetInnerHTML={{
+            __html: `
+              var cpm = {};
+              if (window.cookiehub) {
+                window.cookiehub.load(cpm);
+              } else {
+                window.addEventListener("load", function() {
+                  window.cookiehub.load(cpm);
+                });
+              }
+            `,
+          }}
+        />
+        {/* Metricool Analytics Tracker */}
+        <Script
+          id="metricool-tracker"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"5ce44b552f857fc4a5b60d701c3e17cf"})});`
+          }}
+        />
       </head>
       <body className={`${montserrat.className} font-medium`}>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-K6KPJCJ6"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
         <RootLayoutClient lang={lang} dict={dict}>
           {children}
         </RootLayoutClient>
-        <div className="fixed bottom-4 right-4 z-40">
-          <Link 
-            href="/contact" 
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow"
-          >
-            {lang === 'es' ? 'Contáctanos' : 'Contact Us'}
-          </Link>
-        </div>
       </body>
     </html>
   );

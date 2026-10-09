@@ -103,7 +103,7 @@ export default function ContainerSelectionModal({ isOpen, onClose, product }) {
       setTimeout(() => {
         setIsAdding(false)
         onClose()
-        router.push("/cart")
+        router.push("/carrito")
       }, 500)
     } catch (error) {
       console.error("Error adding to container:", error)

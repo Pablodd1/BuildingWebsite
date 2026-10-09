@@ -5,20 +5,20 @@ import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { useLanguage } from "lib/LanguageContext";
 
-export default function SearchFrom({ full = false, query: q }) {
+export default function SearchForm({ full = false, query: q, className = "" }) {
     const { t } = useLanguage();
     const [query, setQuery] = useState("");
     const router = useRouter();
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && query.trim()) {
-            router.push(`/collections/search?q=${encodeURIComponent(query.trim())}`);
+            router.push(`/colecciones/search?q=${encodeURIComponent(query.trim())}`);
         }
     };
 
     return (
-        <div className={` relative w-full  ${full ? ' max-w-4/5 lg:max-w-xl my-20 ' : ' hidden sm:block max-w-85'}`}>
-            <Search className={`absolute text-secondary ${full ? 'left-3 top-2 w-6 h-6 ' : 'w-4 h-4 left-4  top-1/2 -translate-y-1/2'} `} />
+        <div className={`relative w-full ${className} ${full ? 'max-w-xl' : 'hidden sm:block max-w-xs'}`}>
+            <Search className={`absolute ${full ? 'text-secondary' : 'text-slate-400'} w-5 h-5 left-3 top-1/2 -translate-y-1/2`} />
             <input
                 type="search"
                 inputMode="search"
@@ -27,8 +27,8 @@ export default function SearchFrom({ full = false, query: q }) {
                 value={q || query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder={t("search.placeholder")}
-                className={`w-full ${full ? 'bg-white/95' : 'bg-accent1/75'} border border-transparent focus:border-primary rounded-full py-2.5 pl-11 pr-5 text-sm text-inherit placeholder:text-gray-700 focus:outline-none search-input-focus transition-all`}
+                placeholder={t("search.placeholder") || "Search products..."}
+                className={`w-full ${full ? 'bg-white/95 text-black placeholder:text-gray-500' : 'bg-slate-800/80 text-white !text-white placeholder:text-white'} border border-slate-700/50 focus:border-primary rounded-full py-3 pl-11 pr-5 text-sm focus:outline-none shadow-sm transition-all`}
             />
         </div>
     );

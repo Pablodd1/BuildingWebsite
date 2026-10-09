@@ -10,8 +10,8 @@ export const BRAND_CONFIG = {
         name: "Building Innovation",
         logoText: "BINW",
         logoImage: "/logo.png",
-        favicon: "/favicons/favicon-32x32.png",
-        metaTitle: "Building Innovation | Premium PVC & WPC Building Materials",
+        favicon: "/favicons/unitec-favicon.png",
+        metaTitle: "UNITEC USA Design | Premium Building Solutions",
         colors: {
             primary: '#9EBECB',
             secondary: '#7296A4',
@@ -42,41 +42,17 @@ export const BRAND_CONFIG = {
 export function BrandProvider({ children }) {
     const [activeBrand, setActiveBrand] = useState("unitec");
 
-        // Detect brand based on hostname or local storage
+    // Persist brand choice (disabled for now to force unitec)
     useEffect(() => {
-        const hostname = typeof window !== 'undefined' ? window.location.hostname.toLowerCase() : '';
-        let detectedBrand = 'unitec'; // default
-        
-        // Hostinger domains auto-detection
-        if (hostname.includes('building-innovation') || hostname.includes('binnovation')) {
-            detectedBrand = 'binw';
-        } else if (hostname.includes('unitec')) {
-            detectedBrand = 'unitec';
-        }
-        
-        const saved = localStorage.getItem('activeBrand');
-        
-        // If we are on a custom domain, force it to match the domain.
-        // If we are on localhost, allow toggling with localStorage.
-        if (hostname === 'localhost' || hostname === '127.0.0.1') {
-            if (saved && BRAND_CONFIG[saved]) {
-                setActiveBrand(saved);
-            } else {
-                setActiveBrand(detectedBrand);
-            }
-        } else {
-            setActiveBrand(detectedBrand);
-            // also set it to local storage to keep it consistent
-            localStorage.setItem('activeBrand', detectedBrand);
-        }
+        // Force unitec regardless of saved preference
+        setActiveBrand("unitec");
+        localStorage.setItem('activeBrand', "unitec");
     }, []);
 
     const toggleBrand = () => {
-        setActiveBrand(prev => {
-            const next = prev === 'binw' ? 'unitec' : 'binw';
-            localStorage.setItem('activeBrand', next);
-            return next;
-        });
+        // Toggle is disabled, always stay on unitec
+        setActiveBrand("unitec");
+        localStorage.setItem('activeBrand', "unitec");
     };
 
     const brand = BRAND_CONFIG[activeBrand];
@@ -98,10 +74,6 @@ export function BrandProvider({ children }) {
                 document.head.appendChild(link);
             }
             link.href = brand.favicon;
-        }
-        // Update page title
-        if (brand?.metaTitle) {
-            document.title = brand.metaTitle;
         }
     }, [brand]);
 

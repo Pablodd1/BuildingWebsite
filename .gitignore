@@ -43,3 +43,11 @@ next-env.d.ts
 # Downloaded catalogs and technical sheets
 downloads/
 *.pdf
+
+# Unignore policies.pdf
+!public/policies.pdf
+
+!public/fichas/*.pdf
+
+# Local scratch and audit scripts
+scratch/

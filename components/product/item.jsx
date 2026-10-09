@@ -14,24 +14,24 @@ export default function ProductItem({ item, isSlides = false, index = 0 }) {
     const router = useRouter();
 
     return (
-        <motion.li
-            onClick={() => router.push(`/products/${item.id}`)}
+        <motion.div
+            onClick={() => router.push(`/productos/${item.id}`)}
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.05 }}
             whileHover={{ y: -8 }}
             className={`${isSlides ? 'embla__slide' : ''} flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer h-full`}
         >
             {/* Image Container */}
-            <Link href={`/products/${item.id}`} className='relative h-56 w-full overflow-hidden bg-gray-50'>
+            <Link href={`/productos/${item.id}`} className='relative h-56 w-full overflow-hidden bg-gray-50'>
                 <motion.div
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.4 }}
                     className="relative h-full w-full"
                 >
                     <Image
-                        fill
+                        fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         aria-label={`Go To product with ID ${item.id}`}
                         src={item.image || '/raster/product.jpg'}
                         alt={item.name || 'Product image'}
@@ -52,7 +52,7 @@ export default function ProductItem({ item, isSlides = false, index = 0 }) {
                 </div>
 
                 {/* Product Name */}
-                <Link href={`/products/${item.id}`} aria-label={`Go To product with ID ${item.id}`}>
+                <Link href={`/productos/${item.id}`} aria-label={`Go To product with ID ${item.id}`}>
                     <motion.h3
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
@@ -75,6 +75,6 @@ export default function ProductItem({ item, isSlides = false, index = 0 }) {
                     }}
                 />
             </div>
-        </motion.li>
+        </motion.div>
     )
 }

@@ -7,11 +7,13 @@ let experienceCart = {
   items: []
 }
 
+export { EFFICIENCY_THRESHOLD };
+
 export function initExperienceCart() {
   if (typeof window === "undefined") return
 
   try {
-    const stored = sessionStorage.getItem(EXPERIENCE_CART_KEY)
+    const stored = localStorage.getItem(EXPERIENCE_CART_KEY)
     const parsed = stored ? JSON.parse(stored) : null
     experienceCart = parsed || { selectedContainer: null, items: [] }
   } catch {
@@ -21,7 +23,7 @@ export function initExperienceCart() {
 
 function persist() {
   if (typeof window === "undefined") return
-  sessionStorage.setItem(EXPERIENCE_CART_KEY, JSON.stringify(experienceCart))
+  localStorage.setItem(EXPERIENCE_CART_KEY, JSON.stringify(experienceCart))
 }
 
 export function getExperienceCart() {

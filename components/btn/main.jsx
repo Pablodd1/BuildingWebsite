@@ -3,10 +3,13 @@ import style from './main.module.css'
 import Link from 'next/link'
 
 export default function MyButton({ href = '/', label = "My Button", icon, noIcon = false, className, fullWidth = false, isPrimary, reverse = false }) {
+    const isExternal = href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:');
+    const targetProps = isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
     return (
         <Link
             href={href} aria-label={`Go To ${href}`}
+            {...targetProps}
             className={` 
                 flex items-center justify-center relative overflow-hidden cursor-pointer
                 rounded-full group gap-2 

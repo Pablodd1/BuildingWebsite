@@ -101,7 +101,3 @@ textarea::placeholder {
   position: relative;
   width: 100%;
 }
-/* Global removal of newsletter subscription block per request */
-.newsletter-signup, .newsletter, .subscribe-block {
-  display: none !important;
-}

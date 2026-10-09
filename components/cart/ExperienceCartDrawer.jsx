@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, ShoppingCart, Lock, Unlock, Plus, Minus, Trash2 } from "lucide-react"
+import { X, ShoppingCart, Lock, Unlock, Plus, Minus, Trash2, Box } from "lucide-react"
 import { useLanguage } from "lib/LanguageContext"
 import Link from "next/link"
 
@@ -22,10 +22,12 @@ import {
 import ContainerSelectionModal from "./ContainerSelectionModal"
 import ContainerVisual from "./ContainerVisual"
 import ContainerHUD from "./ContainerHUD"
+import ContainerVideoModal from "./ContainerVideoModal"
 
 export default function ExperienceCartDrawer() {
   const [open, setOpen] = useState(false)
   const [showContainerModal, setShowContainerModal] = useState(false)
+  const [showVideoModal, setShowVideoModal] = useState(false)
   const [cart, setCart] = useState(null)
   const [reload, setReload] = useState(0)
   const { language } = useLanguage()
@@ -95,15 +97,29 @@ export default function ExperienceCartDrawer() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.25 }}
+              style={{ 
+                backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)), url(/assets/images/cart-bg.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
             >
-              <header className="flex items-center justify-between p-4 border-b bg-gray-50">
+              <header className="flex items-center justify-between p-4 border-b bg-gray-50/50 backdrop-blur-sm">
                 <h2 className="text-lg font-bold">{t.cart}</h2>
-                <button 
-                  onClick={() => setOpen(false)}
-                  className="p-2 hover:bg-gray-200 rounded-full"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <Link 
+                    href="/laboratorio-logistico"
+                    className="p-2 hover:bg-blue-600 hover:text-white rounded-full transition-all text-blue-500 border border-blue-500/20"
+                    title="Enter 3D Logistics Lab"
+                  >
+                    <Box className="w-4 h-4" />
+                  </Link>
+                  <button 
+                    onClick={() => setOpen(false)}
+                    className="p-2 hover:bg-gray-200 rounded-full"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </header>
 
               <main className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -200,7 +216,7 @@ export default function ExperienceCartDrawer() {
               <footer className="p-4 border-t">
                 {cart?.selectedContainer ? (
                   <Link 
-                    href={ready ? "/checkout" : "#"}
+                    href={ready ? "/pagar" : "#"}
                     onClick={(e) => !ready && e.preventDefault()}
                     className={`block w-full text-center py-3 rounded-lg font-semibold transition-all ${
                       ready 
@@ -209,3 +225,40 @@ export default function ExperienceCartDrawer() {
                     }`}
                   >
        
+                    {ready ? t.checkout : t.selectContainer}
+                  </Link>
+                ) : (
+                  <button 
+                    onClick={() => setShowContainerModal(true)}
+                    className="block w-full text-center py-3 rounded-lg font-semibold transition-all bg-black text-white hover:bg-gray-800"
+                  >
+                    {t.selectContainer}
+                  </button>
+                )}
+              </footer>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+      {showContainerModal && <ContainerSelectionModal isOpen={showContainerModal} onClose={() => setShowContainerModal(false)} />}
+
+      {/* Floating View My Container Button */}
+      {cart?.items?.length > 0 && !showVideoModal && (
+        <button 
+          onClick={() => setShowVideoModal(true)}
+          className="fixed bottom-24 right-4 z-[60] bg-blue-600 text-white px-5 py-3 rounded-full shadow-2xl hover:bg-blue-700 hover:-translate-y-1 hover:shadow-blue-500/30 transition-all font-black uppercase tracking-widest text-[10px] flex items-center gap-2 border border-blue-400 group"
+        >
+          <span className="text-sm group-hover:scale-125 transition-transform">??</span> 
+          View My Container
+        </button>
+      )}
+
+      {showVideoModal && (
+        <ContainerVideoModal 
+          open={showVideoModal} 
+          onClose={() => setShowVideoModal(false)} 
+        />
+      )}
+    </>
+  )
+}

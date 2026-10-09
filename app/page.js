@@ -7,10 +7,7 @@ import WhoItsFor from "My_UI/homepage/for_whom";
 import HomeCTA from "My_UI/homepage/home_CTA";
 import { getDictionary } from "lib/i18n/getDictionary";
 
-export const metadata = {
-  title: "UNITEC USA Design | Materiales de Construcción PVC/WPC",
-  description: "Plataforma líder en visualización de contenedores y suministro masivo de materiales de construcción PVC y WPC. Compra al mayor."
-};
+
 
 export default async function HomePage() {
   const lang = 'es';

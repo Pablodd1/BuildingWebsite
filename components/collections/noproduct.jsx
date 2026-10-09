@@ -57,7 +57,7 @@ export default function NoProductsFound({
                 )}
 
                 <Link
-                    href="/collections" aria-label={`Go To collections page`}
+                    href="/colecciones" aria-label={`Go To collections page`}
                     className="rounded-full border px-6 py-2 text-sm hover:bg-gray-50"
                 >
                     Browse All Products

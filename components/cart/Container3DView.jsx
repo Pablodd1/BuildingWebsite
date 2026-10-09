@@ -4,9 +4,7 @@ import { motion } from "framer-motion"
 
 /**
  * TetrisContainer – a gamified, Tetris‑style representation of container loading.
- * Each cargo item appears as a falling block in a 10‑column grid, filling the container
- * from the bottom up. The visual is lightweight, works on all devices and replaces the
- * previous 3D video/Three.js view.
+ * It uses the fillPercent to render a visual block representation out of 100%.
  */
 export default function Container3DView({
   size = "40ft",
@@ -20,68 +18,83 @@ export default function Container3DView({
   className = "",
   scale = 1,
 }) {
-  // Grid configuration – 10 columns, rows derived from item count
+  // Grid configuration: 10 columns, 10 rows (100 blocks = 100%)
   const COLUMNS = 10
-  const rowsNeeded = Math.ceil(items.length / COLUMNS) + 2 // extra space for falling animation
+  const ROWS = 10
+  
+  const blocksToFill = Math.min(100, Math.ceil(fillPercent))
 
-  // Compute block positions (row from bottom, column from left)
-  const blocks = items.map((item, idx) => {
-    const col = (idx % COLUMNS) + 1 // CSS grid column start (1‑based)
+  // Determine colors from items (fallback to default blue)
+  const colors = items.length > 0 
+    ? items.map(item => item.color || "#3b82f6") 
+    : ["#3b82f6"]
+
+  // Generate blocks
+  const blocks = Array.from({ length: blocksToFill }).map((_, idx) => {
+    const col = (idx % COLUMNS) + 1
     const rowFromBottom = Math.floor(idx / COLUMNS) + 1
-    const row = rowsNeeded - rowFromBottom + 1 // CSS grid row start (top = 1)
-    return { id: item.id || idx, col, row, color: item.color || "#60A5FA" }
+    const row = ROWS - rowFromBottom + 1
+    
+    // Assign a color cyclically based on the items to make it look diverse
+    const color = colors[idx % colors.length]
+    
+    return { id: idx, col, row, color }
   })
 
-  // Handler for interactive click (optional)
   const handleClick = () => {
     if (isInteractive && onSelect) onSelect()
   }
 
   return (
     <div
-      className={`relative ${className} group`}
+      className={`relative ${className} group h-full w-full p-4`}
       style={{
-        width: "100%",
-        maxWidth: `${length * 40}px`,
-        aspectRatio: `${length}/${height}`,
         cursor: isInteractive ? "pointer" : "default",
-        perspective: "800px",
-        transform: `scale(${scale})`,
       }}
       onClick={handleClick}
     >
       {/* Grid background */}
       <div
-        className="grid gap-0.5 bg-gray-900/30 p-1 rounded-xl"
+        className="grid gap-1 bg-[#0a0f18] p-2 rounded-xl border border-white/5 shadow-2xl h-full w-full"
         style={{
           gridTemplateColumns: `repeat(${COLUMNS}, 1fr)`,
-          gridAutoRows: "1fr",
-          height: "100%",
+          gridTemplateRows: `repeat(${ROWS}, 1fr)`,
         }}
       >
-        {/* Render each block with a falling animation */}
+        {/* Empty cells background (faint) */}
+        {Array.from({ length: 100 }).map((_, idx) => {
+           const col = (idx % COLUMNS) + 1
+           const rowFromBottom = Math.floor(idx / COLUMNS) + 1
+           const row = ROWS - rowFromBottom + 1
+           return (
+             <div 
+               key={`bg-${idx}`} 
+               className="bg-white/5 rounded-[2px]" 
+               style={{ gridColumnStart: col, gridRowStart: row }}
+             />
+           )
+        })}
+
+        {/* Filled blocks with falling animation */}
         {blocks.map(block => (
           <motion.div
             key={block.id}
-            className="rounded-sm"
+            className="rounded-[2px] shadow-sm relative z-10"
             style={{
               backgroundColor: block.color,
               gridColumnStart: block.col,
               gridRowStart: block.row,
+              boxShadow: `0 0 10px ${block.color}40`
             }}
-            initial={{ y: -200, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            initial={{ y: -50, opacity: 0, scale: 0.5 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
             transition={{
-              delay: block.row * 0.05,
+              delay: (block.row * 0.02) + (Math.random() * 0.05),
               type: "spring",
-              stiffness: 120,
-              damping: 14,
+              stiffness: 200,
+              damping: 15,
             }}
           />
-        ))}
-        {/* Empty cells to keep grid size consistent */}
-        {Array.from({ length: rowsNeeded * COLUMNS - blocks.length }).map((_, i) => (
-          <div key={`empty-${i}`} className="opacity-0" />
         ))}
       </div>
     </div>

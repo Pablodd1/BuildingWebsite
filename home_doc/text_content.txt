@@ -1,0 +1,112 @@
+Análisis de comunicación — Sitio web UNITEC USA Design
+www.unitecusadesign.com · Revisión página por página · Julio de 2026
+Este documento recoge el análisis crítico de todos los textos visibles del sitio web de UNITEC USA Design, con el ajuste propuesto para cada pieza según el manual de comunicación de la marca. El objetivo es que la web deje de comportarse únicamente como un punto de venta de contenedores y se convierta también en un punto de reconocimiento, contacto, búsqueda e información de la marca.
+Consideraciones clave
+Identificar que es Unitec: Es una importadora de productos constructivos o es una marca que comercializa productos constructivos que tiene una vertical de importación que hace accesible los productos de Building Innovation al todo el público de Latinoamérica. 
+Diferenciar la marca Unitec de Building, ya sea como una marca filial o como la representación de Building en Colombia y Latinoamérica. Esto ayuda a que el comprador no se confunda y apalancar la reputación de la marca de marca coherente.
+Identificar a quién le estamos hablando. Le hablamos a el importador directo o le hablamos al arquitecto, constructor, distribuidor o diseñador que consume este tipo de productos para hacer realidad los proyectos que emprende. 
+Posicionar la voz de experto y conocedor de los productos, no como un comercializados sino como productor y experto que más allá de recomendar, asesora, guía, acompaña y comercializa productos de calidad que tienen resultados comprobados. 
+Hacer una arquitectura de marca para que el público diferencia quien le habla, si el building por medio de Unitec o si es Unitec, con voz propia, que se encargará de acompañar todo el proceso.
+Definir el propósito de cada página, de manera que quien navegue por la web sepa que está haciendo y hacia dónde puede llevar su visita. La página está hecha para vender. Debe apuntar a ese criterio y comercializar desde la comunicación sus productos, no desde las características, sino desde el ejemplo. Cada imagen de producto puede mostrar una doto real de como se ve instalado. 
+1. Home (versión en español)
+El Home es la página con mayor tensión entre dos identidades: la de una marca experta en materiales arquitectónicos y la de una plataforma logística de contenedores. Hoy gana la segunda. El concepto de "comprar por contenedor" es un diferenciador real y hay que conservarlo, pero la marca debe presentarse primero como experta en materiales y después explicar su modelo logístico, no al revés.
+1.1 Hero (primera pantalla)
+Texto original
+Soluciones en PVC y WPC para cada proyecto.
+Calidad, diseño y logística internacional en un solo lugar.
+Botón: CONOCE NUESTROS PRODUCTOS
+Ajuste propuesto
+PVC, WPC y más materiales constructivos listos para instalar en cada proyecto.
+Más de 500 referencias con acabados de lujo y respaldo de fábrica. Fáciles de cotizar, fáciles de recibir
+Botón principal: Explorar el catálogo · Botón secundario: Hablar con un asesor
+- Esto debería ser un carrusel de imágenes que muestre los diferentes productos que comercializa Unitec y que sirven como evidencia de cómo se utilizan. Esto es venta visual y declaración de calidad de los productos. (Pueden ser dos imágenes por producto. Y encima aparece el texto con los botones de manera permanente dentro de esa sección de la web.
+1.2 Sección "Por qué Unitec USA"
+Texto original
+POR QUÉ UNITEC USA
+Unitec USA Design es la misma empresa que Building Innovation, pero registrada y operando legalmente en los Estados Unidos para servir al mercado norteamericano y latinoamericano. Creemos que los materiales de construcción deben ser innovadores, duraderos y ambientalmente responsables.
+Ajuste propuesto
+NUESTRO ORIGENUnitec es la filial de Building Innovation en Colombia y Latinoamérica. Desde hace 10 años somos el aliado logístico y constructivo de diseñadores, arquitectos, constructores, distribuidores e importadores que impulsan la evolución de la construcción tradicional hacia sistemas más eficientes, mediante materiales que aportan diseño, confort y estilo.
+Observación
+"Registrada y operando legalmente" es una frase defensiva: nadie aclara que opera legalmente salvo que exista una duda que despejar, y sembrarla en el segundo párrafo del Home es un autogol de confianza. El ajuste convierte la relación entre las dos marcas en un beneficio concreto para el cliente en lugar de una aclaración jurídica. Punto crítico adicional: la versión en inglés de esta misma sección omite por completo la mención a Building Innovation, lo que genera dos relatos corporativos distintos según el idioma. Hay que decidir una sola narrativa y sostenerla en ambos idiomas (
+La frase "Creemos que los materiales deben ser innovadores..." es una declaración de fe sin sustento.
+1.3 Pilar 01 — Innovación
+Texto original - AJUSTADO
+01 INNOVACIÓN
+Desafiamos los métodos de construcción tradicionales desarrollando materiales avanzados de PVC y WPC que combinan diseño moderno, rendimiento y facilidad de instalación con sistemas machihembrados y adhesivos que reducen oficios y tiempos de obra. Nuestros productos están pensados para simplificar proyectos sin sacrificar calidad ni estética.
+El texto está bien pensado. Aplica dentro de la estructura. 
+1.4 Pilar 02 — Calidad y durabilidad
+Texto original - AJUSTADO
+02 CALIDAD Y DURABILIDAD
+Cada producto está hecho para durar. Con un alto contenido de PVC puro, 100% impermeable, resistente al fuego y durabilidad de 15 a 25 años, líder en la industria. Entregamos materiales que superan a las alternativas convencionales en condiciones reales.
+El texto está bien pensado. Aplica dentro de la estructura. 
+1.5 Pilar 03 — Sostenibilidad
+Texto original - AJUSTADO
+03 SOSTENIBILIDAD
+La responsabilidad ambiental está integrada en todo lo que hacemos. Nuestros materiales están hechos de materiales recuperados, 100% reciclables y no requieren mantenimiento con químicos, pinturas y solventes que afecten los ecosistemas. Somos sostenibles en la elaboración y en la implementación de nuestras alternativas constructivas. 
+Esta tiene ya unos ajustes, pero en esencia está bien pensado y cumple con la estructura.
+1.6 Sección de segmentos de compradores
+Texto original
+DISEÑADO PARA COMPRADORES MAYORISTAS SERIOS
+Si su negocio envía productos por contenedor — no por paquetes — esta plataforma le da la claridad y el control que el comercio electrónico tradicional nunca podría.
+Botón: Sobre Nosotros
+Mayoristas — Compre en volumen, consolide envíos y controle el costo por unidad con precisión.
+Importadores y exportadores — Planifique cargas de contenedores con anticipación y elimine ineficiencias de envío.
+Fabricantes — Envíe productos a granel directamente a socios sin logística fragmentada.
+Ajuste propuesto
+UNITEC, UNA MARCA QUE PIENSA EN TODO EL SECTOR DE LA CONSTRUCCIÓN
+Si su negocio construye, distribuye materiales o importa por volumen, Unitec es su aliado estratégico. Contamos con un amplio portafolio de productos, calidad y garantía certificada, y una plataforma segura que le entrega el control que un e-commerce tradicional no puede darle.Botón: Conozca cómo trabajamos 
+Distribuidores y mayoristas — Compre en volumen, consolide despachos y controle el costo por unidad de cada referencia.
+Constructores y arquitectos — Especifique con ficha técnica, pida muestras y programe la llegada del material según el cronograma de su obra.
+Importadores — Planifique sus cargas con anticipación, elija su Incoterm (FOB o CIF) y elimine ineficiencias de flete.
+1.7 (Workflow Matrix) qué significa?
+Texto original
+WORKFLOW MATRIX · CÓMO FUNCIONA
+Simple, transparente y optimizado para una entrega segura
+01 SELECCIONAR PRODUCTOS — Elija uno o múltiples productos — INITIALIZATION READY
+02 LLENAR EL CONTENEDOR — Los productos se empacan en un contenedor — INITIALIZATION READY
+03 HAZLO ENVIAR — El contenedor se envía de forma segura — INITIALIZATION READY
+GLOBAL STANDARD LOGISTICS PROTOCOL V4.0
+Ajuste propuesto
+TRANSFORMAMOS LA INDUSTRIA DE LA CONSTRUCCIÓN EN LATAM
+ASÍ PUEDE IMPORTAR NUESTROS PRODUCTOS 
+01 VERIFIQUE Y SELECCIONE SUS PRODUCTOS — Elija una o varias referencias del catálogo. Podrá apoyar su decisión con la ficha técnica que está al lado de cada artículo.
+02 PÓNGALOS EN EL CARRITO Y EN EL CONTENEDOR — Vea en tiempo real cuánto espacio ocupa cada producto y cuánta capacidad le queda (un contenedor de 20 pies carga ≈ 33 m³).
+03 RECIBA LOS PRODUCTOS — Recójalos en nuestro showroom de Medellín, si su contacto fue directo con un asesor o impórtelos vía marítima con trazabilidad, bajo el Incoterm que usted elija (FOB o CIF)
+1.8 Sección "Construido para volumen"
+Texto original
+CONSTRUIDO PARA VOLUMEN. DISEÑADO PARA CONTROL.
+Los carritos tradicionales no fueron hechos para el envío de contenedores. Construimos un sistema que piensa en volumen, no en conjeturas.
+Comercio centrado en contenedores — Los productos se agrupan por contenedores, no en carritos dispersos. Esto garantiza una planificación de volumen precisa y eficiencia en el envío.
+Embalaje consciente del volumen — Cada producto contribuye a la capacidad del contenedor para que siempre sepa cuán lleno está su envío antes de pagar.
+Optimización multiproducto — Mezcla y combina múltiples productos de manera inteligente dentro de un solo contenedor para reducir el costo por unidad.
+Logística predecible — Sin sorpresas ocultas de envío. Lo que ves en el contenedor es exactamente lo que se envía.
+Ajuste propuesto
+COMERCIALIZAMOS POR VOLUMEN CON SEGURIDAD Y TRAZABILIDAD
+Un carrito de compras tradicional no sirve para importar por contenedor. Por eso construimos una plataforma que piensa en metros cúbicos, no en unidades sueltas. Queremos que la facilidad y la practicidad no solo esté en la construcción, sino en todo el proceso de compra. 
+Compra por contenedor
+Sus productos se organizan por contenedor desde el primer clic. Usted planifica el volumen real de su importación antes de invertir su dinero.
+Capacidad visible en tiempo real
+Cada referencia muestra el espacio que ocupa dentro del contenedor. Usted sabe qué tan llena va su carga antes de pagar y no cuando ya está en el puerto.
+Combine referencias, baje el costo por unidad
+Mezcle pisos, paneles, perfiles y acabados en un mismo contenedor. Cada metro cúbico aprovechado reduce el costo unitario de todo lo que viaja adentro.
+Sin sorpresas en el flete
+Lo que usted arma en el contenedor es exactamente lo que se despacha. Ni recargos ocultos, ni ajustes posteriores: el costo que ve en la cotización es el costo final.
+1.9 CTA final del Home
+Texto original
+Empiece a llenar su primer contenedor
+Explore productos, vea cómo caben dentro de los contenedores y envíe con total confianza — antes de pagar.
+Botón: Explorar Productos · 500+ PRODUCTOS
+Ajuste propuesto
+Su próximo proyecto empieza aquí.Explore aquí más de 500 referencias y escoja los productos con los que quiere darle un ambiente diferente a cada proyecto. 
+Botón principal: Explorar productos · Botón secundario: Cotizar con un asesor por WhatsApp
+1.10 Footer y navegación
+Texto original
+INFORMACIÓN DE CONTACTO · Mas información: +57 314 233 2147 · Visita nuestro showroom: Carrera 42, Auto. S #75-83 C.C. IDEO Local 274. Itagüí, Medellín
+SEDE MIAMI · UNITEC USA Design · DORAL, MIAMI, FL 33166
+Menú: LISTA DE PRODUCTOS · CATÁLOGOS · INSTITUCIONAL · CONTACTO · BLOG
+Ajuste propuesto
+CONTACTO · Más información: +57 314 233 2147 (WhatsApp) · [DATO POR CONFIRMAR: línea +1 de Miami] · Visite nuestro showroom: C.C. IDEO, Local 274 — Carrera 42 # 75-83, Autopista Sur, Itagüí (Medellín)
+SEDE MIAMI · UNITEC USA Design · [DATO POR CONFIRMAR: dirección completa], Doral, FL 33166
+Menú: PRODUCTOS · CATÁLOGOS · NOSOTROS · PROYECTOS (nueva) · BLOG · CONTACTO
+Observación
+Errores puntuales: "Mas información" sin tilde; la dirección del showroom está mal puntuada ("Carrera 42, Auto. S #75-83" es difícil de leer y de buscar en Maps); la "sede Miami" no tiene dirección, solo ciudad y código postal, lo cual debilita justamente la credencial estadounidense que da nombre a la marca. En la página de FAQ existen números +1 del equipo comercial de Florida: al menos uno debería estar en el footer. Además el footer mezcla tratamientos ("Visita" en tú dentro de un sitio que mayormente usa usted). En el menú, "INSTITUCIONAL" es lenguaje corporativo interno; "NOSOTROS" es la etiqueta que el usuario busca. Se propone sumar "PROYECTOS" al menú principal (ver recomendaciones estratégicas).

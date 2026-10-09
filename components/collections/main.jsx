@@ -1,4 +1,3 @@
-
 'use client';
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
@@ -8,20 +7,22 @@ import { applyFilters, sortProducts } from "lib/applyFilters";
 import CollectionHero from "My_UI/collections/collection_hero";
 import FilterUI from "My_UI/collections/filters_UI";
 import NoProductsFound from "./noproduct";
+import MyButton from "My_UI/btn/main";
+import { useBrand } from "lib/BrandContext";
 
+export default function Collections_UI({ searchParams = {}, h1, description, productURL, cover, prefilters, currentCollection }) {
 
-export default function Collections_UI({ searchParams, h1, description, productURL, cover, prefilters, currentCollection }) {
-
-    const queryCategory = searchParams.category;
-    const querySubcategory = searchParams.subcategory;
-    const querySubcategoriesParam = searchParams.subcategories;
-    const queryCollection = searchParams.collection;
+    const queryCategory = searchParams?.category;
+    const querySubcategory = searchParams?.subcategory;
+    const querySubcategoriesParam = searchParams?.subcategories;
+    const queryCollection = searchParams?.collection;
 
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
     const [filters, setFilters] = useState(prefilters);
+    const { activeBrand } = useBrand();
 
     // Sync filters with URL params
     useEffect(() => {
@@ -81,8 +82,10 @@ export default function Collections_UI({ searchParams, h1, description, productU
         setCurrentPage(1);
     };
 
+    const whatsappLink = activeBrand === 'unitec' ? "https://wa.me/573054233147" : "https://wa.me/13054233147";
+
     return (
-        <div className="overflow-visible">
+        <div className="overflow-visible pb-12">
             <CollectionHero
                 h1={h1}
                 description={description}
@@ -110,6 +113,24 @@ export default function Collections_UI({ searchParams, h1, description, productU
                         </>
                         : <NoProductsFound />
             }
+
+            {/* Dynamic WhatsApp Advisor CTA Link */}
+            <div className="max-w-7xl mx-auto px-6 py-12 border-t border-gray-150 flex flex-col items-center gap-4 text-center mt-16 bg-gray-50/50 rounded-[2rem]">
+                <h3 className="text-xl md:text-2xl font-extrabold text-slate-900 uppercase tracking-wide">
+                    ¿No encuentra lo que busca o necesita asesoría técnica?
+                </h3>
+                <p className="text-sm text-gray-600 max-w-2xl leading-relaxed">
+                    Hable directamente con uno de nuestros asesores para recibir acompañamiento personalizado, fichas técnicas a la medida o cotizaciones rápidas para sus proyectos.
+                </p>
+                <MyButton
+                    label="Hable ya con un asesor"
+                    href={whatsappLink}
+                    className={{
+                        btn: "bg-[#F37B24] hover:bg-[#E06A1A] px-8 py-3 h-12 hover:scale-105 transition-all duration-300 rounded-full text-white shadow-md border-none mt-2",
+                        label: "font-bold text-white uppercase text-[12px] tracking-widest"
+                    }}
+                />
+            </div>
         </div>
     );
 }

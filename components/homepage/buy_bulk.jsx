@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import { Boxes, Ruler, Layers3, ShieldCheck } from "lucide-react"
-import Stylish_H2 from "My_UI/stylish_h2"
 import { useLanguage } from "lib/LanguageContext"
 import { useBrand } from "lib/BrandContext"
 
@@ -33,48 +32,85 @@ export default function BuiltForBulk() {
         },
     ]
 
-    return (
-        <section className="py-24 bg-gray-50">
-            <div className="max-w-6xl mx-auto px-4">
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className=""
-                >
-                    <Stylish_H2 h2={t("bulk.title", activeBrand)} />
-                    <p className="mt-4 text-gray-600 text-sm">
-                        {t("bulk.subtitle", activeBrand)}
-                    </p>
-                </motion.div>
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+            },
+        },
+    }
 
-                <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    {FEATURES.map((f, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.05 }}
-                            whileHover={{ 
-                                scale: 1.05, 
-                                y: -10,
-                                boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
-                            }}
-                            className="rounded-2xl border bg-white p-6 cursor-pointer transition-all duration-300 group"
-                        >
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.5,
+                ease: "easeOut",
+            },
+        },
+    }
+
+    return (
+        <section className="py-24 bg-gray-50/50 border-y border-gray-100">
+            <div className="max-w-6xl mx-auto px-6 md:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    {/* Left Side Content */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="lg:col-span-5 flex flex-col gap-6"
+                    >
+                        <h2 className="text-3xl lg:text-4xl font-extrabold uppercase text-slate-900 leading-tight">
+                            {t("bulk.title", activeBrand)}
+                        </h2>
+                        
+                        <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
+                            {t("bulk.subtitle", activeBrand)}
+                        </p>
+                    </motion.div>
+
+                    {/* Right Side (2x2 Cards Grid) */}
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5"
+                    >
+                        {FEATURES.map((f, i) => (
                             <motion.div
-                                whileHover={{ rotate: 360, scale: 1.2 }}
-                                transition={{ duration: 0.6 }}
+                                key={i}
+                                variants={itemVariants}
+                                whileHover={{ 
+                                    scale: 1.01, 
+                                    y: -4,
+                                    borderColor: "#132c3f"
+                                }}
+                                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-300 group cursor-default"
                             >
-                                <f.icon className="mb-4 group-hover:text-primary transition-colors duration-300" size={26} />
+                                <div className="flex items-center gap-3.5 mb-4">
+                                    <div className="text-slate-900 bg-slate-100 p-2 rounded-lg group-hover:bg-[#132c3f] group-hover:text-white transition-all duration-300">
+                                        <f.icon size={22} />
+                                    </div>
+                                    <h3 className="font-extrabold text-[15px] text-slate-900 leading-snug group-hover:text-[#132c3f] transition-colors duration-300">
+                                        {f.title}
+                                    </h3>
+                                </div>
+                                
+                                <p className="text-[13px] text-gray-600 leading-relaxed font-normal">
+                                    {f.desc}
+                                </p>
                             </motion.div>
-                            <h3 className="font-semibold group-hover:text-primary transition-colors duration-300">{f.title}</h3>
-                            <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                                {f.desc}
-                            </p>
-                        </motion.div>
-                    ))}
+                        ))}
+                    </motion.div>
+
                 </div>
             </div>
         </section>

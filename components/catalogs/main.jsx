@@ -76,13 +76,7 @@ export default function Catalogs_UI() {
                     t={t}
                 />
 
-                <CatalogCard
-                    title={t.latamTitle}
-                    description={t.latamDesc}
-                    fileUrl="/catalogs/LATAM_Catalog.pdf"
-                    showBadge={true}
-                    t={t}
-                />
+                
             </div>
         </div>
     );

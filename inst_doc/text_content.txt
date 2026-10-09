@@ -1,0 +1,113 @@
+2. Institucional — Quiénes Somos
+Texto original
+QUIÉNES SOMOS · UNITEC USA Design
+Unitec USA Design es una empresa registrada y operando legalmente en los Estados Unidos para servir al mercado norteamericano y latinoamericano.
+El envío a granel está roto cuando se trata como el comercio electrónico normal. Los productos no son unidades individuales — son volúmenes, dimensiones y restricciones dentro de un contenedor.
+Construimos nuestra plataforma alrededor de una creencia simple: los contenedores van primero, los productos van segundo. Esta mentalidad permite a las empresas planificar envíos realistas, evitar sobre reservas y obtener total visibilidad de la capacidad.
+(A continuación la página repite la Misión y la Visión, que tienen páginas propias.)
+Ajuste propuesto
+QUIÉNES SOMOS
+Unitec USA Design es la empresa responsable de la operación internacional de Building Innovation en Latinoamérica. Una compañía de materiales arquitectónicos en PVC y WPC con sede principal en Doral (Miami) y showroom en Medellín, que abastece, asesora y acompaña a distribuidores, constructores y arquitectos en la implementación de nuevas técnicas constructivas, eficientes y sofisticadas.
+Con más de 10 años de trayectoria en el mercado y presencia en más de 5 países del continente, Unitec se ha consolidado como una organización promotora de estas alternativas constructivas en el mercado, ofreciendo un portafolio integrado por más 500 productos con acabados y estilos diferentes, fáciles de instalar y de implementar en cualquier proyecto. 
+LO QUE NOS IDENTIFICA (Recuadros)
+Conocimiento sectorial.
+Logística internacional
+Experiencia, asesoría y acompañamiento especializado.
+Calidad comprobada y verificada. 
+Observación
+La página no responde la pregunta que le da nombre. Un visitante que entra a "Quiénes Somos" busca respuestas de lo que es la empresa, su historia y lo que hace, no una explicación de la actividad comercial sin fundamento. 
+2.1 Nuestra Misión
+Texto original
+NUESTRA MISIÓN — En Unitec USA Design, nuestra misión es redefinir la construcción moderna entregando materiales de construcción innovadores, sostenibles y de alta calidad de PVC y WPC que elevan los espacios cotidianos.
+NUESTRO PROPÓSITO — En Unitec USA Design, nuestra misión es redefinir la construcción moderna entregando materiales de construcción innovadores, sostenibles y de alta calidad de PVC y WPC que elevan los espacios cotidianos.
+Innovación — Desarrollando nuevos materiales y soluciones · Alianzas — Construyendo relaciones a largo plazo · Impacto Global — Mejorando la calidad de vida
+NUESTROS COMPROMISOS — Desarrollo de productos innovador y preparado para el futuro · Materiales y manufactura eco-conscientes · Calidad premium sin compromiso · Soluciones que empoderan profesionales y propietarios · Materiales accesibles para proyectos de cualquier escala
+Ajuste propuesto
+PROPÓSITO
+Hacer que construir sea más eficiente, estético y versátil, reemplazando los sistemas tradicionales por materiales sostenibles y de calidad verificada en PVC y WPC.
+CÓMO LO CUMPLIMOS
+Facilitamos que distribuidores, constructores y arquitectos de Latinoamérica accedan a materiales arquitectónicos con calidad verificada en origen, precios de importación directa y una logística de contenedor que pueden planear y controlar.
+COMPROMISOS UNITEC
+Calidad auditada en fábrica antes de cada despacho.
+Ficha técnica y garantía documentada en cada referencia.
+Asesoría técnica en la especificación y la instalación.
+Tiempos y costos de importación claros desde la cotización.
+Observación
+El error más visible: "Nuestra Misión" y "Nuestro Propósito" muestran exactamente el mismo párrafo, palabra por palabra. Eso delata que la página se llenó con texto de relleno y transmite descuido en la sección que debería transmitir solidez. Sobre el contenido: "redefinir la construcción moderna" y "elevar los espacios cotidianos" son declaraciones grandilocuentes sin sustento, del mismo género que el vocabulario prohibido. Los compromisos originales acumulan términos vetados o vacíos ("innovador", "empoderan", "premium sin compromiso", "soluciones"). La misión ajustada se escribe desde el verbo de la marca (facilitar) y desde lo que el cliente recibe, no desde lo que la empresa se atribuye. Los compromisos se convierten en promesas operativas verificables: cada una se puede cumplir o incumplir, y eso es lo que las hace creíbles.
+Recomendación de estructura: Misión, Visión y Quiénes Somos no necesitan tres URLs distintas. Una sola página "Nosotros" con bloques (historia, misión, visión, calidad, sedes) concentra la autoridad y evita las repeticiones actuales. Se detalla en el capítulo 14.
+2.2. Sección "Por qué elegir Unitec"
+Texto original
+POR QUÉ ELEGIR UNITEC — Nuestros productos están diseñados para superar a los materiales de construcción tradicionales mientras simplifican la instalación y la propiedad a largo plazo.
+Garantías de 15–25 Años — Durabilidad líder en la industria respaldada por confianza.
+100% Impermeable — Sin pudrición, óxido o daño por humedad — nunca.
+Cero Mantenimiento — No requiere pintura, sellado o reacabado.
+Resistente al Fuego — Autoextinguible con baja propagación de llama.
+Ecológico — Materiales reciclables con contenido reciclado.
+Instalación Rápida — Ahorre tiempo y mano de obra en cada proyecto.
+Ajuste propuesto
+POR QUÉ ELEGIR UNITEC Somos más que una empresa de materiales constructivos. Somos rentabilidad, eficiencia, innovación y creatividad hecha producto. Una marca que trabaja de la mano del sector constructivo para evolucionar las dinámicas tradicionales y proponer modelos prácticos, estéticos y de cero mantenimiento.
+Los cuadros pueden seguir tal cual. Son atributos del producto, no atributos emocionales de la marca. Funcionan bien. 
+2.3 Secciones "Sostenibilidad integrada" y "Aseguramiento de calidad"
+Texto original
+SOSTENIBILIDAD INTEGRADA — Contenido de PVC reciclado en todos los productos · Totalmente reciclable al final de su vida útil · Bajas emisiones de VOC para seguridad interior · Larga vida útil reduce desperdicio de reemplazo · Procesos de manufactura energéticamente eficientes
+Aseguramiento de Calidad — Instalaciones de manufactura certificadas ISO · Pruebas de laboratorio de terceros · Inspecciones estrictas en etapa de producción · Validación de rendimiento en el mundo real · Protocolos de mejora continua
+Ajuste propuesto
+SOSTENIBILIDAD Y CALIDAD EN NUESTROS PRODUCTOS:
+Fabricamos nuestros productos bajo estándares de calidad y certificación ISO [DATO POR CONFIRMAR: número de la norma, p. ej. ISO 9001], pruebas de laboratorio independientes [DATO POR CONFIRMAR: laboratorio o norma de ensayo] e inspección física en planta que permiten garantizar la durabilidad de cada artículo constructivo. 
+SOSTENIBILIDAD CON HECHOS:
+Contenido de PVC reciclado en todos los productos, 100% reciclables al final de su vida útil y bajas emisiones de VOC, hacen que cada referencia pueda ser utilizada en proyectos de diseño interior, sin afectaciones a la salud y al medio ambiente, con una vida útil prolongada que reduce la frecuencia de reemplazo.
+Observación
+Estas dos listas son oro escondido: certificación ISO, laboratorios de terceros y emisiones VOC son exactamente las credenciales que el pilar de autoridad exige, y hoy viven en el fondo de una página que casi nadie visita.
+2.4 Sección "Lo que nos hace diferentes"
+Texto original
+Lo Que Nos Hace Diferentes
+UX Centrado en Contenedores — No fingimos la realidad física — el volumen se impone.
+Listo para Global — Diseñado para lógica de envío internacional.
+Enfocado en B2B — Cada característica sirve a equipos operacionales.
+Ajuste propuesto
+LO QUE NOS DIFERENCIA EN LA INDUSTRIA
+Calidad verificada en origen — Auditamos cada producto en fábrica antes del despacho y respaldamos cada referencia con ficha técnica y garantía documentada. 
+Control total de la importación — Usted arma su contenedor, ve cuánto espacio ocupa cada referencia y confirma su carga completa antes de pagar. Metros cúbicos visibles, costos sin sorpresas.
+Acompañamiento de aliado — Detrás de cada relacionamiento comercial tenemos un asesor con nombre propio que ayuda a especificar, cotizar y resolver. En el contenedor no viaja solo carga: viaja la confianza que el cliente ha puesto en usted.
+Puente entre dos mercados — Sede en Doral (Miami) y showroom en Medellín: una sola cadena de suministro que conecta la fábrica con la obra en más de 5 países.
+Observación
+La sección está bastante redundante en su primer aparado para negocios reales. La palabra reales puede ser muy ofensiva, desde el punto de que todo negocio que hay detrás de un contacto comercial es real y proyecta un crecimiento, que se transcribe en confianza en nosotros como proveedores. El apartado de la izquierda en la imagen se puede reemplazar por una frase llamativa: Ej:
+Ajuste propuesto
+SOMOS EL ALIADOS DE QUIENES VIVEN DE CONSTRUIR Y DISTRIBUIR
+2.5 Sección "Cómo funciona nuestro sistema"
+Texto original
+CÓMO FUNCIONA NUESTRO SISTEMA — Nuestro flujo de trabajo refleja la planificación real de contenedores — no carritos tradicionales.
+Crear Contenedores — Cada pedido comienza con una definición física de contenedor incluyendo dimensiones internas.
+Llenar con Productos — Los productos se agregan basados en tamaño y cantidad, no solo precio.
+Enviar con Confianza — Sepa exactamente qué tan lleno está cada contenedor antes del envío.
+Ajuste propuesto
+ASÍ DE FÁCIL PUEDE IMPORTAR CON UNITEC
+Nuestra plataforma refleja cómo se planifica una importación real — por contenedor, no por carrito.
+01 VERIFIQUE Y SELECCIONE SUS PRODUCTOS — Elija una o varias referencias del catálogo. Podrá apoyar su decisión con la ficha técnica que está al lado de cada artículo.
+02 PÓNGALOS EN EL CARRITO Y EN EL CONTENEDOR — Vea en tiempo real cuánto espacio ocupa cada producto y cuánta capacidad le queda (un contenedor de 20 pies carga ≈ 33 m³).
+03 RECIBA LOS PRODUCTOS — Recójalos en nuestro showroom de Medellín, si su contacto fue directo con un asesor o impórtelos vía marítima con trazabilidad, bajo el Incoterm que usted elija (FOB o CIF)
+Observación
+Se puede conservar la estructura de deseño y poner cada definición en los recuadros que aparecen en la imagen. 
+2.6 Sección "Nuestra gama de productos"
+Texto original
+NUESTRA GAMA DE PRODUCTOS — Con más de 100 líneas de productos en 22 categorías, Unitec entrega soluciones completas para construcción residencial y comercial.
+Paneles de Pared y Revestimiento · Techos y Cubiertas · Sistemas de Piso · Soluciones de Fachada · Tratamientos Acústicos · Acabados Decorativos
+Ajuste propuesto
+NUESTRO PORTAFOLIO — Más de 500 referencias con ficha técnica, organizadas en colecciones de interior y exterior para proyectos residenciales y comerciales.
+Paneles de pared y revestimientos · Techos y cubiertas · Pisos SPC y deck WPC · Fachadas · Paneles acústicos · Acabados decorativos- Esto se puede dejar en los recuadro que aparecen en el diseño del contenido, según la imagen. 
+CTA: Explorar el catálogo completo (Puede ser un botón)
+Observación
+Problema de datos: "más de 100 líneas en 22 categorías" contradice al Home ("500+ productos") y al menú real del catálogo (14 colecciones). Un comprador que compare nota que la empresa no sabe contar su propio portafolio. La cifra propuesta como oficial es "más de 500 referencias" porque es la que el usuario puede verificar navegando el catálogo, y "colecciones de interior y exterior" evita comprometer un número de categorías que puede cambiar. 
+2.7 CTA final de la página
+Texto original
+¿Listo para Enviar Más Inteligente?
+Planifiquemos contenedores, no conjeturas.
+Botón: Contacte a Nuestro Equipo
+Ajuste propuesto
+¿Hablamos de su próximo proyecto?
+Cotice, pida muestras o visite nuestro showroom en Medellín. Un asesor le responde en menos de 24 horas hábiles.
+Botón principal:  Chatea con nosotros: El chatbot.
+Observación
+"¿Listo para Enviar Más Inteligente?" es un calco de "Ready to Ship Smarter?" con las mayúsculas anglosajonas de siempre, y "contenedores, no conjeturas" arrastra el calco de "guesswork" ya corregido en el Home. Pero el problema mayor es de enfoque: tras una página entera construyendo identidad de marca, el cierre vuelve a hablar de logística. El visitante que terminó de leer "quiénes somos" está evaluando a la empresa, no un envío: el CTA correcto abre la conversación (proyecto, muestras, showroom) y compromete el dato de servicio verificable (respuesta en 24 horas). Se ofrecen dos rutas —conversar o seguir explorando— porque no todo lector de esta página está listo para contactar.
+Las secciones que no aparecen en este ajuste pueden ser eliminadas de la página, ya sea que el contenido es innecesario o es contenido que fue incluido en alguna de las secciones ajustadas en este reporte. 
+Esta que está aquí la eliminamos. 

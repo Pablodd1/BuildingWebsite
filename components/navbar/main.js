@@ -15,12 +15,12 @@ import MegaMenu from './MegaMenu';
 import CatalogDropdown from './CatalogDropdown';
 
 const navItems = [
-    { label: 'Home', id: 'home', href: '/', icon: <Logo size={50} className={'min-w-10'} />, onlyIcon: true },
+    { label: 'Home', id: 'home', href: '/', icon: <Logo size={100} className={'h-10 sm:h-12 md:h-14 w-auto brightness-0 invert object-contain min-w-[125px] md:min-w-[150px]'} />, onlyIcon: true },
     {
         label: 'Products List',
         id: 'productList',
         icon: <Library className=' text-inherit h-5' />,
-        href: '/collections',
+        href: '/colecciones',
         megaMenu: true
     },
     {
@@ -33,51 +33,28 @@ const navItems = [
     {
         label: 'Institutional',
         id: 'institutional',
-        href: '/about',
+        href: '/nosotros',
         submenu: [
-            { label: 'whoWeAre', href: '/about/who-we-are' },
-            { label: 'ourMission', href: '/about/mission' },
-            { label: 'ourVision', href: '/about/vision' },
-            { label: 'qualityCommitment', href: '/about/quality' },
-            { label: 'businessModels', href: '/about/business-models' },
+            { label: 'whoWeAre', title: 'Sobre Nosotros', href: '/nosotros' },
+            { label: 'ourHistory', title: 'Nuestra Historia', href: '/nosotros/historia' },
         ]
     },
-    { label: 'Contact', id: 'contact', href: '/contact' }
+    { label: 'Contact', id: 'contact', href: '/contacto' },
+    { label: 'Blog', id: 'blog', href: '/blog' }
 ];
 
-const BrandToggle = () => {
-    const { activeBrand, toggleBrand, brand } = useBrand();
-    const otherBrand = activeBrand === 'binw' ? 'Unitec USA' : 'Building Innovation';
-    return (
-        <button
-            onClick={toggleBrand}
-            className="group flex items-center gap-2 px-3 py-1.5 bg-black/80 backdrop-blur rounded-full hover:bg-gray-800 transition-all ml-2 border border-gray-700 hover:border-primary"
-            aria-label={`Switch to ${otherBrand}`}
-            title={`Switch to ${otherBrand}`}
-        >
-            <Image
-                key={brand.id}
-                src={brand.logoImage}
-                alt={`${brand.name} Logo`}
-                width={36}
-                height={24}
-                className="object-contain"
-            />
-            <span className="hidden sm:inline-flex items-center gap-1 text-xs text-gray-400 group-hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5" /><path d="M8 21H3v-5" /><path d="M21 3l-9 9" /><path d="M3 21l9-9" /></svg>
-                {otherBrand}
-            </span>
-        </button>
-    )
-}
 
 const NavBar = ({ searchParams }) => {
     const { t } = useLanguage();
     const q = searchParams?.q
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+    const handleContactClick = () => {
+        import('lib/analytics').then(({ trackContactClick }) => trackContactClick());
+    }
+
     return (
-        <header className="sticky top-0 z-30 bg-primary/75 shadow-accent2 border-b border-gray-300 shadow-sm backdrop-blur-md text-black  pr-8 pl-5 py-2.5">
+        <header className="sticky top-0 z-30 bg-slate-900/95 shadow-accent2 border-b border-slate-800 shadow-md backdrop-blur-md text-white pr-8 pl-5 py-2.5">
             <div className="max-w-[1400px] mx-auto flex items-center justify-between relative">
 
                 {/* Mobile Menu Button */}
@@ -101,7 +78,7 @@ const NavBar = ({ searchParams }) => {
                             {item.catalogDropdown ? (
                                 <button
                                     aria-label="Catalogs"
-                                    className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer hover:text-primary"
+                                    className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer text-slate-100 hover:text-primary"
                                 >
                                     {
                                         item.icon ?
@@ -113,8 +90,9 @@ const NavBar = ({ searchParams }) => {
                             ) : (
                                 <Link
                                     href={item.href}
+                                    onClick={item.id === 'contact' ? handleContactClick : undefined}
                                     aria-label={`Go To ${item.href}`}
-                                    className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer hover:text-primary"
+                                    className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer text-slate-100 hover:text-primary"
                                 >
                                     {
                                         item.onlyIcon
@@ -135,18 +113,18 @@ const NavBar = ({ searchParams }) => {
                             {/* Dropdown Menu */}
                             {item.submenu && (
                                 <div className="absolute left-5 top-full pt-2 w-max opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
-                                    <div className="bg-white/95 backdrop-blur-sm shadow-lg rounded-md border border-gray-100 overflow-hidden flex flex-col min-w-[200px]">
+                                    <div className="bg-slate-900/95 backdrop-blur-sm shadow-lg rounded-md border border-slate-800 overflow-hidden flex flex-col min-w-[200px]">
                                         {/* Dropdown Header if needed */}
-                                        {/* <div className="px-4 py-2 bg-gray-50 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                                        {/* <div className="px-4 py-2 bg-gray-50 text-xs font-bold text-gray-700 uppercase tracking-wider border-b border-gray-100">
                                             {item.label}
                                         </div> */}
                                         {item.submenu.map((subItem) => (
                                             <Link
                                                 key={subItem.href}
                                                 href={subItem.href}
-                                                className="px-4 py-3 text-sm hover:bg-gray-50 transition-colors border-b last:border-0 border-gray-50 text-gray-700 hover:text-black"
+                                                className="px-4 py-3 text-sm hover:bg-slate-800 transition-colors border-b last:border-0 border-slate-800 text-slate-300 hover:text-white"
                                             >
-                                                {t(`nav.${subItem.label}`)}
+                                                {subItem.title || t(`nav.${subItem.label}`)}
                                             </Link>
                                         ))}
                                     </div>
@@ -174,7 +152,9 @@ const NavBar = ({ searchParams }) => {
                     <div className="flex items-center gap-1">
                         <CartButton />
                         <LanguageToggle />
-                        {/* BrandToggle removed - only UNITEC USA */}
+                        {/* <div className="px-2 hover:bg-white/5 rounded-full transition-all group">
+                            <User className="w-fit h-full text-inherit" />
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -208,7 +188,10 @@ const NavBar = ({ searchParams }) => {
                                     ) : (
                                         <Link
                                             href={item.href}
-                                            onClick={() => setMobileMenuOpen(false)}
+                                            onClick={() => {
+                                                setMobileMenuOpen(false);
+                                                if (item.id === 'contact') handleContactClick();
+                                            }}
                                             className="text-sm uppercase tracking-widest font-semibold flex items-center py-2 hover:text-primary transition-colors"
                                         >
                                             {item.icon && <span className="mr-2">{item.icon}</span>}
@@ -233,7 +216,7 @@ const NavBar = ({ searchParams }) => {
                                                         onClick={() => setMobileMenuOpen(false)}
                                                         className="block text-sm text-gray-600 hover:text-black py-1 hover:translate-x-2 transition-transform"
                                                     >
-                                                        {t(`nav.${subItem.label}`)}
+                                                        {subItem.title || t(`nav.${subItem.label}`)}
                                                     </Link>
                                                 </motion.div>
                                             ))}

@@ -13,7 +13,7 @@ const productTranslations = {
         variousApplications: "various applications",
         itemsPerBox: "Items per box",
         inStock: "In Stock",
-        shipsWithin: "Usually ships within 2-3 work days.",
+        shipsWithin: "Usually ships within 15 to 30 days.",
         shipsFrom: "Ships from",
         soldBy: "Sold by",
         returns: "Returns",
@@ -31,7 +31,7 @@ const productTranslations = {
         variousApplications: "varias aplicaciones",
         itemsPerBox: "Artículos por caja",
         inStock: "En Stock",
-        shipsWithin: "Generalmente envía dentro de 2-3 días hábiles.",
+        shipsWithin: "Generalmente envía dentro de 15 a 30 días.",
         shipsFrom: "Envía desde",
         soldBy: "Vendido por",
         returns: "Devoluciones",
@@ -95,7 +95,7 @@ export function ProductContent({ product }) {
     const translatedCategory = categoryTranslations[language]?.[category] || category;
     const translatedCollection = collectionTranslations[language]?.[collection] || collection;
     
-    const companyName = activeBrand === 'unitec' ? 'UNITEC USA Design' : 'Building Innovation';
+    const companyName = 'UNITEC USA Design';
     
     useEffect(() => {
         const translateProduct = async () => {

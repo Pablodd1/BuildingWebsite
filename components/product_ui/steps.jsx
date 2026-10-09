@@ -2,20 +2,9 @@
 
 import React from "react"
 import { motion } from "framer-motion"
-import {
-  FormInput,
-  Package,
-  TrendingUp,
-  ChevronRight,
-  Activity,
-} from "lucide-react"
+import { ClipboardList, Package, TrendingUp } from "lucide-react"
 import { useLanguage } from "lib/LanguageContext"
 
-/**
- * HowShippingWorks Component
- * Unified premium design for logistics workflow.
- * Version 2.0 - Clean & Interactive
- */
 export default function HowShippingWorks() {
   const { t } = useLanguage();
 
@@ -24,115 +13,138 @@ export default function HowShippingWorks() {
       id: "01",
       title: t('steps.items.select.title'),
       desc: t('steps.items.select.desc'),
-      icon: FormInput,
-      color: "from-blue-500/20 to-indigo-500/20",
+      icon: ClipboardList,
+      color: "bg-blue-50 text-blue-600",
     },
     {
       id: "02",
       title: t('steps.items.fill.title'),
       desc: t('steps.items.fill.desc'),
       icon: Package,
-      color: "from-indigo-500/20 to-purple-500/20",
+      color: "bg-purple-50 text-purple-600",
     },
     {
       id: "03",
       title: t('steps.items.ship.title'),
       desc: t('steps.items.ship.desc'),
       icon: TrendingUp,
-      color: "from-purple-500/20 to-fuchsia-500/20",
+      color: "bg-pink-50 text-pink-600",
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  // Helper to parse markdown bold (**) and newlines (\n) to render HTML beautifully
+  const renderFormattedText = (text) => {
+    if (!text) return "";
+    
+    const paragraphs = text.split('\n\n');
+    
+    return paragraphs.map((paragraph, pIdx) => {
+      const parts = [];
+      const regex = /\*\*(.*?)\*\*/g;
+      let lastIndex = 0;
+      let match;
+      
+      while ((match = regex.exec(paragraph)) !== null) {
+        if (match.index > lastIndex) {
+          parts.push(paragraph.substring(lastIndex, match.index));
+        }
+        parts.push(
+          <strong key={match.index} className="font-extrabold text-gray-900">
+            {match[1]}
+          </strong>
+        );
+        lastIndex = regex.lastIndex;
+      }
+      
+      if (lastIndex < paragraph.length) {
+        parts.push(paragraph.substring(lastIndex));
+      }
+      
+      return (
+        <p key={pIdx} className={pIdx > 0 ? "mt-3 text-gray-500 text-[13px] leading-relaxed" : "text-gray-500 text-[13px] leading-relaxed"}>
+          {parts}
+        </p>
+      );
+    });
+  };
+
   return (
-    <section className="py-24 bg-white overflow-hidden" id="como-funciona">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        
-        {/* Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-black uppercase tracking-[0.2em] mb-8"
-          >
-            <Activity size={14} className="animate-pulse" />
-            <span>Workflow Matrix</span>
-          </motion.div>
-          
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 mb-8 italic uppercase leading-none">
-            {t('steps.title')}
-          </h2>
-          
-          <p className="text-slate-500 text-xl leading-relaxed font-medium">
-            {t('steps.subtitle')}
-          </p>
-        </div>
+    <section className="w-full bg-white overflow-hidden pb-20" id="como-funciona">
+      
+      {/* Header Container with Solid Blue Background */}
+      <div className="bg-[#132c3f] text-white py-16 px-6 text-center w-full flex flex-col gap-4">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase tracking-wide max-w-4xl mx-auto leading-tight">
+          {t('steps.title')}
+        </h2>
+        <p className="text-white/80 text-lg md:text-xl italic font-normal tracking-wide max-w-2xl mx-auto">
+          {t('steps.subtitle')}
+        </p>
+      </div>
 
-        {/* Dynamic Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
-          
-          {/* Abstract Connection Line */}
-          <div className="hidden md:block absolute top-[25%] left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-slate-100 to-transparent z-0" />
-
+      {/* Cards Section */}
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 relative"
+        >
           {steps.map((step, idx) => (
             <motion.div
               key={step.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.15, duration: 0.8, ease: "circOut" }}
-              whileHover={{ y: -12 }}
-              className="relative group z-10"
+              variants={itemVariants}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.3 }}
+              className="relative bg-white rounded-[2.5rem] border border-gray-200 p-8 shadow-sm hover:shadow-md transition-all duration-300 cursor-default"
             >
-              <div className="p-12 bg-white rounded-[3.5rem] border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-500 group-hover:shadow-[0_40px_80px_rgba(37,99,235,0.08)] group-hover:border-blue-100">
-                
-                {/* Step Index Backdrop */}
-                <div className="absolute top-10 right-12 text-7xl font-black text-slate-50/80 italic tracking-tighter group-hover:text-blue-50 transition-colors duration-500 pointer-events-none">
-                  {step.id}
-                </div>
-
-                {/* Visual Icon */}
-                <div className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-10 transform group-hover:rotate-12 transition-all duration-500 shadow-sm`}>
-                  <step.icon size={32} className="text-slate-800" />
-                </div>
-
-                {/* Text Content */}
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-black text-slate-900 italic uppercase tracking-tight group-hover:text-blue-600 transition-colors">
-                    {step.title}
-                  </h3>
-                  <p className="text-slate-500 leading-relaxed font-semibold text-sm">
-                    {step.desc}
-                  </p>
-                </div>
-
-                {/* Decorative Elements */}
-                <div className="mt-10 pt-10 border-t border-slate-50 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                  <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest">Initialization Ready</span>
-                  <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/40">
-                    <ChevronRight size={16} />
-                  </div>
-                </div>
+              {/* Step Index Faded Backdrop */}
+              <div className="absolute top-8 right-10 text-6xl font-black text-gray-100/60 italic tracking-tighter select-none pointer-events-none">
+                {step.id}
               </div>
+
+              {/* Icon Container */}
+              <div className={`w-14 h-14 rounded-2xl ${step.color} flex items-center justify-center mb-6 shadow-sm`}>
+                <step.icon size={26} />
+              </div>
+
+              {/* Title */}
+              <h3 className="text-md font-extrabold text-slate-900 tracking-wider text-center uppercase leading-snug mb-5 w-4/5 mx-auto">
+                {step.title}
+              </h3>
+
+              {/* Description */}
+              <div className="text-center text-gray-500">
+                {renderFormattedText(step.desc)}
+              </div>
+
             </motion.div>
           ))}
-        </div>
-
-        {/* Footer Meta */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8 }}
-          className="mt-24 text-center"
-        >
-          <div className="inline-block px-6 py-3 bg-slate-50 rounded-full border border-slate-100">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.3em]">
-              Global Standard Logistics Protocol v4.0
-            </p>
-          </div>
         </motion.div>
       </div>
+
     </section>
   );
 }

@@ -100,7 +100,7 @@ export default function CartDrawer() {
                 </div>
                 {containers.length > 0 && (
                     <div className="mt-6 pt-4 border-t border-gray-100">
-                        <Link href="/cart" onClick={closeCart} className="w-full text-center py-2 px-4 bg-black text-white rounded-md text-sm font-medium">
+                        <Link href="/carrito" onClick={closeCart} className="w-full text-center py-2 px-4 bg-black text-white rounded-md text-sm font-medium">
                             View Full Cart Details
                         </Link>
                     </div>
@@ -109,7 +109,7 @@ export default function CartDrawer() {
 
             {/* Footer */}
             <div className="p-4 border-t">
-              <Link href="/checkout" aria-label={t.checkout} onClick={closeCart} className="block w-full bg-black text-white text-center py-2 rounded-md">
+              <Link href="/pagar" aria-label={t.checkout} onClick={closeCart} className="block w-full bg-black text-white text-center py-2 rounded-md">
                 {t.checkout}
               </Link>
             </div>
