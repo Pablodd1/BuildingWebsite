@@ -46,3 +46,16 @@ All frontend and server components must adhere to production-grade web platform 
    - Use `next/image` with explicit dimensions or fill attributes to eliminate Cumulative Layout Shift (CLS).
    - Preload primary fonts with `display: swap`.
    - Lazy load non-critical client modules and scripts.
+
+---
+
+### 3. Single Source of Truth & Lead Tagging (`Web - Unitec`)
+
+1. **Single Source of Truth (`static_data/site_settings.json`):**
+   - Never hardcode phone numbers, WhatsApp numbers, emails, or physical addresses in components or templates. Always read from `static_data/site_settings.json`.
+   - `contact_form_recipients` defines all email recipients for incoming web opportunities (`lidermercadeo@espaciosimportados.com.co`, `comercial.buildinginnovation@gmail.com`).
+2. **Lead Tagging (`lead_tag: "Web - Unitec"`):**
+   - Every incoming opportunity from the website (`/api/contact`, `/api/subscribe`, `/pagar`) must carry the `[Web - Unitec]` tag in its email subject, sender display name, HTML badge, `X-Lead-Tag` header, and Escala CRM payload (`tags` and `source`).
+3. **Dual-Repository Synchronization:**
+   - Keep `UnitecUsa-Website` (`brandId=unitec`) and `BuildingWebsite` (`brandId=building`) synchronized and push both to `origin/master`.
+

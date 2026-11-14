@@ -129,14 +129,16 @@ export default function CheckoutPage() {
         const contactEmail = Array.isArray(siteSettings.contact_form_recipients) && siteSettings.contact_form_recipients.length > 0
             ? siteSettings.contact_form_recipients.join(",")
             : (brand?.email || siteSettings.public_email);
-        const subject = `New Quote Request - ${formData.companyName || formData.contactName} (${referenceId})`;
+        const leadTag = siteSettings.lead_tag || 'Web - Unitec';
+        const subject = `[${leadTag}] Nueva Cotización Contenedor - ${formData.companyName || formData.contactName} (${referenceId})`;
         
         let itemsSummary = cart.map(container => {
             const items = container.items.map(item => `  - ${item.name} (Qty: ${item.qty})`).join('\n');
             return `Container: ${container.name} (${container.dimension?.length || 20}ft)\n${items}`;
         }).join('\n\n');
 
-        const body = `Quote Request Summary\n` +
+        const body = `[${leadTag}] Quote Request Summary\n` +
+            `Etiqueta / Origen: ${leadTag}\n` +
             `Reference ID: ${referenceId}\n` +
             `Date: ${new Date().toLocaleDateString()}\n\n` +
             `COMPANY INFORMATION:\n` +

@@ -83,7 +83,8 @@ export async function POST(req) {
       .filter(Boolean);
     const recipients = Array.from(new Set([...envRecipients, ...configuredRecipients]));
     const recipient = recipients.join(', ');
-    const sender = process.env.RESEND_FROM_EMAIL || 'Unitec USA Leads <onboarding@resend.dev>';
+    const leadTag = siteSettings.lead_tag || 'Web - Unitec';
+    const sender = process.env.RESEND_FROM_EMAIL || `${leadTag} <onboarding@resend.dev>`;
     const leadRef = `LEAD-${Date.now().toString(36).toUpperCase()}`;
 
     let emailSent = false;
@@ -101,9 +102,11 @@ export async function POST(req) {
             email: contactEmail,
             phone: phone || '',
             company: companyName || '',
+            tags: [leadTag],
           },
           lead: {
-            source: 'Website Contact Form',
+            source: leadTag,
+            tag: leadTag,
             type,
             volume: volume || '',
             details: details || notes || '',
@@ -132,37 +135,43 @@ export async function POST(req) {
       try {
         const resend = new Resend(process.env.RESEND_API_KEY);
         const subject = type === 'meeting'
-          ? `[Meeting Request] ${contactName} - ${date || 'Preferred Date'} (${leadRef})`
-          : `[New Lead / Quote Request] ${companyName || contactName} (${leadRef})`;
+          ? `[${leadTag}] [Solicitud de Reunión] ${contactName} - ${date || 'Fecha preferida'} (${leadRef})`
+          : `[${leadTag}] Nueva Oportunidad / Cotización - ${companyName || contactName} (${leadRef})`;
 
         const htmlContent = `
-          <h2>New Lead Submission via Unitec USA Design</h2>
-          <p><strong>Reference:</strong> ${leadRef}</p>
-          <p><strong>Type:</strong> ${type.toUpperCase()}</p>
+          <div style="margin-bottom: 14px;">
+            <span style="display: inline-block; background-color: #132c3f; color: #ffffff; padding: 6px 14px; border-radius: 6px; font-weight: bold; font-size: 13px; letter-spacing: 0.5px;">
+              ETIQUETA: ${leadTag}
+            </span>
+          </div>
+          <h2>Nueva Oportunidad Recibida (${leadTag})</h2>
+          <p><strong>Etiqueta / Origen:</strong> ${leadTag}</p>
+          <p><strong>Referencia:</strong> ${leadRef}</p>
+          <p><strong>Tipo:</strong> ${type.toUpperCase()}</p>
           <hr />
-          <h3>Contact Details:</h3>
+          <h3>Datos del Contacto:</h3>
           <ul>
-            <li><strong>Name:</strong> ${contactName}</li>
-            <li><strong>Email:</strong> ${contactEmail}</li>
-            <li><strong>Phone:</strong> ${phone || 'Not provided'}</li>
-            <li><strong>Company:</strong> ${companyName || 'Not provided'}</li>
+            <li><strong>Nombre:</strong> ${contactName}</li>
+            <li><strong>Correo:</strong> ${contactEmail}</li>
+            <li><strong>Teléfono / WhatsApp:</strong> ${phone || 'No especificado'}</li>
+            <li><strong>Empresa:</strong> ${companyName || 'No especificada'}</li>
           </ul>
           ${type === 'meeting' ? `
-            <h3>Meeting Preferences:</h3>
+            <h3>Preferencias de Reunión:</h3>
             <ul>
-              <li><strong>Date:</strong> ${date || 'Not specified'}</li>
-              <li><strong>Time:</strong> ${time || 'Not specified'}</li>
-              <li><strong>Notes:</strong> ${notes || 'None'}</li>
+              <li><strong>Fecha:</strong> ${date || 'No especificada'}</li>
+              <li><strong>Hora:</strong> ${time || 'No especificada'}</li>
+              <li><strong>Notas:</strong> ${notes || 'Ninguna'}</li>
             </ul>
           ` : `
-            <h3>Project & Quotation Details:</h3>
+            <h3>Detalles del Proyecto y Cotización:</h3>
             <ul>
-              <li><strong>Estimated Volume:</strong> ${volume || 'Not specified'}</li>
-              <li><strong>Project Details:</strong> ${details || 'None'}</li>
+              <li><strong>Volumen Estimado:</strong> ${volume || 'No especificado'}</li>
+              <li><strong>Detalles:</strong> ${details || 'Ninguno'}</li>
             </ul>
           `}
           <hr />
-          <p style="font-size: 12px; color: #666;">Submitted at: ${new Date().toISOString()} from IP: ${ip}</p>
+          <p style="font-size: 12px; color: #666;">Enviado desde ${siteSettings.base_url} (${leadTag}) • ${new Date().toISOString()} • IP: ${ip}</p>
         `;
 
         const { data, error } = await resend.emails.send({
@@ -171,6 +180,12 @@ export async function POST(req) {
           replyTo: contactEmail,
           subject,
           html: htmlContent,
+          headers: {
+            'X-Lead-Tag': leadTag,
+          },
+          tags: [
+            { name: 'source', value: 'Web_Unitec' },
+          ],
         });
 
         if (error) {
