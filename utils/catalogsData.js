@@ -1,4 +1,4 @@
-﻿export const catalogs = [
+export const catalogs = [
     {
         id: 1,
         name: "Catálogo 2026 UNITEC USA DESIGN (Español)",
@@ -30,7 +30,20 @@ export const technicalSheets = [
         subcategory: "PISOS SPC",
         url: "/fichas/Pisos_SPC.pdf"
     },
-    ,
+    {
+        id: 3,
+        name: "03_FT_Lamina Marmol PVC",
+        category: "LAMINAS",
+        subcategory: "LAMINAS MARMOL PVC",
+        url: "/fichas/Laminas_Marmol_PVC.pdf"
+    },
+    {
+        id: 4,
+        name: "04_FT_Pared PU ArqUnitec",
+        category: "PAREDES",
+        subcategory: "PAREDES PU ARQUNITEC",
+        url: "/fichas/Paredes_PU_ArqUnitec.pdf"
+    },
     {
         id: 5,
         name: "05_FT_Paredes Muroflex",
@@ -272,21 +285,21 @@ export const technicalSheets = [
     {
         id: 39,
         name: "28.1_FT_Iluminación Perfil Led",
-        category: "ILUMINACIÁ“N",
+        category: "ILUMINACIÓN",
         subcategory: "ILUMINACION",
         url: "/fichas/Iluminacion.pdf"
     },
     {
         id: 40,
         name: "28.2_FT_Iluminación Transformador Perfil Led",
-        category: "ILUMINACIÁ“N",
+        category: "ILUMINACIÓN",
         subcategory: "ILUMINACION",
         url: "/fichas/Iluminacion.pdf"
     },
     {
         id: 41,
         name: "28.3_FT_Iluminación Control Led",
-        category: "ILUMINACIÁ“N",
+        category: "ILUMINACIÓN",
         subcategory: "ILUMINACION",
         url: "/fichas/Iluminacion.pdf"
     },
@@ -306,7 +319,7 @@ export const technicalSheets = [
     },
     {
         id: 44,
-        name: "29.3_FT_Jardín Artificial Línea Moss",
+        name: "29.3_FT_Jardín Artificial Linea Moss",
         category: "JARDINES ARTIFICIALES",
         subcategory: "JARDINES MOSS",
         url: "/fichas/Jardines_Artificiales.pdf"
@@ -366,4 +379,3 @@ export const getGroupedTechnicalSheets = () => {
     });
     return grouped;
 };
-

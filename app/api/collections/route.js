@@ -1,39 +1,22 @@
-import productData from "static_data/products_full.json";
+import productData from "StaticData/products_full.json";
 import matchesSearchQuery from "./handleSearch";
 import { matchesSubcategoryFilter } from "lib/applyFilters";
+import fs from 'fs';
+import path from 'path';
 
+// fields to return (easy to manage / edit)
 const FIELDS = [
-  "id",
-  "slug",
   "name",
   "basePrice",
-  "price",
-  "currency",
-  "price_per_m2",
   "discountPercent",
   "image",
-  "image_alt_text",
+  "id",
   "dimensions",
-  "width_cm",
-  "length_cm",
-  "thickness_mm",
-  "units_per_box",
-  "m2_per_box",
-  "weight_kg_per_box",
-  "container_volume_m3_per_unit",
-  "boxes_per_container_20ft",
-  "boxes_per_container_40ft",
-  "m2_per_container_20ft",
-  "m2_per_container_40ft",
   "collection",
   "subcategory",
   "category",
-  "locale_variants",
 ];
 
-function normalizeImage(img) {
-  return img || '/raster/product.jpg';
-}
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -47,8 +30,19 @@ export async function GET(request) {
   const subcategories = subcategoriesStr ? subcategoriesStr.split(',').filter(Boolean) : [];
 
   const nopaginate = searchParams.get("nopaginate") === "true";
+
   const ITEMS_PER_PAGE = 15;
 
+  const normalizeImage = (img) => {
+    if (!img || typeof img !== 'string') return img;
+    const rel = img.startsWith('/') ? img.slice(1) : img;
+    const abs = path.resolve(process.cwd(), 'public', rel);
+    if (fs.existsSync(abs)) return img;
+    // fallback to a generic placeholder image
+    return '/raster/product.jpg';
+  };
+
+  // Filter pipeline (order matters)
   const filteredProducts = productData
     .filter((item) =>
       onlyDiscounted ? Number(item.discountPercent) > 0 : true
@@ -67,13 +61,12 @@ export async function GET(request) {
   const totalItems = filteredProducts.length;
 
   if (nopaginate) {
-    const rawItems = filteredProducts.map((item) =>
+    const allItems = filteredProducts.map((item) =>
       FIELDS.reduce((acc, field) => {
         acc[field] = item[field];
         return acc;
       }, {})
-    );
-    const allItems = rawItems.map((it) => ({ ...it, image: normalizeImage(it.image) }));
+    ).map((it) => ({ ...it, image: normalizeImage(it.image) }))
     return Response.json({
       currentPage: 1,
       totalItems,
@@ -93,8 +86,7 @@ export async function GET(request) {
       }, {})
     );
 
-  const safePaginated = paginatedItems.map((it) => ({ ...it, image: normalizeImage(it.image) }));
-
+  const safePaginated = paginatedItems.map((it) => ({ ...it, image: normalizeImage(it.image) }))
   return Response.json({
     currentPage,
     totalItems,

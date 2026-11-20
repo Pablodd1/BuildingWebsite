@@ -3,7 +3,7 @@ export const CONTAINER_TYPES = {
     id: "20ft",
     name: "20ft Container",
     nameEs: "Contenedor 20ft",
-    volume: 33.0,
+    volume: 33,
     volumeUnit: "m³",
     maxWeight: 28000,
     weightUnit: "kg",
@@ -18,14 +18,14 @@ export const CONTAINER_TYPES = {
     id: "40ft",
     name: "40ft Container",
     nameEs: "Contenedor 40ft",
-    volume: 76.0,
+    volume: 76,
     volumeUnit: "m³",
     maxWeight: 28000,
     weightUnit: "kg",
     dimensions: {
       length: 12032,
       width: 2352,
-      height: 2698
+      height: 2393
     },
     dimensionsUnit: "mm"
   }

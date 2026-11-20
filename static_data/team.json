@@ -1,10 +1,89 @@
-[
-  {
-    "brand": "Building Innovation",
-    "hours": "Monday - Friday: 8:00 AM - 5:00 PM EST"
+{
+"binw": {
+    "team": [
+        {
+            "id": 1,
+            "name": "Juan David Garcia",
+            "role": "CEO",
+            "role_es": "CEO",
+            "phone": "+1 (786) 657-5441",
+            "whatsapp": "17866575441",
+            "email": "lidermercadeo@espaciosimportados.com.co",
+            "specialty": "General Inquiries",
+            "specialty_es": "Consultas Generales",
+            "photo": "/raster/team/juan-david.jpg",
+            "availability": "Lun-Vie 7AM-5PM COL"
+        },
+{
+            "id": 2,
+            "name": "Alexander Gomez Zapata",
+            "role": "Gerente Cuenta Internacional",
+            "role_es": "Gerente Cuenta Internacional",
+            "phone": "+57 311 301 7763",
+            "whatsapp": "573113017763",
+            "email": "lidermercadeo@espaciosimportados.com.co",
+            "specialty": "International Accounts",
+            "specialty_es": "Cuentas Internacionales",
+            "photo": "",
+            "availability": "Lun-Vie 7AM-5PM COL"
+        },
+        {
+            "id": 3,
+            "name": "Johana Mesa",
+            "role": "Distribution Sales Manager",
+            "role_es": "Gerente de Ventas de Distribución",
+            "phone": "+1 (786) 968-5783",
+            "whatsapp": "17869685783",
+            "email": "lidermercadeo@espaciosimportados.com.co",
+            "specialty": "Distribution Sales",
+            "specialty_es": "Ventas de Distribución",
+            "photo": "",
+            "availability": "Lun-Vie 7AM-5PM COL"
+        },
+        {
+            "id": 4,
+            "name": "Antonio Borjas",
+            "role": "Sales Representative",
+            "role_es": "Representante de Ventas",
+            "phone": "+1 (786) 546-9051",
+            "whatsapp": "17865469051",
+            "email": "lidermercadeo@espaciosimportados.com.co",
+            "specialty": "Sales",
+            "specialty_es": "Ventas",
+            "photo": "",
+            "availability": "Lun-Vie 7AM-5PM COL"
+        },
+        {
+            "id": 5,
+            "name": "Marlon Moncada",
+            "role": "Sales Representative Southwest Florida",
+            "role_es": "Representante de Ventas Suroeste Florida",
+            "phone": "+1 (239) 878-9299",
+            "whatsapp": "12398789299",
+            "email": "lidermercadeo@espaciosimportados.com.co",
+            "specialty": "Sales - Southwest Florida",
+            "specialty_es": "Ventas - Suroeste Florida",
+            "photo": "",
+            "availability": "Lun-Vie 7AM-5PM COL"
+        }
+    ],
+"contact": {
+       "phone": "+1 (786) 968-5783",
+       "whatsapp": "17869685783",
+       "email": "comercial.buildinginnovation@gmail.com",
+       "address": "6120 NW 74th Ave, Doral, Miami, FL 33166",
+       "address_es": "6120 NW 74th Ave, Doral, Miami, FL 33166",
+       "country": "United States",
+       "hours": "Mon-Fri: 8:00 AM - 6:00 PM EST",
+       "hours_es": "Lun-Vie: 8:00 AM - 6:00 PM EST"
+     }
   },
-  {
-    "brand": "UNITEC USA Design",
-    "hours": "Lunes - Viernes: 8:00 AM - 6:00 PM EST"
+
+  "social": {
+    "facebook": "https://www.facebook.com/building.innovation/",
+    "instagram": "https://www.instagram.com/building.innovation/",
+    "tiktok": "https://www.tiktok.com/@building.innovation",
+    "youtube": "",
+    "linkedin": ""
   }
-]
+}

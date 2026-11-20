@@ -48,9 +48,7 @@ export function applyFilters(products, filters) {
 
         if (filters.collection && filters.collection !== 'All' && p.collection?.toLowerCase() !== filters.collection?.toLowerCase()) return false;
         if (filters.category && filters.category !== 'All' && p.category?.toLowerCase() !== filters.category?.toLowerCase()) return false;
-        
-        const requestedSubs = filters.subcategories || [];
-        if (requestedSubs.length && !matchesSubcategoryFilter(p.subcategory, requestedSubs)) return false;
+        if (filters.subcategories?.length && !matchesSubcategoryFilter(p.subcategory, filters.subcategories)) return false;
 
         const inRange = (range, value) => !range?.length || (value >= range[0] && value <= range[1]);
 
@@ -68,17 +66,11 @@ export function applyFilters(products, filters) {
 }
 
 export function sortProducts(products, sort) {
-    if (!products || !Array.isArray(products)) return [];
     return [...products].sort((a, b) => {
-        const nameA = a.name || "";
-        const nameB = b.name || "";
-        const priceA = a.basePrice || 0;
-        const priceB = b.basePrice || 0;
-
-        if (sort === 'price-asc') return priceA - priceB;
-        if (sort === 'price-desc') return priceB - priceA;
-        if (sort === 'name-asc') return nameA.localeCompare(nameB);
-        if (sort === 'name-desc') return nameB.localeCompare(nameA);
+        if (sort === 'price-asc') return a.basePrice - b.basePrice;
+        if (sort === 'price-desc') return b.basePrice - a.basePrice;
+        if (sort === 'name-asc') return a.name.localeCompare(b.name);
+        if (sort === 'name-desc') return b.name.localeCompare(a.name);
         return 0;
     });
 }

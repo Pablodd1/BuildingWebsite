@@ -1,6 +1,6 @@
-# Unitec USA - High-Performance Materials Platform & Logistics Engine
+# Building Innovation - High-Performance Materials Platform & Logistics Engine
 
-Welcome to the **Unitec USA** e-commerce and logistics orchestration platform. This project represents a single-codebase, dual-identity system built on Next.js 16 (Turbopack) and custom React architecture. It integrates a real-time, medical/industrial-grade container simulator with a dynamic, SEO-optimized product catalog.
+Welcome to the **Building Innovation** e-commerce and logistics orchestration platform. This project represents a single-codebase, dual-identity system built on Next.js 16 (Turbopack) and custom React architecture. It integrates a real-time, medical/industrial-grade container simulator with a dynamic, SEO-optimized product catalog.
 
 ---
 
@@ -29,7 +29,7 @@ This website operates with high standards of performance, security, and user exp
 
 ### 1. The Multi-Brand Context System (`utils/BrandContext.js`)
 *   **Single-Codebase, Dual-Brand Philosophy:** Both **Unitec USA** and **Building Innovation** share a underlying software architecture.
-*   **Isolation & Enforcement:** In this repository, the provider is hard-locked to `"unitec"`, dynamically injecting the correct corporate styling (HSL colors, typography), assets (Logo, Favicons), and SEO metadata.
+*   **Isolation & Enforcement:** In this repository, the provider is hard-locked to `"binw"`, dynamically injecting the correct corporate styling (HSL colors, typography), assets (Logo, Favicons), and SEO metadata.
 
 ### 2. Dual-Constraint Logistics Engine (`utils/cart/cart.utils.js`)
 *   **Multi-Constraint Optimization:** Validates all orders against two distinct physical limits simultaneously:
@@ -60,7 +60,7 @@ This website operates with high standards of performance, security, and user exp
 
 To maintain production-grade compliance, ensure the following items are verified:
 
-- [ ] **Favicon Rendering:** Verify that `unitec-favicon.png` displays correctly in standard/dark browser tab interfaces.
+- [ ] **Favicon Rendering:** Verify that Building Innovation specific favicons render correctly in standard/dark browser tab interfaces.
 - [ ] **Weight Limits Disabling Tests:** Verify that "Add to Cart" safely caps product quantities when adding one more unit would exceed the remaining weight allowance.
 - [ ] **Spanish Blog Slug Validation:** Ensure all dynamic routes under `/blog/[slug]` match their corresponding entry keys in `blogs_es.json`.
 - [ ] **Cross-Browser Verification:** Test interactive container rendering (specifically the selection modal's progress bars) on mobile iOS Safari, Android Chrome, and desktop platforms.

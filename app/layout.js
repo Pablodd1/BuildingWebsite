@@ -1,58 +1,49 @@
-import { Montserrat } from 'next/font/google'
-import "./globals.css";
-import Script from "next/script";
-import { getDictionary } from "lib/i18n/getDictionary";
-import siteSettings, { getOrganizationSchema } from "lib/siteSettings";
-import RootLayoutClient from "./layout-client";
+import { Manrope, DM_Sans } from 'next/font/google';
+import './globals.css';
+import Script from 'next/script';
+import { cookies } from 'next/headers';
+import RootLayoutClient from './layout-client';
+import { siteSettings } from '../utils/siteSettings';
 
-const montserrat = Montserrat({
+const manrope = Manrope({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  weight: ['500', '600', '700', '800'],
   display: 'swap',
-  variable: '--font-montserrat',
+  variable: '--font-manrope',
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-dm-sans',
 });
 
 export async function generateMetadata() {
-  const lang = 'es';
-  const dict = getDictionary(lang);
+  const cookieStore = await cookies();
+  const lang = cookieStore.get('NEXT_LOCALE')?.value === 'en' ? 'en' : 'es';
+  const baseUrl = siteSettings.domain;
 
-  const BASE_URL = siteSettings.base_url || "https://unitecusadesign.com";
-  const canonicalUrl = `${BASE_URL}/`;
-  const brandName = siteSettings.brand_name;
+  const titleDefault =
+    lang === 'es'
+      ? 'Building Innovation | Materiales de Construcción y Tecnología IA'
+      : 'Building Innovation | Architectural Materials & AI Technology';
 
-  const defaults = {
-    title: `${dict.meta.siteTitle} | ${brandName}`,
-    description: dict.meta.siteDescription,
-    keywords: dict.meta.keywords,
-    image: `${BASE_URL}/og-image.jpg`,
-    siteName: brandName,
-    canonical: canonicalUrl,
-  };
+  const description =
+    lang === 'es'
+      ? 'Compañía americana en Doral, Miami, pionera en materiales constructivos de alta calidad (PVC, WPC, SPC) y soluciones con IA para el sector retail y mayorista en 10 países.'
+      : 'American company headquartered in Doral, Miami, pioneering high-quality architectural building materials (PVC, WPC, SPC) and AI solutions across 10 countries in the Americas.';
 
   return {
-    metadataBase: new URL(BASE_URL),
+    metadataBase: new URL(baseUrl),
     title: {
-      default: defaults.title,
-      template: `%s | ${brandName}`
+      default: titleDefault,
+      template: '%s | Building Innovation',
     },
-    description: defaults.description,
-    keywords: defaults.keywords,
-    authors: [{ name: `${brandName} Team` }],
-    creator: brandName,
-    publisher: brandName,
-    applicationName: brandName,
-    generator: "Next.js",
-    manifest: "/favicons/manifest.json",
-
+    description,
     alternates: {
-      canonical: `${BASE_URL}/`,
-      languages: {
-        'es': `${BASE_URL}/es/`,
-        'en': `${BASE_URL}/en/`,
-        'x-default': `${BASE_URL}/es/`
-      }
+      canonical: '/',
     },
-
     robots: {
       index: true,
       follow: true,
@@ -64,87 +55,119 @@ export async function generateMetadata() {
         'max-snippet': -1,
       },
     },
-
     verification: {
       google: process.env.GOOGLE_VERIFICATION,
     },
-
     icons: {
       icon: [
-        { url: "/favicons/unitec-favicon.png" },
-        { url: "/favicons/unitec-favicon.png", sizes: "16x16", type: "image/png" },
-        { url: "/favicons/unitec-favicon.png", sizes: "32x32", type: "image/png" },
+        { url: '/favicons/favicon.ico' },
+        { url: '/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+        { url: '/favicons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
       ],
       apple: [
-        { url: "/favicons/apple-icon.png" },
-        { url: "/favicons/apple-icon-180x180.png", sizes: "180x180", type: "image/png" },
+        { url: '/favicons/apple-icon.png' },
+        { url: '/favicons/apple-icon-180x180.png', sizes: '180x180', type: 'image/png' },
       ],
     },
-
     openGraph: {
-      type: "website",
-      locale: lang === 'es' ? 'es_CO' : 'en_US',
-      url: defaults.canonical,
-      siteName: defaults.siteName,
-      title: defaults.title,
-      description: defaults.description,
+      type: 'website',
+      locale: lang === 'es' ? 'es_ES' : 'en_US',
+      url: baseUrl,
+      siteName: siteSettings.brand_name,
+      title: titleDefault,
+      description,
       images: [
         {
-          url: defaults.image,
+          url: `${baseUrl}/raster/interior.webp`,
           width: 1200,
           height: 630,
-          alt: lang === 'es' ? `${brandName} - Materiales Arquitectónicos PVC, WPC y SPC` : `${brandName} - Architectural Materials PVC, WPC & SPC`,
-        }
+          alt: 'Building Innovation — Architectural Materials & Building Tech',
+        },
       ],
     },
-
     twitter: {
-      card: "summary_large_image",
-      site: "@unitecusadesign",
-      creator: "@unitecusadesign",
-      title: defaults.title,
-      description: defaults.description,
-      images: [defaults.image],
-    },
-
-    appleWebApp: {
-      capable: true,
-      statusBarStyle: "default",
-      title: brandName,
-    },
-
-    formatDetection: {
-      telephone: true,
-      date: true,
-      address: true,
-      email: true,
-      url: true,
+      card: 'summary_large_image',
+      title: titleDefault,
+      description,
+      images: [`${baseUrl}/raster/interior.webp`],
     },
   };
 }
 
 export default async function RootLayout({ children }) {
-  const lang = 'es';
-  const dict = getDictionary(lang);
-  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-  const BASE_URL = siteSettings.base_url || "https://unitecusadesign.com";
-  const organizationSchema = getOrganizationSchema();
+  const cookieStore = await cookies();
+  const lang = cookieStore.get('NEXT_LOCALE')?.value === 'en' ? 'en' : 'es';
+  const baseUrl = siteSettings.domain;
+
+  const schemaGraph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${baseUrl}/#organization`,
+        name: siteSettings.brand_name,
+        slogan: siteSettings.tagline,
+        url: baseUrl,
+        email: siteSettings.public_email,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${baseUrl}/logo.png`,
+        },
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: siteSettings.doral_address_street,
+          addressLocality: siteSettings.doral_address_city,
+          addressRegion: siteSettings.doral_address_state,
+          postalCode: siteSettings.doral_address_zip,
+          addressCountry: 'US',
+        },
+        contactPoint: {
+          '@type': 'ContactPoint',
+          telephone: siteSettings.primary_phone,
+          email: siteSettings.public_email,
+          contactType: 'sales',
+          areaServed: ['US', 'MX', 'GT', 'SV', 'HN', 'DO', 'CO', 'EC', 'PE', 'VE'],
+          availableLanguage: ['Spanish', 'English'],
+        },
+        sameAs: [
+          siteSettings.social.instagram,
+          siteSettings.social.facebook,
+          siteSettings.social.tiktok,
+        ],
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${baseUrl}/#website`,
+        url: baseUrl,
+        name: siteSettings.brand_name,
+        description:
+          'Building Innovation: architectural building materials (PVC, WPC, SPC) and AI commerce tools from Doral, Miami.',
+        publisher: { '@id': `${baseUrl}/#organization` },
+        inLanguage: ['es', 'en'],
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: `${baseUrl}/catalogo/?q={search_term_string}`,
+          'query-input': 'required name=search_term_string',
+        },
+      },
+    ],
+  };
 
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html
+      lang={lang}
+      className={`${manrope.variable} ${dmSans.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* Google Tag Manager */}
-        <Script id="inline-script-1" strategy="afterInteractive" dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-K6KPJCJ6');`,
-          }}
+        <Script
+          strategy="lazyOnload"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18156507743"
         />
-        {/* Google tag (gtag.js) */}
-        <Script strategy="lazyOnload" src="https://www.googletagmanager.com/gtag/js?id=AW-18156507743" />
-        <Script id="inline-script-2" strategy="afterInteractive" dangerouslySetInnerHTML={{
+        <Script
+          id="inline-script-1"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -153,128 +176,13 @@ export default async function RootLayout({ children }) {
             `,
           }}
         />
-        {/* Google tag (gtag.js) - G-NN981YWDYK */}
-        <Script strategy="lazyOnload" src="https://www.googletagmanager.com/gtag/js?id=G-NN981YWDYK" />
-        <Script id="inline-script-3" strategy="afterInteractive" dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-NN981YWDYK');
-            `,
-          }}
-        />
-        {/* Google Analytics */}
-        {GA_ID && (
-          <>
-            <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
-            <Script id="inline-script-4" strategy="afterInteractive" dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${GA_ID}', {
-                    page_path: window.location.pathname,
-                  });
-                `,
-              }}
-            />
-          </>
-        )}
-        {/* Structured Data / JSON-LD (Server-Side Organization & WebSite from siteSettings) */}
         <script
-          id="schema-script"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [
-                organizationSchema,
-                {
-                  "@type": "WebSite",
-                  "@id": `${BASE_URL}/#website`,
-                  "url": BASE_URL,
-                  "name": siteSettings.brand_name,
-                  "description": dict.meta.siteDescription,
-                  "publisher": { "@id": `${BASE_URL}/#organization` },
-                  "inLanguage": ["es", "en"],
-                  "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": `${BASE_URL}/colecciones/search?q={search_term_string}`,
-                    "query-input": "required name=search_term_string"
-                  }
-                }
-              ]
-            })
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
         />
-        {/* Cookiehub */}
-        <Script strategy="lazyOnload" src="https://cdn.cookiehub.eu/c2/c2fa7641.js" />
-        <Script id="inline-script-5" strategy="afterInteractive" dangerouslySetInnerHTML={{
-            __html: `
-              var cpm = {};
-              if (window.cookiehub) {
-                window.cookiehub.load(cpm);
-              } else {
-                window.addEventListener("load", function() {
-                  window.cookiehub.load(cpm);
-                });
-              }
-            `,
-          }}
-        />
-        {/* Metricool Analytics Tracker */}
-        <Script
-          id="metricool-tracker"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"5ce44b552f857fc4a5b60d701c3e17cf"})});`
-          }}
-        />
-        {/* Meta Pixel Code */}
-        <Script
-          id="meta-pixel"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '1761450188447051');
-              fbq('track', 'PageView');
-            `,
-          }}
-        />
-        {/* End Meta Pixel Code */}
       </head>
-      <body className={`${montserrat.className} font-medium`}>
-        {/* Meta Pixel (noscript) */}
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=1761450188447051&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-K6KPJCJ6"
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          ></iframe>
-        </noscript>
-        <RootLayoutClient lang={lang} dict={dict}>
-          {children}
-        </RootLayoutClient>
+      <body className="font-sans antialiased bg-white text-[#17242e]">
+        <RootLayoutClient lang={lang}>{children}</RootLayoutClient>
       </body>
     </html>
   );

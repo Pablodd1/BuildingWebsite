@@ -44,10 +44,5 @@ next-env.d.ts
 downloads/
 *.pdf
 
-# Unignore policies.pdf
-!public/policies.pdf
-
 !public/fichas/*.pdf
-
-# Local scratch and audit scripts
-scratch/
+!public/catalogs/*.pdf

@@ -10,7 +10,6 @@ export const translations = {
       institutional: "Company",
       about: "About Us",
       contact: "Contact",
-      blog: "Blog",
       faq: "FAQ",
       cart: "Cart",
       search: "Search products...",
@@ -20,6 +19,16 @@ export const translations = {
       ourVision: "Our Vision",
       qualityCommitment: "Committed to Quality",
       businessModels: "Business Models",
+      containerConfigurator: "Container Configurator",
+    },
+    // Search
+    search: {
+      products: "Products",
+      resultsFor: "Results for",
+      noResults: "No products found for",
+      placeholder: "Search materials PVC, WPC, SPC and more...",
+      quickFilters: "Quick filters:",
+      searchBtn: "Search"
     },
     
     // Hero Section
@@ -38,7 +47,7 @@ export const translations = {
     
     // Why Choose Us
     whyUs: {
-      title: "Why Choose UNITEC USA Design?",
+      title: "Why Choose Building Innovation?",
       subtitle: "Excellence in Every Detail",
       features: {
         waterproof: {
@@ -256,10 +265,10 @@ export const translations = {
     
     // Meta
     meta: {
-      siteName: "Unitec USA Design",
+      siteName: "Building Innovation",
       siteTitle: "Premium Architectural Materials Miami | Wholesale PVC, WPC, SPC",
       siteDescription: "Premium Miami-based supplier of PVC, WPC, and SPC architectural materials at wholesale prices. Specialized in container-based bulk export to Latin America and the Caribbean.",
-      keywords: "wholesale construction materials Miami, PVC panels bulk, WPC decking export, SPC flooring distributor, architectural solutions LATAM, bulk building materials Miami"
+      keywords: "Wholesale SPC flooring distributors Miami, Exportadores de paneles WPC Florida, wholesale construction materials Miami, PVC panels bulk, WPC decking export, SPC flooring distributor"
     },
     
     // Language Switcher
@@ -282,7 +291,6 @@ export const translations = {
       institutional: "Institucional",
       about: "Nosotros",
       contact: "Contacto",
-      blog: "Blog",
       faq: "Preguntas Frecuentes",
       cart: "Carrito",
       search: "Buscar productos...",
@@ -291,7 +299,17 @@ export const translations = {
       ourMission: "Nuestra Misión",
       ourVision: "Nuestra Visión",
       qualityCommitment: "Comprometidos con la Calidad",
-      businessModels: "Modalidades de Negociaciones",
+      businessModels: "Modalidades de Negocio",
+      containerConfigurator: "Configurador de Contenedor",
+    },
+    // Search
+    search: {
+      products: "Productos",
+      resultsFor: "Resultados para",
+      noResults: "No se encontraron productos para",
+      placeholder: "Busca materiales PVC, WPC, SPC y más...",
+      quickFilters: "Filtros rápidos:",
+      searchBtn: "Buscar"
     },
     
     // Hero Section
@@ -310,7 +328,7 @@ export const translations = {
     
     // Why Choose Us
     whyUs: {
-      title: "¿Por Qué Elegir UNITEC USA Design?",
+      title: "¿Por Qué Elegir Building Innovation?",
       subtitle: "Excelencia en Cada Detalle",
       features: {
         waterproof: {
@@ -510,7 +528,7 @@ export const translations = {
           ourMission: "Nuestra Misión",
           ourVision: "Nuestra Visión",
           quality: "Comprometidos con la Calidad",
-          business: "Modalidades de Negociaciones",
+          business: "Modelos de Negocio",
           supports: "Soporte",
           faqs: "Preguntas Frecuentes",
           search: "Buscar Productos",
@@ -528,10 +546,10 @@ export const translations = {
     
     // Meta
     meta: {
-      siteName: "Unitec USA Design",
+      siteName: "Building Innovation",
       siteTitle: "Materiales Arquitectónicos Premium Miami | Mayorista PVC, WPC, SPC",
       siteDescription: "Proveedor premium en Miami de materiales arquitectónicos PVC, WPC y SPC a precios de mayorista. Especialistas en exportación masiva por contenedor a Latinoamérica y el Caribe.",
-      keywords: "mayorista materiales construcción Miami, paneles PVC al por mayor, exportación WPC decking, distribuidor pisos SPC, soluciones arquitectónicas LATAM, materiales construcción Miami"
+      keywords: "mayorista construcción Miami, materiales construcción importación, paneles PVC al por mayor, decking WPC Miami, pisos SPC exportación, materiales construcción sostenibles"
     },
     
     // Language Switcher

@@ -15,9 +15,8 @@ export default function LanguageSwitcher({ currentLang }) {
   const router = useRouter();
 
   const switchLanguage = (newLang) => {
-    // Replace current locale in pathname with new locale
-    const newPathname = pathname.replace(`/${currentLang}`, `/${newLang}`);
-    router.push(newPathname);
+    document.cookie = `NEXT_LOCALE=${newLang}; path=/; max-age=31536000`;
+    router.refresh();
     setIsOpen(false);
   };
 

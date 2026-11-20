@@ -1,4 +1,4 @@
-# 🏗️ Business Owner’s Operational Manual: Unitec USA Design
+# 🏗️ Business Owner’s Operational Manual: Building Innovation
 
 Welcome to your new digital logistics and export platform. This document serves as your master guide for managing the content, logistics, and technical infrastructure of your website.
 
@@ -6,8 +6,8 @@ Welcome to your new digital logistics and export platform. This document serves 
 
 ## 1. Project Ownership & Governance
 Your website is built using **Next.js** and is structured as a **Proprietary Logistics Engine**.
-*   **Source Code Repository:** [GitHub - UnitecUsa-Website](https://github.com/Pablodd1/UnitecUsa-Website)
-*   **Live Production URL:** [https://unitecusadesign.com](https://unitecusadesign.com)
+*   **Source Code Repository:** [GitHub - Binnovation-Web](https://github.com/Pablodd1/Binnovation-Web)
+*   **Live Production URL:** [https://buildinginnovation.us](https://buildinginnovation.us)
 *   **Hosting Platform:** Vercel (recommended for real-time updates).
 
 ---
@@ -59,7 +59,7 @@ The blog is your primary tool for "Topical Authority." AI engines (ChatGPT/Perpl
 
 ## 6. AI Search Optimization (GEO)
 We have implemented **Advanced JSON-LD Schema**. This is "invisible code" that tells AI bots:
-1.  **Who you are:** Unitec USA Design (Wholesale entity).
+1.  **Who you are:** Building Innovation (Parent entity).
 2.  **Where you are:** Doral, Miami, FL.
 3.  **What you do:** Bulk export of PVC/WPC materials.
 
@@ -71,7 +71,7 @@ We have implemented **Advanced JSON-LD Schema**. This is "invisible code" that t
 Before the final handover, ensure you have access to:
 - [ ] **GitHub Account:** Admin access to the repository.
 - [ ] **Vercel Account:** Owner of the deployment project.
-- [ ] **Domain Registrar:** Access to DNS settings for `unitecusadesign.com`.
+- [ ] **Domain Registrar:** Access to DNS settings for `buildinginnovation.us`.
 - [ ] **Google Search Console:** Verification for the domain.
 
 ---

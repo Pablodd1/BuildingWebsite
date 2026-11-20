@@ -6,8 +6,8 @@ import Head from "next/head"
  * Pass title, description, url, image, canonical as needed.
  */
 export default function SeoHead({
-  title = "Unitec USA Design – Innovative Logistics",
-  description = "Premium container visualization and logistics platform.",
+  title = "Building Innovation – Materiales de Construcción Premium Miami",
+  description = "Proveedor mayorista de materiales arquitectónicos premium desde Miami. Soluciones de PVC, WPC y SPC por contenedor.",
   url,
   image,
   canonical,

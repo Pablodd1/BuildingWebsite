@@ -1,289 +1,293 @@
-"use client";
+'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Library, Menu, X, FileText, ChevronDown, ChevronRight, Home } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { CartButton } from './cartBtn';
-import SearchFrom from './search';
-import Logo from 'My_UI/logo';
-import LanguageToggle from './LanguageToggle';
-import { useLanguage } from 'lib/LanguageContext';
-import MegaMenu from './MegaMenu';
-import CatalogDropdown from './CatalogDropdown';
-import { getCatalogsByLanguage } from 'utils/catalogsData';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { ChevronDown, Menu, X, ArrowUpRight, MessageCircle } from 'lucide-react';
+import { useLanguage } from '../../utils/LanguageContext';
+import { siteSettings } from '../../utils/siteSettings';
 
-const navItems = [
-    { label: 'Home', id: 'home', href: '/', icon: <Logo size={100} className={'h-10 sm:h-12 md:h-14 w-auto brightness-0 invert object-contain min-w-[125px] md:min-w-[150px]'} />, onlyIcon: true },
-    {
-        label: 'Products List',
-        id: 'productList',
-        icon: <Library className=' text-inherit h-5' />,
-        href: '/colecciones',
-        megaMenu: true
-    },
-    {
-        label: 'Catalogs',
-        id: 'catalogs',
-        icon: <FileText className=' text-inherit h-5' />,
-        href: '#',
-        catalogDropdown: true
-    },
-    {
-        label: 'Institutional',
-        id: 'institutional',
-        href: '/nosotros',
-        submenu: [
-            { label: 'whoWeAre', title: 'Sobre Nosotros', href: '/nosotros' },
-            { label: 'ourHistory', title: 'Nuestra Historia', href: '/nosotros/historia' },
-        ]
-    },
-    { label: 'Contact', id: 'contact', href: '/contacto' },
-    { label: 'Blog', id: 'blog', href: '/blog' }
-];
+export default function NavBar() {
+  const { language, switchLanguage, bi } = useLanguage();
+  const pathname = usePathname();
+  const [dropOpen, setDropOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const dropRef = useRef(null);
 
+  useEffect(() => {
+    setDropOpen(false);
+    setMobileOpen(false);
+  }, [pathname]);
 
-const NavBar = ({ searchParams }) => {
-    const { t, language } = useLanguage();
-    const isSpanish = language === 'es';
-    const q = searchParams?.q;
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [mobileCatalogsOpen, setMobileCatalogsOpen] = useState(false);
-    const activeCatalogs = getCatalogsByLanguage(isSpanish ? 'Español' : 'English');
-
-    const handleContactClick = () => {
-        import('lib/analytics').then(({ trackContactClick }) => trackContactClick());
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropRef.current && !dropRef.current.contains(e.target)) {
+        setDropOpen(false);
+      }
     };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-    return (
-        <header className="sticky top-0 z-30 bg-slate-900/95 shadow-accent2 border-b border-slate-800 shadow-md backdrop-blur-md text-white pr-8 pl-5 py-2.5">
-            <div className="max-w-[1400px] mx-auto flex items-center justify-between relative">
+  const isActive = (href) => {
+    if (href === '/') return pathname === '/';
+    return pathname?.startsWith(href);
+  };
 
-                {/* Mobile Menu Button + Mobile Brand Logo */}
-                <div className="flex items-center gap-3 lg:hidden">
-                    <button
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="p-2 hover:bg-white/10 rounded-lg transition-colors text-white"
-                        aria-label="Toggle mobile menu"
-                    >
-                        {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                    </button>
-                    <Link href="/" onClick={() => setMobileMenuOpen(false)} aria-label="Home">
-                        <Logo size={90} className="h-9 w-auto brightness-0 invert object-contain" />
-                    </Link>
-                </div>
+  return (
+    <header className="sticky top-0 z-50 h-[82px] bg-white/95 backdrop-blur-md border-b border-black/10">
+      <div className="bi-wrap h-full flex items-center justify-between gap-4">
+        {/* Left: Brand Lockup */}
+        <Link
+          href="/"
+          className="flex items-center gap-3 shrink-0 group"
+          aria-label="Building Innovation Home"
+        >
+          <div className="w-10 h-10 flex items-center justify-center shrink-0">
+            <Image
+              src="/logo.png"
+              alt="Building Innovation"
+              width={40}
+              height={40}
+              priority
+              className="w-10 h-10 object-contain"
+            />
+          </div>
+          <div className="leading-none">
+            <span className="block font-heading font-extrabold text-[17px] tracking-[-0.04em] text-[#17242e]">
+              BUILDING INNOVATION
+            </span>
+            <small className="block text-[9px] tracking-[0.2em] text-[#66737c] font-bold uppercase mt-0.5">
+              WE DESIGN THE FUTURE
+            </small>
+          </div>
+        </Link>
 
-                {/* Navigation Links - Desktop */}
-                <nav className="items-center hidden lg:flex">
-                    {navItems.map((item, index) => (
-                        <motion.div
-                            key={item.id}
-                            className={`relative group mx-5 first-of-type:mx-0`}
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            {item.catalogDropdown ? (
-                                <button
-                                    aria-label="Catalogs"
-                                    className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer text-slate-100 hover:text-primary"
-                                >
-                                    {
-                                        item.icon ?
-                                            <span className={`lg:inline-flex ${index > 1 ? "hidden" : "inline-flex"}`} >{item.icon}</span>
-                                            : null
-                                    }
-                                    <span className={`lg:block ${index > 1 ? "hidden" : ""}`}> {t(`nav.${item.id}`)}</span>
-                                </button>
-                            ) : (
-                                <Link
-                                    href={item.href}
-                                    onClick={item.id === 'contact' ? handleContactClick : undefined}
-                                    aria-label={`Go To ${item.href}`}
-                                    className="text-sm uppercase tracking-widest font-semibold flex items-center transition-all whitespace-nowrap cursor-pointer text-slate-100 hover:text-primary"
-                                >
-                                    {
-                                        item.onlyIcon
-                                            ? item.icon
-                                            :
-                                            <>
-                                                {
-                                                    item.icon ?
-                                                        <span className={`lg:inline-flex ${index > 1 ? "hidden" : "inline-flex"}`} >{item.icon}</span>
-                                                        : null
-                                                }
-                                                <span className={`lg:block ${index > 1 ? "hidden" : ""}`}> {t(`nav.${item.id}`)}</span>
-                                            </>
-                                    }
-                                </Link>
-                            )}
+        {/* Center: Desktop Nav */}
+        <nav className="hidden lg:flex items-center gap-7 text-[14px] font-semibold text-[#17242e]">
+          <Link
+            href="/"
+            className={`transition-colors hover:text-[#d68a50] ${
+              isActive('/') ? 'text-[#d68a50]' : ''
+            }`}
+          >
+            {bi.nav.home}
+          </Link>
 
-                            {/* Dropdown Menu */}
-                            {item.submenu && (
-                                <div className="absolute left-5 top-full pt-2 w-max opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
-                                    <div className="bg-slate-900/95 backdrop-blur-sm shadow-lg rounded-md border border-slate-800 overflow-hidden flex flex-col min-w-[200px]">
-                                        {item.submenu.map((subItem) => (
-                                            <Link
-                                                key={subItem.href}
-                                                href={subItem.href}
-                                                className="px-4 py-3 text-sm hover:bg-slate-800 transition-colors border-b last:border-0 border-slate-800 text-slate-300 hover:text-white"
-                                            >
-                                                {t(`nav.${subItem.label}`)}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Mega Menu */}
-                            {item.megaMenu && <MegaMenu />}
-
-                            {/* Catalog Dropdown */}
-                            {item.catalogDropdown && <CatalogDropdown />}
-                        </motion.div>
-                    ))}
-                </nav>
-
-                {/* Actions Area */}
-                <div className="flex items-center gap-2 flex-1 justify-end ml-2 md:ml-12">
-
-                    {/* Search Bar */}
-                    <div className="hidden sm:block">
-                        <SearchFrom query={q} />
-                    </div>
-
-                    {/* Icons */}
-                    <div className="flex items-center gap-1">
-                        <CartButton />
-                        <LanguageToggle />
-                    </div>
-                </div>
+          {/* Dropdown Unidades de negocio */}
+          <div
+            ref={dropRef}
+            className="relative"
+            onMouseEnter={() => setDropOpen(true)}
+            onMouseLeave={() => setDropOpen(false)}
+          >
+            <div className="flex items-center gap-1">
+              <Link
+                href="/unidades"
+                className={`inline-flex items-center gap-1 py-2 transition-colors hover:text-[#d68a50] ${
+                  isActive('/unidades') || isActive('/catalogo') ? 'text-[#d68a50]' : ''
+                }`}
+              >
+                {bi.nav.units}
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    dropOpen ? 'rotate-180' : ''
+                  }`}
+                />
+              </Link>
             </div>
 
-            {/* Mobile Menu */}
-            <AnimatePresence>
-                {mobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="lg:hidden absolute top-full left-0 right-0 bg-white text-slate-900 shadow-2xl border-b border-gray-200 py-5 px-6 max-h-[85vh] overflow-y-auto z-50"
+            {dropOpen && (
+              <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[470px] z-50">
+                <div className="bg-white rounded-[20px] shadow-[0_22px_55px_rgba(16,36,50,0.14)] border border-[#e5e7e5] p-3.5 grid grid-cols-2 gap-3">
+                  {/* Card 1: Building Innovation + direct catalog link */}
+                  <div className="rounded-[14px] bg-[#f4f1eb]/75 hover:bg-[#f4f1eb] p-3 transition-colors flex flex-col justify-between border border-transparent hover:border-[#d68a50]/40">
+                    <Link href="/unidades/building-innovation" className="block group">
+                      <div className="relative h-24 w-full rounded-[10px] overflow-hidden mb-2.5 bg-[#142d3d]">
+                        <Image
+                          src="/raster/interior.webp"
+                          alt={bi.nav.biCardTitle}
+                          fill
+                          sizes="210px"
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <span className="block font-heading font-extrabold text-[15px] text-[#17242e] group-hover:text-[#d68a50]">
+                        {bi.nav.biCardTitle}
+                      </span>
+                      <span className="block text-[12px] text-[#66737c] leading-snug mt-0.5 font-normal">
+                        {bi.nav.biCardDesc}
+                      </span>
+                    </Link>
+                    <Link
+                      href="/catalogo"
+                      className="mt-2.5 inline-flex items-center gap-1 text-[12px] font-bold text-[#245b77] hover:text-[#d68a50] transition-colors pt-2 border-t border-black/10"
                     >
-                        <nav className="flex flex-col divide-y divide-gray-100">
-                            {navItems.map((item, index) => (
-                                <motion.div
-                                    key={item.id}
-                                    initial={{ opacity: 0, x: -15 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: index * 0.05 }}
-                                    className="py-2.5 first:pt-0 last:pb-0"
-                                >
-                                    {item.catalogDropdown ? (
-                                        <div>
-                                            <button
-                                                onClick={() => setMobileCatalogsOpen(!mobileCatalogsOpen)}
-                                                className="text-sm uppercase tracking-widest font-bold text-slate-900 hover:text-emerald-700 flex items-center justify-between py-2 transition-colors w-full text-left"
-                                            >
-                                                <span className="flex items-center">
-                                                    <FileText className="w-4 h-4 mr-2.5 text-emerald-700" />
-                                                    {t(`nav.${item.id}`)}
-                                                </span>
-                                                <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${mobileCatalogsOpen ? 'rotate-180' : ''}`} />
-                                            </button>
-                                            <AnimatePresence>
-                                                {mobileCatalogsOpen && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, height: 0 }}
-                                                        animate={{ opacity: 1, height: "auto" }}
-                                                        exit={{ opacity: 0, height: 0 }}
-                                                        className="pl-6 mt-1 space-y-2 overflow-hidden pb-2"
-                                                    >
-                                                        {activeCatalogs.map((cat) => (
-                                                            <a
-                                                                key={cat.id}
-                                                                href={cat.url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                onClick={() => setMobileMenuOpen(false)}
-                                                                className="flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-emerald-700 py-1.5"
-                                                            >
-                                                                <ChevronRight className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                                                                <span>{cat.name}</span>
-                                                            </a>
-                                                        ))}
-                                                    </motion.div>
-                                                )}
-                                            </AnimatePresence>
-                                        </div>
-                                    ) : (
-                                        <Link
-                                            href={item.href}
-                                            onClick={() => {
-                                                setMobileMenuOpen(false);
-                                                if (item.id === 'contact') handleContactClick();
-                                            }}
-                                            className="text-sm uppercase tracking-widest font-bold text-slate-900 hover:text-emerald-700 flex items-center py-2 transition-colors"
-                                        >
-                                            {item.id === 'home' ? (
-                                                <Home className="w-4 h-4 mr-2.5 text-emerald-700" />
-                                            ) : item.icon ? (
-                                                <span className="mr-2.5 text-emerald-700">{item.icon}</span>
-                                            ) : null}
-                                            {t(`nav.${item.id}`)}
-                                        </Link>
-                                    )}
+                      <span>{bi.nav.biCatalogLink}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
 
-                                    {/* Submenu items (e.g. Sobre Nosotros / Nuestra Historia) */}
-                                    {item.submenu && (
-                                        <div className="pl-6 mt-1 space-y-1.5 border-l-2 border-slate-100 ml-2">
-                                            {item.submenu.map((subItem) => (
-                                                <Link
-                                                    key={subItem.href}
-                                                    href={subItem.href}
-                                                    onClick={() => setMobileMenuOpen(false)}
-                                                    className="block text-sm font-medium text-slate-600 hover:text-slate-900 py-1.5 transition-colors"
-                                                >
-                                                    {t(`nav.${subItem.label}`)}
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    )}
+                  {/* Card 2: Building Tech */}
+                  <Link
+                    href="/unidades/building-tech"
+                    className="rounded-[14px] bg-[#f4f1eb]/75 hover:bg-[#f4f1eb] p-3 transition-colors flex flex-col group border border-transparent hover:border-[#d68a50]/40"
+                  >
+                    <div className="relative h-24 w-full rounded-[10px] overflow-hidden mb-2.5 bg-[#142d3d]">
+                      <Image
+                        src="/raster/blog/inteligencia-artificial-construccion-remodelacion-portada-unitec.webp"
+                        alt={bi.nav.techCardTitle}
+                        fill
+                        sizes="210px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <span className="block font-heading font-extrabold text-[15px] text-[#17242e] group-hover:text-[#d68a50]">
+                      {bi.nav.techCardTitle}
+                    </span>
+                    <span className="block text-[12px] text-[#66737c] leading-snug mt-0.5 font-normal">
+                      {bi.nav.techCardDesc}
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
 
-                                    {/* Quick Interior / Exterior links under Products List on mobile */}
-                                    {item.megaMenu && (
-                                        <div className="pl-6 mt-1 space-y-1.5 border-l-2 border-slate-100 ml-2">
-                                            <Link
-                                                href="/colecciones/interior?collection=interior"
-                                                onClick={() => setMobileMenuOpen(false)}
-                                                className="block text-sm font-medium text-slate-600 hover:text-slate-900 py-1.5 transition-colors"
-                                            >
-                                                {isSpanish ? 'Colección Interior' : 'Interior Collection'}
-                                            </Link>
-                                            <Link
-                                                href="/colecciones/exterior?collection=exterior"
-                                                onClick={() => setMobileMenuOpen(false)}
-                                                className="block text-sm font-medium text-slate-600 hover:text-slate-900 py-1.5 transition-colors"
-                                            >
-                                                {isSpanish ? 'Colección Exterior' : 'Exterior Collection'}
-                                            </Link>
-                                        </div>
-                                    )}
-                                </motion.div>
-                            ))}
-                        </nav>
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="mt-4 pt-4 border-t border-gray-200 sm:hidden text-slate-900"
-                        >
-                            <SearchFrom query={q} />
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </header>
-    );
-};
+          <Link
+            href="/blog"
+            className={`transition-colors hover:text-[#d68a50] ${
+              isActive('/blog') ? 'text-[#d68a50]' : ''
+            }`}
+          >
+            {bi.nav.blog}
+          </Link>
 
-export default NavBar;
+          <Link
+            href="/contacto"
+            className={`transition-colors hover:text-[#d68a50] ${
+              isActive('/contacto') ? 'text-[#d68a50]' : ''
+            }`}
+          >
+            {bi.nav.contact}
+          </Link>
+        </nav>
+
+        {/* Right: Language Toggle + CTA */}
+        <div className="hidden lg:flex items-center gap-4 shrink-0">
+          <div
+            role="group"
+            aria-label="Language switcher"
+            className="inline-flex items-center rounded-full border border-[#e5e7e5] bg-[#f4f1eb]/60 p-0.5 text-[12px] font-bold"
+          >
+            <button
+              type="button"
+              onClick={() => switchLanguage('en')}
+              className={`px-2.5 py-1 rounded-full transition-colors cursor-pointer ${
+                language === 'en'
+                  ? 'bg-[#142d3d] text-white'
+                  : 'text-[#66737c] hover:text-[#17242e]'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => switchLanguage('es')}
+              className={`px-2.5 py-1 rounded-full transition-colors cursor-pointer ${
+                language === 'es'
+                  ? 'bg-[#142d3d] text-white'
+                  : 'text-[#66737c] hover:text-[#17242e]'
+              }`}
+            >
+              ES
+            </button>
+          </div>
+
+          <a
+            href={siteSettings.whatsapp_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#d68a50] hover:bg-[#c27941] text-white text-[13px] font-bold transition-all hover:-translate-y-0.5 shadow-sm"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>{bi.nav.talkAdvisor}</span>
+          </a>
+        </div>
+
+        {/* Mobile Actions */}
+        <div className="flex lg:hidden items-center gap-2">
+          <div className="inline-flex items-center rounded-full border border-[#e5e7e5] bg-[#f4f1eb]/60 p-0.5 text-[11px] font-bold">
+            <button
+              type="button"
+              onClick={() => switchLanguage('en')}
+              className={`px-2 py-1 rounded-full ${
+                language === 'en' ? 'bg-[#142d3d] text-white' : 'text-[#66737c]'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => switchLanguage('es')}
+              className={`px-2 py-1 rounded-full ${
+                language === 'es' ? 'bg-[#142d3d] text-white' : 'text-[#66737c]'
+              }`}
+            >
+              ES
+            </button>
+          </div>
+          <button
+            type="button"
+            onClick={() => setMobileOpen((prev) => !prev)}
+            className="p-2 rounded-xl border border-[#e5e7e5] text-[#17242e]"
+            aria-label={mobileOpen ? bi.nav.menuClose : bi.nav.menuOpen}
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-white border-b border-[#e5e7e5] shadow-xl px-5 py-5 space-y-4">
+          <nav className="flex flex-col space-y-3 text-[15px] font-semibold text-[#17242e]">
+            <Link href="/" className="py-1" onClick={() => setMobileOpen(false)}>
+              {bi.nav.home}
+            </Link>
+            <Link href="/unidades" className="py-1" onClick={() => setMobileOpen(false)}>
+              {bi.nav.units}
+            </Link>
+            <div className="pl-4 flex flex-col space-y-2 border-l-2 border-[#d68a50]/40 text-[14px] font-medium">
+              <Link href="/unidades/building-innovation" onClick={() => setMobileOpen(false)}>
+                {bi.nav.biCardTitle}
+              </Link>
+              <Link href="/catalogo" className="text-[#245b77] font-bold" onClick={() => setMobileOpen(false)}>
+                → {bi.nav.biCatalogLink}
+              </Link>
+              <Link href="/unidades/building-tech" onClick={() => setMobileOpen(false)}>
+                {bi.nav.techCardTitle}
+              </Link>
+            </div>
+            <Link href="/blog" className="py-1" onClick={() => setMobileOpen(false)}>
+              {bi.nav.blog}
+            </Link>
+            <Link href="/contacto" className="py-1" onClick={() => setMobileOpen(false)}>
+              {bi.nav.contact}
+            </Link>
+          </nav>
+          <a
+            href={siteSettings.whatsapp_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#d68a50] text-white text-[14px] font-bold"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>{bi.nav.talkAdvisor}</span>
+          </a>
+        </div>
+      )}
+    </header>
+  );
+}

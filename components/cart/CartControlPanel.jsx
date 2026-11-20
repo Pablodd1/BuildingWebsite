@@ -115,7 +115,7 @@ const CartControlPanel = ({
                 </AnimatePresence>
 
                 {/* Quick Add Placeholder */}
-                <Link href="/colecciones" className="flex flex-col items-center justify-center gap-3 p-8 border-2 border-dashed border-gray-100 rounded-[2rem] text-gray-400 hover:text-blue-600 hover:border-blue-100 hover:bg-blue-50/30 transition-all group">
+                <Link href="/collections" className="flex flex-col items-center justify-center gap-3 p-8 border-2 border-dashed border-gray-100 rounded-[2rem] text-gray-400 hover:text-blue-600 hover:border-blue-100 hover:bg-blue-50/30 transition-all group">
                      <div className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:scale-110 group-hover:bg-white transition-all">
                         <Plus size={20} />
                      </div>
@@ -172,7 +172,7 @@ const CartControlPanel = ({
                 </div>
 
                 <Link 
-                    href={isFull ? "/pagar" : "#"}
+                    href={isFull ? "/checkout" : "#"}
                     onClick={(e) => { if (!isFull) e.preventDefault() }}
                     className={`w-full flex items-center justify-center gap-3 py-5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] transition-all relative overflow-hidden group ${isFull ? 'bg-white text-black hover:bg-blue-500 hover:text-white shadow-[0_20px_40px_rgba(0,0,0,0.3)] active:scale-95' : 'bg-white/5 text-white/20 cursor-not-allowed'}`}
                 >

@@ -13,7 +13,7 @@ import {
 import ThreeCartEngine from "components/cart/ThreeCartEngine"
 import { Box, Trash2, Plus, Minus, Info, ChevronLeft, LayoutPanelLeft, FileSpreadsheet } from "lucide-react"
 import Link from "next/link"
-import productsData from "static_data/products_full.json"
+import productsData from "StaticData/products_full.json"
 
 export default function LogisticsLab() {
   const [cart, setCart] = useState(null)
@@ -40,7 +40,7 @@ export default function LogisticsLab() {
           <LayoutPanelLeft className="w-16 h-16 mx-auto text-blue-500 opacity-50" />
           <h1 className="text-2xl font-bold tracking-widest uppercase">Logistics Lab Offline</h1>
           <p className="text-gray-500">Please select a container in the shop to initialize simulation.</p>
-          <Link href="/colecciones" className="inline-block bg-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-500 transition-all">
+          <Link href="/collections" className="inline-block bg-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-500 transition-all">
             Enter Catalog
           </Link>
         </div>
@@ -149,7 +149,7 @@ export default function LogisticsLab() {
 
         <footer className="p-8 border-t border-white/5 bg-black/20">
           <Link 
-            href="/pagar"
+            href="/checkout"
             className="w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-2xl font-black italic uppercase tracking-tighter transition-all shadow-lg shadow-blue-900/20 active:scale-95"
           >
             Finalize Logistics

@@ -147,7 +147,7 @@ export default function ContainerVideoModal({ open, onClose }) {
           <div className="p-8 bg-white border-t border-slate-200 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
              <button 
                 onClick={() => {
-                  window.location.href = '/pagar'
+                  window.location.href = '/checkout'
                 }}
                 disabled={stats.percent < 99}
                 className={`w-full py-4 rounded-xl font-black uppercase tracking-widest transition-all ${stats.percent >= 99 ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg" : "bg-slate-100 text-slate-400 cursor-not-allowed"}`}

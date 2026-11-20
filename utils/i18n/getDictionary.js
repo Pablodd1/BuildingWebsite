@@ -5,4 +5,4 @@ export function getDictionary(lang) {
 }
 
 export const locales = ['en', 'es'];
-export const defaultLocale = 'en';
+export const defaultLocale = 'es';

@@ -1,4 +1,4 @@
-# UNITEC USA Design Website
+# BINW - Building Innovation Website
 # Complete Deployment & Improvement Guide
 
 ## 🎯 What's Been Implemented

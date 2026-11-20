@@ -4,9 +4,18 @@ import { motion, AnimatePresence } from "framer-motion"
 import { openCart } from "lib/cart/cart.ui"
 import { useCartTotal } from "lib/cart/useCartTotals"
 import { ShoppingCart } from "lucide-react"
+import { useState, useEffect } from "react"
 
 export function CartButton() {
-    const cartCount = useCartTotal()
+    const cartCountRaw = useCartTotal()
+    const [mounted, setMounted] = useState(false)
+    
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+    
+    const cartCount = mounted ? cartCountRaw : 0;
+
     return (
         <motion.button
             onClick={openCart}
@@ -14,6 +23,7 @@ export function CartButton() {
             className="px-2 hover:bg-white/5 rounded-full transition-all relative group cursor-pointer"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            suppressHydrationWarning
         >
             <motion.div
                 animate={cartCount > 0 ? {
@@ -21,8 +31,9 @@ export function CartButton() {
                     rotate: [0, -10, 10, 0]
                 } : {}}
                 transition={{ duration: 0.5 }}
+                suppressHydrationWarning
             >
-                <ShoppingCart fill={cartCount > 0 ? "#ca3500bf" : 'none'} className={`w-fit h-full ${cartCount > 0 ? 'text-orange-700/75' : 'text-inherit'}`} />
+                <ShoppingCart suppressHydrationWarning fill={cartCount > 0 ? "#ca3500bf" : 'none'} className={`w-fit h-full ${cartCount > 0 ? 'text-orange-700/75' : 'text-inherit'}`} />
             </motion.div>
             <AnimatePresence>
                 {cartCount > 0 && (

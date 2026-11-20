@@ -1,211 +1,199 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { Mail, Phone, MapPin, MessageCircle, Globe } from "lucide-react";
-import { useLanguage } from "lib/LanguageContext";
-import { useBrand } from "lib/BrandContext";
-import siteSettings, { getMiamiAddressFormatted, getWhatsAppUrl, getTelUrl, getMailtoUrl } from "lib/siteSettings";
+import Link from 'next/link';
+import Image from 'next/image';
+import { Facebook, Instagram, MapPin, Phone, Mail, ArrowUpRight } from 'lucide-react';
+import { useLanguage } from '../../utils/LanguageContext';
+import { siteSettings } from '../../utils/siteSettings';
+
+const TikTokIcon = ({ className = 'w-4 h-4' }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+  </svg>
+);
 
 export default function Footer() {
-    const { t, getCompanyText, language } = useLanguage();
-    const { activeBrand, brand } = useBrand();
-    const isSpanish = language === "es";
+  const { bi } = useLanguage();
 
-    const miamiAddress = getMiamiAddressFormatted();
-    const medellinAddress = siteSettings.medellin_showroom_address;
-    const whatsappHref = getWhatsAppUrl();
-    const telHref = getTelUrl();
-    const mailtoHref = getMailtoUrl();
+  return (
+    <footer className="bg-[#101f29] text-white pt-16 pb-10">
+      <div className="bi-wrap">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.2fr] gap-10 pb-12 border-b border-white/15">
+          {/* Column 1: Brand + Tagline */}
+          <div>
+            <Link href="/" className="inline-flex items-center gap-3 mb-4">
+              <Image
+                src="/logo.png"
+                alt="Building Innovation"
+                width={42}
+                height={42}
+                className="w-10 h-10 object-contain brightness-0 invert"
+              />
+              <div className="leading-none">
+                <span className="block font-heading font-extrabold text-[17px] tracking-[-0.04em] text-white">
+                  BUILDING INNOVATION
+                </span>
+                <small className="block text-[9px] tracking-[0.2em] text-[#d4dce1] font-bold uppercase mt-1">
+                  WE DESIGN THE FUTURE
+                </small>
+              </div>
+            </Link>
+            <p className="text-[#d4dce1] font-semibold text-sm mb-2">
+              {bi.footer.tagline}
+            </p>
+            <p className="text-[#9cb0bc] text-sm leading-relaxed max-w-sm">
+              {bi.footer.subtitle}
+            </p>
+          </div>
 
-    const linkGroups = [
-        {
-            title: t("footer.information.title"),
-            links: [
-                { label: t("footer.information.links.productList"), href: "/colecciones" },
-                { label: t("footer.information.links.exteriors"), href: "/colecciones/exterior" },
-                { label: t("footer.information.links.interiors"), href: "/colecciones/interior" },
-                { label: t("footer.information.links.sales"), href: "/colecciones/sales" }
-            ],
-        },
-        {
-            title: t("footer.helpful.title"),
-            links: [
-                { label: t("footer.helpful.links.about"), href: "/nosotros" },
-                { label: isSpanish ? "Nuestra Historia" : "Our History", href: "/nosotros/historia" },
-                { label: isSpanish ? "Países que Atendemos" : "Countries Served", href: "/paises" },
-                { label: isSpanish ? "Guías de Importación y Precios" : "Import & Pricing Guides", href: "/guias" },
-                { label: t("footer.helpful.links.business"), href: "/nosotros/business-models" },
-                { label: t("footer.helpful.links.supports"), href: "/contacto" },
-                { label: t("footer.helpful.links.faqs"), href: "/preguntas-frecuentes" },
-                { label: t("footer.helpful.links.search"), href: "/colecciones/search" },
-                { label: t("footer.helpful.links.terms"), href: "/terminos" },
-                { label: t("footer.helpful.links.privacy"), href: "/politicas" },
-            ],
-        },
-    ];
+          {/* Column 2: 4 Core Pages */}
+          <div>
+            <h3 className="font-heading text-sm uppercase tracking-[0.16em] text-[#d68a50] font-bold mb-4">
+              {bi.footer.exploreTitle}
+            </h3>
+            <ul className="space-y-2.5 text-sm text-[#d4dce1]">
+              <li>
+                <Link href="/" className="hover:text-white transition-colors">
+                  {bi.nav.home}
+                </Link>
+              </li>
+              <li>
+                <Link href="/unidades" className="hover:text-white transition-colors">
+                  {bi.nav.units}
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-white transition-colors">
+                  {bi.nav.blog}
+                </Link>
+              </li>
+              <li>
+                <Link href="/contacto" className="hover:text-white transition-colors">
+                  {bi.nav.contact}
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-    return (
-        <footer className="bg-gradient-to-b from-slate-900 to-slate-950 text-white border-t border-slate-800 relative">
-            <div className="mx-auto max-w-7xl px-6 py-16">
-                <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          {/* Column 3: Units & Catalog */}
+          <div>
+            <h3 className="font-heading text-sm uppercase tracking-[0.16em] text-[#d68a50] font-bold mb-4">
+              {bi.footer.unitsTitle}
+            </h3>
+            <ul className="space-y-2.5 text-sm text-[#d4dce1]">
+              <li>
+                <Link href="/unidades/building-innovation" className="hover:text-white transition-colors">
+                  Building Innovation
+                </Link>
+              </li>
+              <li>
+                <Link href="/catalogo" className="hover:text-white transition-colors">
+                  {bi.nav.biCatalogLink}
+                </Link>
+              </li>
+              <li>
+                <Link href="/unidades/building-tech" className="hover:text-white transition-colors">
+                  Building Tech
+                </Link>
+              </li>
+              <li>
+                <Link href="/policies" className="hover:text-white transition-colors">
+                  {bi.footer.privacy}
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-white transition-colors">
+                  {bi.footer.terms}
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-                    {/* Brand & Mission */}
-                    <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
-                        <div className="space-y-4">
-                            <Link href="/" className="inline-block">
-                                <Image
-                                    src={brand.logoImage}
-                                    alt={`${siteSettings.brand_name} Logo`}
-                                    width={220}
-                                    height={75}
-                                    className="h-16 w-auto brightness-0 invert object-contain"
-                                />
-                            </Link>
-                            <p className="text-slate-200 leading-relaxed max-w-sm text-sm">
-                                {getCompanyText(activeBrand, "description")}
-                            </p>
-                            {(siteSettings.nit || siteSettings.us_ein) && (
-                                <div className="text-xs text-slate-400 space-y-1 pt-1">
-                                    {siteSettings.nit && <p>NIT: {siteSettings.nit}</p>}
-                                    {siteSettings.us_ein && <p>US EIN: {siteSettings.us_ein}</p>}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Social Media Links */}
-                        <div>
-                            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-3">
-                                {t("footer.followUs") || "Follow Us"}
-                            </h3>
-                            <div className="flex gap-4">
-                                {siteSettings.social?.instagram && (
-                                    <a href={siteSettings.social.instagram} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-primary transition-colors text-xs">
-                                        Instagram
-                                    </a>
-                                )}
-                                {siteSettings.social?.facebook && (
-                                    <a href={siteSettings.social.facebook} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-primary transition-colors text-xs">
-                                        Facebook
-                                    </a>
-                                )}
-                                {siteSettings.social?.tiktok && (
-                                    <a href={siteSettings.social.tiktok} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-primary transition-colors text-xs">
-                                        TikTok
-                                    </a>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Links Grid */}
-                    <div className="lg:col-span-7 grid grid-cols-1 gap-8 sm:grid-cols-3">
-                        {linkGroups.map((group, idx) => (
-                            <div key={idx}>
-                                <h2 className="text-sm font-bold uppercase tracking-wider text-white mb-6 border-b border-primary/30 pb-2 inline-block">
-                                    {group.title}
-                                </h2>
-                                <ul className="space-y-3 text-sm">
-                                    {group.links.map((item, i) => (
-                                        <li key={i}>
-                                            <Link
-                                                href={item.href}
-                                                className="text-slate-300 transition-colors hover:text-primary hover:pl-1 block duration-200"
-                                            >
-                                                {item.label}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-
-                        {/* Contact Us Block (Single Source of Truth) */}
-                        <div>
-                            <h2 className="text-sm font-bold uppercase tracking-wider text-white mb-6 border-b border-primary/30 pb-2 inline-block">
-                                {t("footer.contact.title")}
-                            </h2>
-                            <ul className="space-y-4 text-sm text-slate-200">
-                                {siteSettings.primary_phone && (
-                                    <li>
-                                        <a href={telHref} className="group flex items-start gap-3 hover:text-white transition-colors">
-                                            <Phone className="h-5 w-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                                            <div>
-                                                <span className="block text-xs text-slate-300">{t("footer.contact.phone")}</span>
-                                                <span className="font-medium text-white">{siteSettings.primary_phone}</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                )}
-                                {siteSettings.public_email && (
-                                    <li>
-                                        <a href={mailtoHref} className="group flex items-start gap-3 hover:text-white transition-colors">
-                                            <Mail className="h-5 w-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                                            <div className="overflow-hidden">
-                                                <span className="block text-xs text-slate-300">{t("footer.contact.email")}</span>
-                                                <span className="font-medium text-white break-all">{siteSettings.public_email}</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                )}
-                                <li>
-                                    <div className="flex items-start gap-3">
-                                        <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                                        <div className="space-y-2">
-                                            <div>
-                                                <span className="block text-xs text-slate-300">
-                                                    {isSpanish ? "Sede EE. UU. (Miami)" : "US Headquarters (Miami)"}
-                                                </span>
-                                                <span className="text-white block text-xs leading-relaxed">{miamiAddress}</span>
-                                            </div>
-                                            {medellinAddress && (
-                                                <div>
-                                                    <span className="block text-xs text-slate-300">
-                                                        {isSpanish ? "Showroom Medellín, Colombia" : "Medellín Showroom, Colombia"}
-                                                    </span>
-                                                    <span className="text-white block text-xs leading-relaxed">{medellinAddress}</span>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <Link href="/paises" className="group flex items-center gap-2 text-xs text-sky-400 hover:text-sky-300 transition-colors pt-1">
-                                        <Globe className="h-4 w-4 shrink-0" />
-                                        <span>{isSpanish ? "Ver todos los países que atendemos" : "View all countries served"}</span>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Bottom Bar */}
-                <div className="mt-16 border-t border-slate-800 pt-8 flex flex-col items-center justify-between gap-4 sm:flex-row text-xs text-slate-300">
-                    <p>&copy; {new Date().getFullYear()} {siteSettings.brand_name}. {t("footer.rights")}</p>
-                    <div className="flex gap-6">
-                        <Link href="/politicas" className="hover:text-slate-300 transition-colors">{t("footer.privacy")}</Link>
-                        <Link href="/terminos" className="hover:text-slate-300 transition-colors">{t("footer.terms")}</Link>
-                        <Link href="/paises" className="hover:text-slate-300 transition-colors">{isSpanish ? "Países" : "Countries"}</Link>
-                    </div>
-                </div>
+          {/* Column 4: Contact & @building.innovation */}
+          <div>
+            <h3 className="font-heading text-sm uppercase tracking-[0.16em] text-[#d68a50] font-bold mb-4">
+              {bi.footer.contactTitle}
+            </h3>
+            <div className="space-y-3 text-sm text-[#d4dce1]">
+              <a
+                href={siteSettings.doral_maps_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2.5 hover:text-white transition-colors"
+              >
+                <MapPin className="w-4 h-4 text-[#d68a50] shrink-0 mt-0.5" />
+                <span>{siteSettings.doral_address}</span>
+              </a>
+              <a
+                href={siteSettings.primary_phone_href}
+                className="flex items-center gap-2.5 hover:text-white transition-colors"
+              >
+                <Phone className="w-4 h-4 text-[#d68a50] shrink-0" />
+                <span>{siteSettings.primary_phone}</span>
+              </a>
+              <a
+                href={`mailto:${siteSettings.public_email}`}
+                className="flex items-center gap-2.5 hover:text-white transition-colors break-all"
+              >
+                <Mail className="w-4 h-4 text-[#d68a50] shrink-0" />
+                <span>{siteSettings.public_email}</span>
+              </a>
             </div>
 
-            {/* Floating WhatsApp Button - Single Source of Truth */}
-            {siteSettings.primary_whatsapp && (
-                <a
-                    href={whatsappHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={isSpanish ? "Chatear por WhatsApp" : "Chat on WhatsApp"}
-                    className="fixed bottom-6 left-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:bg-[#1ebe57] transition-all transform hover:scale-110 flex items-center justify-center group"
-                >
-                    <MessageCircle className="w-7 h-7" />
-                    <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 ease-in-out font-medium text-sm">
-                        {isSpanish ? "Chatea con nosotros" : "Chat with us"}
-                    </span>
-                </a>
-            )}
-        </footer>
-    );
+            <div className="mt-5 flex items-center gap-3">
+              <a
+                href={siteSettings.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram @building.innovation"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#d68a50] flex items-center justify-center transition-colors"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href={siteSettings.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook @building.innovation"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#d68a50] flex items-center justify-center transition-colors"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href={siteSettings.social.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok @building.innovation"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#d68a50] flex items-center justify-center transition-colors"
+              >
+                <TikTokIcon className="w-4 h-4" />
+              </a>
+              <a
+                href={siteSettings.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-[#d4dce1] hover:text-white inline-flex items-center gap-1 ml-1"
+              >
+                <span>{siteSettings.social.handle}</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Legal bottom bar */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9cb0bc]">
+          <p>{bi.footer.copyright}</p>
+          <div className="flex items-center gap-5">
+            <Link href="/policies" className="hover:text-white transition-colors">
+              {bi.footer.privacy}
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              {bi.footer.terms}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }

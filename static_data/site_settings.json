@@ -1,45 +1,116 @@
 {
-  "brand_name": "UNITEC USA Design",
-  "lead_tag": "Web - Unitec",
-  "public_email": "lidermercadeo@espaciosimportados.com.co",
+  "brand_name": "Building Innovation",
+  "legal_name": "Building Innovation",
+  "parent_brand": "UNITEC USA Design",
+  "tagline": "We design the future.",
+  "domain": "https://www.building-innovation.us",
+  "public_email": "comercial.buildinginnovation@gmail.com",
   "contact_form_recipients": [
-    "lidermercadeo@espaciosimportados.com.co",
-    "comercial.buildinginnovation@gmail.com"
+    "comercial.buildinginnovation@gmail.com",
+    "lidermercadeo@espaciosimportados.com.co"
   ],
-  "primary_phone": "+57 314 233 2147",
-  "primary_whatsapp": "573142332147",
-  "miami_address_street": "6120 NW 74th Ave",
-  "miami_address_suite": "",
-  "miami_city": "Doral",
-  "miami_state": "FL",
-  "miami_zip": "33166",
-  "medellin_showroom_address": "Carrera 42, Auto. S #75-83 C.C. IDEO Local 274, Itagüí, Medellín, Antioquia, Colombia",
-  "medellin_postal_code": "055413",
-  "nit": "",
-  "us_ein": "",
-  "base_url": "https://unitecusadesign.com",
+  "lead_tag": "Web - Building Innovation",
+  "primary_phone": "+1 (786) 968-5783",
+  "primary_phone_href": "tel:+17869685783",
+  "primary_whatsapp": "17869685783",
+  "whatsapp_url": "https://wa.me/17869685783",
+  "doral_address": "6120 NW 74th Ave, Doral, Miami, FL 33166",
+  "doral_address_street": "6120 NW 74th Ave",
+  "doral_address_city": "Doral",
+  "doral_address_state": "FL",
+  "doral_address_zip": "33166",
+  "doral_maps_url": "https://maps.google.com/?q=6120+NW+74th+Ave+Miami+FL+33166",
+  "doral_hours_es": "Lun–Vie: 8:00 AM – 6:00 PM EST",
+  "doral_hours_en": "Mon–Fri: 8:00 AM – 6:00 PM EST",
+  "medellin_showroom": "Medellín, Colombia (Showroom UNITEC USA Design · C.C. IDEO Itagüí, Local 274)",
+  "chatbot_url": "https://unitec-front-desk.vercel.app",
+  "chatbot_brand_id": "building",
   "social": {
-    "instagram": "https://instagram.com/unitecusadesign",
-    "facebook": "https://facebook.com/unitecusadesign",
-    "tiktok": "https://www.tiktok.com/@unitecusadesign"
+    "handle": "@building.innovation",
+    "instagram": "https://www.instagram.com/building.innovation/",
+    "facebook": "https://www.facebook.com/building.innovation/",
+    "tiktok": "https://www.tiktok.com/@building.innovation"
   },
-  "countries_served": [
-    { "code": "US", "name_es": "Estados Unidos", "name_en": "United States", "city_es": "Miami / Doral, FL", "city_en": "Miami / Doral, FL" },
-    { "code": "CO", "name_es": "Colombia", "name_en": "Colombia", "city_es": "Medellín (Showroom C.C. IDEO) y envíos nacionales", "city_en": "Medellín (C.C. IDEO Showroom) & nationwide delivery" },
-    { "code": "VE", "name_es": "Venezuela", "name_en": "Venezuela", "city_es": "Exportación por contenedor (La Guaira / Puerto Cabello)", "city_en": "Container export (La Guaira / Puerto Cabello)" },
-    { "code": "EC", "name_es": "Ecuador", "name_en": "Ecuador", "city_es": "Exportación por contenedor (Guayaquil)", "city_en": "Container export (Guayaquil)" },
-    { "code": "DO", "name_es": "República Dominicana", "name_en": "Dominican Republic", "city_es": "Exportación por contenedor (Caucedo / Haina)", "city_en": "Container export (Caucedo / Haina)" },
-    { "code": "SV", "name_es": "El Salvador", "name_en": "El Salvador", "city_es": "Exportación por contenedor (Acajutla)", "city_en": "Container export (Acajutla)" },
-    { "code": "GT", "name_es": "Guatemala", "name_en": "Guatemala", "city_es": "Exportación por contenedor (Puerto Quetzal / Santo Tomás)", "city_en": "Container export (Puerto Quetzal / Santo Tomás)" },
-    { "code": "HN", "name_es": "Honduras", "name_en": "Honduras", "city_es": "Exportación por contenedor (Puerto Cortés)", "city_en": "Container export (Puerto Cortés)" },
-    { "code": "PE", "name_es": "Perú", "name_en": "Peru", "city_es": "Exportación por contenedor (Callao)", "city_en": "Container export (Callao)" }
+  "countries_es": [
+    "Estados Unidos",
+    "México",
+    "Guatemala",
+    "El Salvador",
+    "Honduras",
+    "República Dominicana",
+    "Colombia",
+    "Ecuador",
+    "Perú",
+    "Venezuela"
   ],
-  "_owner_pending_fields": [
-    "nit (Colombia NIT - leave empty until supplied by [OWNER])",
-    "us_ein (US EIN - leave empty until supplied by [OWNER])",
-    "miami_address_suite (Suite/Unit if applicable - leave empty until supplied by [OWNER])",
-    "brand_name (Confirm single canonical brand name if different from UNITEC USA Design)",
-    "public_email (Confirm public sales email if different from lidermercadeo@espaciosimportados.com.co)",
-    "primary_whatsapp (Confirm single canonical WhatsApp if different from 573142332147)"
+  "countries_en": [
+    "United States",
+    "Mexico",
+    "Guatemala",
+    "El Salvador",
+    "Honduras",
+    "Dominican Republic",
+    "Colombia",
+    "Ecuador",
+    "Peru",
+    "Venezuela"
+  ],
+  "catalog_pdfs": {
+    "es": "/catalogs/catalogo-building-latam-es.pdf",
+    "en": "/catalogs/product-catalog-usa-en.pdf"
+  },
+  "advisors": [
+    {
+      "id": "johana-mesa",
+      "name": "Johana Mesa",
+      "role_es": "Gerente de ventas a distribuidores",
+      "role_en": "Distribution Sales Manager",
+      "area_es": "Ventas a distribuidores",
+      "area_en": "Distributor Sales",
+      "phone": "+1 (786) 968-5783",
+      "phone_href": "tel:+17869685783",
+      "whatsapp": "17869685783",
+      "whatsapp_url": "https://wa.me/17869685783",
+      "email": "comercial.buildinginnovation@gmail.com"
+    },
+    {
+      "id": "antonio-borjas",
+      "name": "Antonio Borjas",
+      "role_es": "Representante de ventas",
+      "role_en": "Sales Representative",
+      "area_es": "Representante de ventas",
+      "area_en": "Sales Representative",
+      "phone": "+1 (786) 546-9051",
+      "phone_href": "tel:+17865469051",
+      "whatsapp": "17865469051",
+      "whatsapp_url": "https://wa.me/17865469051",
+      "email": "comercial.buildinginnovation@gmail.com"
+    },
+    {
+      "id": "marlon-moncada",
+      "name": "Marlon Moncada",
+      "role_es": "Suroeste de Florida",
+      "role_en": "Southwest Florida",
+      "area_es": "Suroeste de Florida",
+      "area_en": "Southwest Florida",
+      "phone": "+1 (239) 878-9299",
+      "phone_href": "tel:+12398789299",
+      "whatsapp": "12398789299",
+      "whatsapp_url": "https://wa.me/12398789299",
+      "email": "comercial.buildinginnovation@gmail.com"
+    },
+    {
+      "id": "alexander-gomez",
+      "name": "Alexander Gómez Zapata",
+      "role_es": "Pedidos internacionales",
+      "role_en": "International Orders",
+      "area_es": "Pedidos internacionales",
+      "area_en": "International Orders",
+      "phone": "+57 311 301 7763",
+      "phone_href": "tel:+573113017763",
+      "whatsapp": "573113017763",
+      "whatsapp_url": "https://wa.me/573113017763",
+      "email": "comercial.buildinginnovation@gmail.com"
+    }
   ]
 }
